@@ -53,3 +53,7 @@ ln -s ../js_ios/js_ios js_ios
 
 [] Add 'DEBUG=0' to the release target / build settings / preprocessor macros / Release
 
+BitBucket setup
+---------------
+[] Passwordless login: follow directions https://confluence.atlassian.com/display/BITBUCKET/Set+up+SSH+for+Git
+
