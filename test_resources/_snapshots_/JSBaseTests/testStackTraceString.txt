@@ -1,0 +1,2 @@
+stack trace:
+(JSBaseTests _gamma)                         (JSBaseTests _beta)                          (JSBaseTests _alpha)                         

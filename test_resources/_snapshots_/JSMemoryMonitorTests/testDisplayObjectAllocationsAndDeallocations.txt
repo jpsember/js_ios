@@ -1,0 +1,23 @@
+Constructing test objects
+Constructing MyTestObject: #0:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #1:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #2:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #3:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #4:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #5:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #6:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #7:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #8:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Constructing MyTestObject: #9:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destroying test objects in random order
+Done test
+Destructing MyTestObject: #7:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #6:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #3:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #2:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #1:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #4:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #5:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #0:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #8:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 
+Destructing MyTestObject: #9:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testDisplayObjectAllocationsAndDeallocations) 

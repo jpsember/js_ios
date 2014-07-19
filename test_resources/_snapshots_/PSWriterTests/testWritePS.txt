@@ -1,0 +1,55 @@
+
+PSWriterTest; content=
+
+%!PS
+/CF {NP 0 360 A CP F} def
+/F {fill} bind def
+/SRGB {setrgbcolor} bind def
+/V {rlineto} bind def
+/I {index} bind def
+/CP {closepath} bind def
+/TR {translate} bind def
+/CH {NP 0 360 A CP S} def
+/L {lineto} bind def
+/M {moveto} bind def
+/SCL {scale} bind def
+/A {arc} bind def
+/P {pop} bind def
+/SLW {setlinewidth} bind def
+/R {rmoveto} bind def
+/DSH {setdash} bind def
+/NP {newpath} bind def
+/TX {currentpoint S M dup stringwidth pop -2 div 0 R show } def
+/S {stroke} bind def
+/LN {NP 4 2 roll M L CP S} def
+42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 0) TX 200 700 200 CF NP 200 700 200 CH 0.8 0.8 0.8 SRGB 500 500 30 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 30 CH [] 0 DSH 1.6 SLW 20 20 980 500 LN 1.9 SLW 500 500 TR NP 0 0 M 50 30 L 30 80 L CP S -500 -500 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  18 scalefont setfont
+ 10 890.5 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 1) TX 200 700 182 CF NP 200 700 195 CH 0.8 0.8 0.8 SRGB 500 500 40 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 40 CH [] 0 DSH 1.6 SLW 30 20 980 548 LN 2.4 SLW 460 460 TR 1.7 1.7 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.6 0.6 SCL -460 -460 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  24 scalefont setfont
+ 40 847.7 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 2) TX 200 700 164 CF NP 200 700 190 CH 0.8 0.8 0.8 SRGB 500 500 50 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 50 CH [] 0 DSH 1.6 SLW 40 20 980 596 LN 2.8 SLW 420 420 TR 2.4 2.4 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.4 0.4 SCL -420 -420 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  30 scalefont setfont
+ 70 804.8 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 3) TX 200 700 146 CF NP 200 700 185 CH 0.8 0.8 0.8 SRGB 500 500 60 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 60 CH [] 0 DSH 1.6 SLW 50 20 980 644 LN 3.3 SLW 380 380 TR 3.1 3.1 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.3 0.3 SCL -380 -380 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  36 scalefont setfont
+ 100 762 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 4) TX 200 700 128 CF NP 200 700 180 CH 0.8 0.8 0.8 SRGB 500 500 70 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 70 CH [] 0 DSH 1.6 SLW 60 20 980 692 LN 3.8 SLW 340 340 TR 3.8 3.8 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.3 0.3 SCL -340 -340 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  41 scalefont setfont
+ 130 719.1 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 5) TX 200 700 110 CF NP 200 700 175 CH 0.8 0.8 0.8 SRGB 500 500 80 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 80 CH [] 0 DSH 1.6 SLW 70 20 980 740 LN 4.3 SLW 300 300 TR 4.5 4.5 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.2 0.2 SCL -300 -300 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  47 scalefont setfont
+ 160 676.3 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 6) TX 200 700 92 CF NP 200 700 170 CH 0.8 0.8 0.8 SRGB 500 500 90 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 90 CH [] 0 DSH 1.6 SLW 80 20 980 788 LN 4.7 SLW 260 260 TR 5.2 5.2 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.2 0.2 SCL -260 -260 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  53 scalefont setfont
+ 190 633.4 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 7) TX 200 700 74 CF NP 200 700 165 CH 0.8 0.8 0.8 SRGB 500 500 100 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 100 CH [] 0 DSH 1.6 SLW 90 20 980 836 LN 5.2 SLW 220 220 TR 5.9 5.9 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.2 0.2 SCL -220 -220 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  58 scalefont setfont
+ 220 590.6 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 8) TX 200 700 56 CF NP 200 700 160 CH 0.8 0.8 0.8 SRGB 500 500 110 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 110 CH [] 0 DSH 1.6 SLW 100 20 980 884 LN 5.7 SLW 180 180 TR 6.6 6.6 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.2 0.2 SCL -180 -180 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  64 scalefont setfont
+ 250 547.7 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage 42.8 132.8 TR 0.5 0.5 SCL 1.6 SLW 0 0 0 SRGB /Monaco findfont  45 scalefont setfont
+ 500 1068.4 M (example page 9) TX 200 700 38 CF NP 200 700 155 CH 0.8 0.8 0.8 SRGB 500 500 120 CF 0 0 0 SRGB 4.7 SLW [ 15 15 ] 0 DSH NP 500 500 120 CH [] 0 DSH 1.6 SLW 110 20 980 932 LN 6.2 SLW 140 140 TR 7.3 7.3 SCL NP 0 0 M 50 30 L 30 80 L CP S 0.1 0.1 SCL -140 -140 TR 1.6 SLW 42.9 43.9 TR NP 500 500 20 CH -42.9 -43.9 TR 1 0.2 0.2 SRGB /Monaco findfont  70 scalefont setfont
+ 280 504.9 M (Hello) TX /Monaco findfont  45 scalefont setfont
+ 0 0 0 SRGB showpage

@@ -1,0 +1,5 @@
+Constructing MyTestObject: #0:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testBlockRetainCycleProblems) 
+buffered operation
+buffered operation
+buffered operation
+Destructing MyTestObject: #0:    (MyTestObject init)                     (MyTestObject obj)                      (JSMemoryMonitorTests testBlockRetainCycleProblems) 
