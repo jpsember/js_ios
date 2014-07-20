@@ -3,7 +3,7 @@
 // This shouldn't be necessary, but the autocompletion is crippled without it, since DEBUG
 // is unknown to it otherwise
 #ifndef DEBUG
-#define DEBUG 1
+#define DEBUG 0
 #endif
 
 @protocol JSAppendStringProtocol;
