@@ -1,4 +1,12 @@
+# To create this file:  pod spec create js_ios
+# Then to verify:       pod spec lint js_ios.podspec
+# Create private repo:  pod repo add js_ios https://jpsember@bitbucket.org/jpsember/js_ios.git
 #
+
+
+
+
+
 #  Be sure to run `pod spec lint js_ios.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
@@ -60,11 +68,7 @@ Pod::Spec.new do |s|
   #  the deployment target. You can optionally include the target after the platform.
   #
 
-  s.platform     = :ios,"7.0"
-
-  #  When using multiple platforms
-  # s.ios.deployment_target = "5.0"
-  # s.osx.deployment_target = "10.7"
+  s.platform     = :ios,"7.1"
 
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
