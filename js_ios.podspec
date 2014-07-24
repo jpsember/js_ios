@@ -116,6 +116,7 @@ Pod::Spec.new do |s|
 
   # s.framework  = "SomeFramework"
   # s.frameworks = "SomeFramework", "AnotherFramework"
+  s.framework = "XCTest"
 
   # s.library   = "iconv"
   # s.libraries = "iconv", "xml2"
