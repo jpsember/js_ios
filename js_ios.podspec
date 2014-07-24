@@ -76,8 +76,10 @@ Pod::Spec.new do |s|
   #  Specify the location from where the source should be retrieved.
   #  Supports git, hg, bzr, svn and HTTP.
   #
-
-  s.source       = { :git => "https://jpsember@bitbucket.org/jpsember/js_ios.git", :commit => "ebea393" }
+  # Question: must we include a commit hash, when it will change as a consequence of edits to this file?
+  # It's clear that we can't ever refer to the most recent commit in this way.
+  #
+  s.source       = { :git => "https://jpsember@bitbucket.org/jpsember/js_ios.git", :commit => "a0f689f" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
