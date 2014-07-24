@@ -79,7 +79,7 @@ Pod::Spec.new do |s|
   # Question: must we include a commit hash, when it will change as a consequence of edits to this file?
   # It's clear that we can't ever refer to the most recent commit in this way.
   #
-  s.source       = { :git => "https://jpsember@bitbucket.org/jpsember/js_ios.git", :commit => "032df97" }
+  s.source       = { :git => "https://jpsember@bitbucket.org/jpsember/js_ios.git", :commit => "131334b" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
