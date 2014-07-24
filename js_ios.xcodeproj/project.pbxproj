@@ -68,6 +68,7 @@
 		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
+		38489AAD27ED450488658092 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 920B678ABCB347BC9C9AA569 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,6 +169,8 @@
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
+		4B2C5945679244E190CA9410 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		920B678ABCB347BC9C9AA569 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +183,7 @@
 				1F364286185D0DA9008B7883 /* OpenGLES.framework in Frameworks */,
 				1F364284185D0D99008B7883 /* QuartzCore.framework in Frameworks */,
 				1F8559F1185CF61F009667DE /* UIKit.framework in Frameworks */,
+				38489AAD27ED450488658092 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +269,7 @@
 				1F8559F2185CF61F009667DE /* boilerplate */,
 				1F8559EB185CF61F009667DE /* Frameworks */,
 				1F8559EA185CF61F009667DE /* Products */,
+				4B2C5945679244E190CA9410 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -286,6 +291,7 @@
 				1F364283185D0D99008B7883 /* QuartzCore.framework */,
 				1F8559F0185CF61F009667DE /* UIKit.framework */,
 				1F855A05185CF61F009667DE /* XCTest.framework */,
+				920B678ABCB347BC9C9AA569 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -357,9 +363,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F855A15185CF61F009667DE /* Build configuration list for PBXNativeTarget "js_ios" */;
 			buildPhases = (
+				321322B81F134916912AF719 /* Check Pods Manifest.lock */,
 				1F8559E5185CF61F009667DE /* Sources */,
 				1F8559E6185CF61F009667DE /* Frameworks */,
 				1F8559E7185CF61F009667DE /* Resources */,
+				6114093E234346988CA9BBDA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -442,6 +450,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		321322B81F134916912AF719 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6114093E234346988CA9BBDA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1F8559E5185CF61F009667DE /* Sources */ = {
@@ -608,6 +649,7 @@
 		};
 		1F855A16185CF61F009667DE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B2C5945679244E190CA9410 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -623,12 +665,12 @@
 		};
 		1F855A17185CF61F009667DE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B2C5945679244E190CA9410 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "js_ios/js_ios-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
@@ -649,7 +691,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				INFOPLIST_FILE = "js_iosTests/js_iosTests-Info.plist";
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -670,7 +711,6 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				INFOPLIST_FILE = "js_iosTests/js_iosTests-Info.plist";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";

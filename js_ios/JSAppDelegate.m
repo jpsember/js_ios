@@ -24,6 +24,8 @@
     [v setBackgroundColor:[self getMainViewColor]];
     
     [vc setView:v];
+    DBG
+    pr(@"running JSAppDelegate\n");
     
     [self.window setRootViewController:vc];
   }
