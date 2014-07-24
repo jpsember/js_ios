@@ -77,7 +77,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://jpsember@bitbucket.org/jpsember/js_ios.git", :commit => "380285f" }
+  s.source       = { :git => "https://jpsember@bitbucket.org/jpsember/js_ios.git", :commit => "ebea393" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
