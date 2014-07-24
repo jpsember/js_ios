@@ -91,7 +91,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "js_ios"
-  s.exclude_files = "Classes/Exclude"
+  s.exclude_files = "**/*.{lproj,plist,pch,xcassets}"
 
   # s.public_header_files = "Classes/**/*.h"
 
