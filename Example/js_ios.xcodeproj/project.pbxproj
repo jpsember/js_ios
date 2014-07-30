@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		114C0F472E884CD1AE24097E /* libPods-js_ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ACAB797DEB545FB946AF1D4 /* libPods-js_ios.a */; };
-		1F434E2219899ADF001522DB /* test_resources in Resources */ = {isa = PBXBuildFile; fileRef = 1F434E2119899ADF001522DB /* test_resources */; };
+		1F434E2419899CB1001522DB /* test_resources in Resources */ = {isa = PBXBuildFile; fileRef = 1F434E2319899CB1001522DB /* test_resources */; };
 		1F6A5D2F1988B0E0005E9C9F /* JSBaseTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A5D1D1988B0E0005E9C9F /* JSBaseTests.m */; };
 		1F6A5D301988B0E0005E9C9F /* JSDictionaryUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A5D1E1988B0E0005E9C9F /* JSDictionaryUtilTests.m */; };
 		1F6A5D311988B0E0005E9C9F /* JSFileUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A5D1F1988B0E0005E9C9F /* JSFileUtilTests.m */; };
@@ -52,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		1F434E2119899ADF001522DB /* test_resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = test_resources; path = Tests/test_resources; sourceTree = "<group>"; };
+		1F434E2319899CB1001522DB /* test_resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_resources; sourceTree = "<group>"; };
 		1F6A5D1D1988B0E0005E9C9F /* JSBaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBaseTests.m; sourceTree = "<group>"; };
 		1F6A5D1E1988B0E0005E9C9F /* JSDictionaryUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDictionaryUtilTests.m; sourceTree = "<group>"; };
 		1F6A5D1F1988B0E0005E9C9F /* JSFileUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSFileUtilTests.m; sourceTree = "<group>"; };
@@ -129,6 +130,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
+				1F434E2319899CB1001522DB /* test_resources */,
 				1F434E2119899ADF001522DB /* test_resources */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* js_ios */,
@@ -319,8 +321,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F434E2219899ADF001522DB /* test_resources in Resources */,
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
+				1F434E2419899CB1001522DB /* test_resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

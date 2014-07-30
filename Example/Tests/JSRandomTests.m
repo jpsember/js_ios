@@ -81,6 +81,21 @@ static int myConstValue;
     }
     [JSIORecorder stop];
 }
+
+// Temporary: for testing if simbuddy can access the directories correctly
+- (void) testSnapshotAccess
+{
+  [JSIORecorder start];
+  DBG
+  pr(@"Within snapshot\n");
+  JSRandom *r = [JSRandom randomWithSeed:43];
+  for (int i = 0; i < 100; i++) {
+    BOOL f = [r randomBoolean];
+    pr(@" f=%d\n",f);
+  }
+  [JSIORecorder stop];
+}
+
 #endif
 
 - (void) testDistinctTimerSeeds
