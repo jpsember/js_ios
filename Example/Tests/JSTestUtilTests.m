@@ -1,3 +1,5 @@
+#import <QuartzCore/QuartzCore.h>
+
 #import "JSTestUtil.h"
 
 @interface JSTestUtilTests : JSTestCase

@@ -1,6 +1,5 @@
 #import "JSTestUtil.h"
 
-
 @implementation JSTestCase
 
 + (NSString *)randomTemporaryDirectory {
@@ -30,17 +29,24 @@
 }
 
 + (BOOL)runBlockUntilTrue:(NSTimeInterval)timeInterval block:(BOOL (^)(void))block {
+//  DBG
+  pr(@"runBlockUntilTrue for time interval %f\n",timeInterval);
+  
   NSTimeInterval stopTime = CACurrentMediaTime() + timeInterval;
+  pr(@" stop time %f\n",stopTime);
   
   __block BOOL result = NO;
   dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
   dispatch_async(queue,^{
     while (true) {
       result = block();
+      pr(@" called block, got result %d\n",result);
       if (result)
         break;
-      if (CACurrentMediaTime() >= stopTime)
+      if (CACurrentMediaTime() >= stopTime) {
+        pr(@" media time exceeds stop time, quitting\n");
         break;
+      }
     }
   });
   

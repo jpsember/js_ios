@@ -1,0 +1,10 @@
+target 'js_ios', :exclusive => true do
+  pod "js_ios", :path => "../"
+end
+
+target 'Tests', :exclusive => true do
+  pod "js_ios", :path => "../"
+
+  pod 'Specta', '~> 0.2.1'
+  pod 'Expecta'
+end
