@@ -73,6 +73,24 @@
   if ([JSBase testModeActive]) {
     NSString *app_resources_name = @"test_resources";
     NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"JSTestAppDelegate") ];
+    
+#if 0
+    {
+      static bool once;
+      if (!once) {
+        once = true;
+        DBG
+        pr(@"Showing bundle contents\n");
+        NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[bundle bundlePath] error:NULL];
+        for (NSString *fileName in files) {
+          NSString *path = [[NSBundle mainBundle] pathForResource:fileName ofType:nil];
+          NSURL *url = [NSURL fileURLWithPath:path];
+          pr(@" %@\n",url);
+        }
+      }
+    }
+#endif
+    
     NSURL *appResourcesURL = [bundle URLForResource:app_resources_name withExtension:nil];
     if (!appResourcesURL) die(@"could not locate app_resources; app_resources_name=%@ bundle %@",app_resources_name,bundle);
     self.appResourcesPath = appResourcesURL.path;

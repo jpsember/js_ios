@@ -27,8 +27,10 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.source_files = 'Pod/Classes'
-  #s.resources = 'Pod/Assets/*.png'
-  #s.resources = 'Pod/Assets/test_resources'
+
+  # For now, include the test resources in the resource bundle; ideally we would like this to
+  # only be included for the Example test target...
+  s.resources = 'Example/test_resources'
 
   s.frameworks = 'XCTest'
   # s.public_header_files = 'Pod/Classes/**/*.h'
