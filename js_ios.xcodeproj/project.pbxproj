@@ -15,22 +15,15 @@
 		1F141B96186FF99A00B99A38 /* JSTestUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F141B95186FF99A00B99A38 /* JSTestUtilTests.m */; };
 		1F2CB65B185FC4430004878D /* JSSwizzlerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB657185FB95A0004878D /* JSSwizzlerTests.m */; };
 		1F2CB662185FEA3E0004878D /* JSDictionaryUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F2CB661185FEA3E0004878D /* JSDictionaryUtilTests.m */; };
-		1F33523518DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33523418DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m */; };
 		1F33523718DA3CDF005A943C /* NSMutableArray+JSMutableArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F33523618DA3CDF005A943C /* NSMutableArray+JSMutableArrayTests.m */; };
 		1F364284185D0D99008B7883 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F364283185D0D99008B7883 /* QuartzCore.framework */; };
 		1F364286185D0DA9008B7883 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F364285185D0DA9008B7883 /* OpenGLES.framework */; };
 		1F364287185D0DEB008B7883 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8559EE185CF61F009667DE /* CoreGraphics.framework */; };
 		1F364288185D0DF2008B7883 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F364285185D0DA9008B7883 /* OpenGLES.framework */; };
 		1F41447718FB1EAD009C4EBB /* JSFreezableTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F41447618FB1EAD009C4EBB /* JSFreezableTests.m */; };
-		1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F41447A18FB259F009C4EBB /* JSFreezable.m */; };
-		1F4487E618DF71340067F1F1 /* JSDieException.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4487E518DF71340067F1F1 /* JSDieException.m */; };
 		1F48DE1318A19E2C000BEFD1 /* JSTestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F48DE1218A19E2C000BEFD1 /* JSTestUtil.m */; };
 		1F48DE2B18A1E8C7000BEFD1 /* JSSymbolicNamesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F48DE2A18A1E8C7000BEFD1 /* JSSymbolicNamesTests.m */; };
-		1F65153D18F5AE0200851E9F /* NSScanner+JSScannerCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F65153C18F5AE0200851E9F /* NSScanner+JSScannerCategory.m */; };
 		1F74190E188776C200A04FC4 /* JSRandomTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F74190D188776C200A04FC4 /* JSRandomTests.m */; };
-		1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F74C3D019009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m */; };
-		1F7F9DD0189AF135001D9DE3 /* JSLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F9DCE189AF135001D9DE3 /* JSLayoutManager.m */; };
-		1F7F9E1B189F8080001D9DE3 /* JSPointerArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7F9E1A189F8080001D9DE3 /* JSPointerArray.m */; };
 		1F8559ED185CF61F009667DE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8559EC185CF61F009667DE /* Foundation.framework */; };
 		1F8559EF185CF61F009667DE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8559EE185CF61F009667DE /* CoreGraphics.framework */; };
 		1F8559F1185CF61F009667DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F8559F0185CF61F009667DE /* UIKit.framework */; };
@@ -45,41 +38,14 @@
 		1F8EE70518C3046F00F247A3 /* JSPointerArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8EE70418C3046F00F247A3 /* JSPointerArrayTests.m */; };
 		1F96135E186B91FB003A239A /* JSIORecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F96135D186B91FB003A239A /* JSIORecorderTests.m */; };
 		1FA26813185FB56D00808EAF /* JSStringUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA26812185FB56D00808EAF /* JSStringUtilTests.m */; };
-		1FAC0FD71896F13000F80450 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAC0FD61896F13000F80450 /* main.m */; };
-		1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9E9A618A1ED2B00BC9E9F /* JSSymbolicNames.m */; };
-		1FBA885918BAB7C5007ED72E /* app_resources in Resources */ = {isa = PBXBuildFile; fileRef = 1FBA885818BAB7C5007ED72E /* app_resources */; };
 		1FC6DB0E18BAD9DD0001D1CB /* test_resources in Resources */ = {isa = PBXBuildFile; fileRef = 1FC6DB0D18BAD9DD0001D1CB /* test_resources */; };
 		1FDC24081860E0E3002DF091 /* JSSimulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC24071860E0E3002DF091 /* JSSimulatorTests.m */; };
 		1FDC2412186148B7002DF091 /* JSFileUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC2411186148B7002DF091 /* JSFileUtilTests.m */; };
-		1FDF076E18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDF076D18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m */; };
-		1FE0E60418B6945900839060 /* JSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE0E60218B6945900839060 /* JSAppDelegate.m */; };
 		1FE0E60D18B6962000839060 /* JSTestAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE0E60C18B6962000839060 /* JSTestAppDelegate.m */; };
-		1FE0E61318B6E3CC00839060 /* JSMemoryMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE0E61218B6E3CC00839060 /* JSMemoryMonitor.m */; };
 		1FE0E61818B7098600839060 /* JSMemoryMonitorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE0E61718B7098600839060 /* JSMemoryMonitorTests.m */; };
-		1FE492201896F04700CF2FCB /* JSRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492051896F04700CF2FCB /* JSRandom.m */; };
-		1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492071896F04700CF2FCB /* JSOrderedSet.m */; };
-		1FE492221896F04700CF2FCB /* JSStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4920A1896F04700CF2FCB /* JSStringUtil.m */; };
-		1FE492241896F04700CF2FCB /* JSQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4920C1896F04700CF2FCB /* JSQueue.m */; };
-		1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492101896F04700CF2FCB /* JSIORecorder.m */; };
-		1FE492271896F04700CF2FCB /* JSBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492121896F04700CF2FCB /* JSBase.m */; };
-		1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492141896F04700CF2FCB /* JSFileUtil.m */; };
-		1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492151896F04700CF2FCB /* JSSimulator.m */; };
-		1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492161896F04700CF2FCB /* JSSwizzler.m */; };
-		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
-		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
 		38489AAD27ED450488658092 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 920B678ABCB347BC9C9AA569 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		1F855A09185CF61F009667DE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1F8559E1185CF61F009667DE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1F8559E8185CF61F009667DE;
-			remoteInfo = js_ios;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1F0701C6185F9657000FC4AE /* JSBaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBaseTests.m; sourceTree = "<group>"; };
@@ -389,7 +355,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1F855A0A185CF61F009667DE /* PBXTargetDependency */,
 			);
 			name = js_iosTests;
 			productName = js_iosTests;
@@ -434,7 +399,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8559F7185CF61F009667DE /* InfoPlist.strings in Resources */,
-				1FBA885918BAB7C5007ED72E /* app_resources in Resources */,
 				1F8559FF185CF61F009667DE /* Images.xcassets in Resources */,
 				1FE4922E1896F04700CF2FCB /* en.lproj in Resources */,
 			);
@@ -489,29 +453,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1FE0E61318B6E3CC00839060 /* JSMemoryMonitor.m in Sources */,
-				1FE492221896F04700CF2FCB /* JSStringUtil.m in Sources */,
-				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
-				1F33523518DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m in Sources */,
-				1F65153D18F5AE0200851E9F /* NSScanner+JSScannerCategory.m in Sources */,
-				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,
-				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,
-				1FDF076E18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m in Sources */,
-				1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */,
-				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
-				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
-				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
-				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
-				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
-				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,
-				1FAC0FD71896F13000F80450 /* main.m in Sources */,
-				1F7F9E1B189F8080001D9DE3 /* JSPointerArray.m in Sources */,
-				1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */,
-				1FE0E60418B6945900839060 /* JSAppDelegate.m in Sources */,
-				1F4487E618DF71340067F1F1 /* JSDieException.m in Sources */,
-				1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */,
-				1F7F9DD0189AF135001D9DE3 /* JSLayoutManager.m in Sources */,
-				1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -544,14 +485,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		1F855A0A185CF61F009667DE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1F8559E8185CF61F009667DE /* js_ios */;
-			targetProxy = 1F855A09185CF61F009667DE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1F8559F5185CF61F009667DE /* InfoPlist.strings */ = {
@@ -656,8 +589,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
 				INFOPLIST_FILE = "js_ios/js_ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
@@ -673,8 +609,11 @@
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "js_ios/js_ios-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
