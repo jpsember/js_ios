@@ -68,11 +68,24 @@ static id defaultLogHandler;
   @throw e;
 }
 
+static bool testModeSpecified;
+static bool testModeValue;
+
++ (void)setTestMode:(BOOL)testMode {
+  if (!testModeSpecified) {
+    testModeValue = testMode;
+    testModeSpecified = true;
+  } else {
+    ASSERT(testMode == testModeValue,@"test mode has changed");
+  }
+}
+
 
 + (BOOL)testModeActive {
   static BOOL active;
   ONCE_ONLY(^{
-    active = objc_lookUpClass("JSTestAppDelegate") != nil;
+    ASSERT(testModeSpecified,@"test mode not defined");
+    active = testModeValue;
   });
   return active;
 }

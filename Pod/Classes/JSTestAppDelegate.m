@@ -1,5 +1,4 @@
 #import "JSBase.h"
-//#import "JSAppDelegate.h"
 
 @interface JSTestAppDelegate : UIResponder <UIApplicationDelegate>
 

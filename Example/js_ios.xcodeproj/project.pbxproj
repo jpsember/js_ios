@@ -26,7 +26,6 @@
 		1F6A5D3E1988B0E0005E9C9F /* JSTestUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A5D2C1988B0E0005E9C9F /* JSTestUtilTests.m */; };
 		1F6A5D3F1988B0E0005E9C9F /* NSMutableArray+JSMutableArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A5D2D1988B0E0005E9C9F /* NSMutableArray+JSMutableArrayTests.m */; };
 		1F6A5D401988B0E0005E9C9F /* NSOrderedSetTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6A5D2E1988B0E0005E9C9F /* NSOrderedSetTests.m */; };
-		1F8FF74819899FE700DC829D /* test_resources in Resources */ = {isa = PBXBuildFile; fileRef = 1F8FF74719899FE700DC829D /* test_resources */; };
 		348A5ABDD58043D0AB216914 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A21B16EFB0B44B889460D68 /* libPods-Tests.a */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -51,7 +50,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1F434E2319899CB1001522DB /* test_resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_resources; sourceTree = "<group>"; };
 		1F6A5D1D1988B0E0005E9C9F /* JSBaseTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSBaseTests.m; sourceTree = "<group>"; };
 		1F6A5D1E1988B0E0005E9C9F /* JSDictionaryUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSDictionaryUtilTests.m; sourceTree = "<group>"; };
 		1F6A5D1F1988B0E0005E9C9F /* JSFileUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSFileUtilTests.m; sourceTree = "<group>"; };
@@ -70,7 +68,6 @@
 		1F6A5D2C1988B0E0005E9C9F /* JSTestUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSTestUtilTests.m; sourceTree = "<group>"; };
 		1F6A5D2D1988B0E0005E9C9F /* NSMutableArray+JSMutableArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+JSMutableArrayTests.m"; sourceTree = "<group>"; };
 		1F6A5D2E1988B0E0005E9C9F /* NSOrderedSetTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSOrderedSetTests.m; sourceTree = "<group>"; };
-		1F8FF74719899FE700DC829D /* test_resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test_resources; sourceTree = "<group>"; };
 		2C35C8A2053A17413B7A03EA /* js_ios.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = js_ios.podspec; path = ../js_ios.podspec; sourceTree = "<group>"; };
 		3A21B16EFB0B44B889460D68 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41C09E6A897CE9C39D6BDD9B /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -130,8 +127,6 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				1F8FF74719899FE700DC829D /* test_resources */,
-				1F434E2319899CB1001522DB /* test_resources */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* js_ios */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -322,7 +317,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */,
-				1F8FF74819899FE700DC829D /* test_resources in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

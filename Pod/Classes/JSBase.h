@@ -16,7 +16,13 @@ typedef unsigned char byte;
 + (void)dieWithFilename:(const char *)filename line:(int)line;
 + (NSString *)stringFromBool:(BOOL)b;
 + (NSString *)dumpBits:(uint)value;
+
+// Define 'test mode' value; error if previously defined with different value
++ (void)setTestMode:(BOOL)testMode;
+
+// Determine if test mode is active.  Error if its value was never set via +setTestMode
 + (BOOL)testModeActive;
+
 #if DEBUG
 + (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber;
 + (void)log:(NSString *)format, ...;
