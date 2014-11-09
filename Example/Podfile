@@ -1,7 +1,0 @@
-target 'js_ios', :exclusive => true do
-  pod "js_ios", :path => "../"
-end
-
-target 'Tests', :exclusive => true do
-  pod "js_ios", :path => "../"
-end
