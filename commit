@@ -14,13 +14,10 @@ end
 
 class Program
 
-  PROJECT_NAME = "GeometryApp"
-
   GIT_STATE_FILENAME = ".commit_state"
   GIT_MESSAGE_FILENAME = ".commit_git_message"
   COMMIT_MESSAGE_FILENAME = ".commit_editor_message"
   PREVIOUS_COMMIT_MESSAGE_FILENAME = ".commit_previous_editor_message"
-
 
   COMMIT_MESSAGE_TEMPLATE_1=<<-EOS.strip_heredoc
   Issue #
@@ -108,7 +105,7 @@ class Program
 
   def read_old_git_state
     if @options[:clean]
-      remove(GIT_STATE_FILENAME)
+      FileUtils.rm_f(GIT_STATE_FILENAME)
     end
     @previous_git_state = FileUtils.read_text_file(GIT_STATE_FILENAME,"")
   end
@@ -132,7 +129,6 @@ class Program
   def update_old_git_state
     FileUtils.write_text_file(GIT_STATE_FILENAME,@current_git_state)
   end
-
 
   def strip_comments_from_string(m)
     m = m.strip
@@ -184,9 +180,9 @@ class Program
     FileUtils.write_text_file(GIT_MESSAGE_FILENAME,m)
 
     if system("git commit -a --file=#{GIT_MESSAGE_FILENAME}")
-      remove(COMMIT_MESSAGE_FILENAME)
-      remove(GIT_MESSAGE_FILENAME)
-      remove(GIT_STATE_FILENAME)
+      FileUtils.rm_f(COMMIT_MESSAGE_FILENAME)
+      FileUtils.rm_f(GIT_MESSAGE_FILENAME)
+      FileUtils.rm_f(GIT_STATE_FILENAME)
 
       bare_message = strip_comments_from_string(m)
       FileUtils.write_text_file(PREVIOUS_COMMIT_MESSAGE_FILENAME,bare_message)
@@ -215,16 +211,10 @@ class Program
 
   def run_unit_tests
 
-    # proj_main = File.join(@saved_directory,PROJECT_NAME)
-    # proj_test = proj_main + "Test"
-
-    # Dir.chdir(proj_test)
-
     command = "iosb"
-    command += " --clean" if @options[:clean]
+    command << " --clean" if @options[:clean]
+    command << " -e \"OS=8.1,name=iPad 2\""
     output,_ = runcmd(command,"...testing")
-
-    # Dir.chdir(@saved_directory)
 
     if output.include?("FAILURES!!!")
       puts "\n\n\n-----------------------------------------"
@@ -236,9 +226,7 @@ class Program
 
   def runcmd(cmd,message=nil)
     filt_message = message || "no message given"
-    if !@verbose
-      echo filt_message if message
-    else
+    if @verbose
       echo(sprintf("%-40s (%s)",filt_message,cmd))
     end
     output,success = scall(cmd,false)
@@ -254,10 +242,6 @@ class Program
 
   def echo(msg)
     puts msg
-  end
-
-  def remove(file)
-    FileUtils.rm(file) if File.exist?(file)
   end
 
 end
