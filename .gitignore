@@ -174,5 +174,5 @@ Pods
 .commit_*
 
 # AppCode .idea folder contents to ignore
-**/.idea/workspace.xml 
+**/.idea/workspace.xml
 **/.idea/tasks.xml
