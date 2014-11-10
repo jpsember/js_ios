@@ -1,0 +1,16 @@
+Go to declaration       cmd enter
+Toggle source/header    cmd enter
+Delete line             cmd D
+Find next               f3
+Find word at cursor     f4
+Move line up/down       cmd shift up/down
+Preferences             cmd ,
+Find in path            cmd P
+Go back,fwd             cmd [,]
+Last edit location      shift cmd [
+Next error              cmd .
+Format lines            cmd shift f
+Rename                  cmd shift r
+Run                     f9
+Build                   cmd b
+
