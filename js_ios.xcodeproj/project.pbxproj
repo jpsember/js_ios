@@ -67,6 +67,9 @@
 		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
+		30F4D23D7D1B31AC34DC8A70 /* JSGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F4D31A251AE5C6208F48C7 /* JSGLKView.m */; };
+		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
+		30F4DE583C825DD645177ACF /* JSGLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +169,11 @@
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
+		30F4D2199E16E2AD56C6213D /* JSGLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLAppDelegate.h; sourceTree = "<group>"; };
+		30F4D31A251AE5C6208F48C7 /* JSGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLKView.m; sourceTree = "<group>"; };
+		30F4D34E49A59EC31CA267E1 /* JSGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLKView.h; sourceTree = "<group>"; };
+		30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLAppDelegate.m; sourceTree = "<group>"; };
+		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +186,7 @@
 				1F364286185D0DA9008B7883 /* OpenGLES.framework in Frameworks */,
 				1F364284185D0D99008B7883 /* QuartzCore.framework in Frameworks */,
 				1F8559F1185CF61F009667DE /* UIKit.framework in Frameworks */,
+				30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +271,7 @@
 				1F8559F2185CF61F009667DE /* boilerplate */,
 				1F8559EB185CF61F009667DE /* Frameworks */,
 				1F8559EA185CF61F009667DE /* Products */,
+				30F4D32CA0B38F54206DED0D /* gl */,
 			);
 			sourceTree = "<group>";
 		};
@@ -283,6 +293,7 @@
 				1F364283185D0D99008B7883 /* QuartzCore.framework */,
 				1F8559F0185CF61F009667DE /* UIKit.framework */,
 				1F855A05185CF61F009667DE /* XCTest.framework */,
+				30F4DE9333CD7DF247010E8C /* GLKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -345,6 +356,17 @@
 				1F855A0E185CF61F009667DE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		30F4D32CA0B38F54206DED0D /* gl */ = {
+			isa = PBXGroup;
+			children = (
+				30F4D34E49A59EC31CA267E1 /* JSGLKView.h */,
+				30F4D31A251AE5C6208F48C7 /* JSGLKView.m */,
+				30F4D2199E16E2AD56C6213D /* JSGLAppDelegate.h */,
+				30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */,
+			);
+			path = gl;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -467,6 +489,8 @@
 				1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */,
 				1F7F9DD0189AF135001D9DE3 /* JSLayoutManager.m in Sources */,
 				1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */,
+				30F4D23D7D1B31AC34DC8A70 /* JSGLKView.m in Sources */,
+				30F4DE583C825DD645177ACF /* JSGLAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

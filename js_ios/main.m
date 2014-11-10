@@ -1,5 +1,5 @@
 #import "JSBase.h"
-#import "JSAppDelegate.h"
+#import "JSGLAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
@@ -11,7 +11,7 @@ int main(int argc, char * argv[])
             appDelegateName = @"JSTestAppDelegate";
           else
 #endif
-            appDelegateName = NSStringFromClass([JSAppDelegate class]);
+            appDelegateName = NSStringFromClass([JSGLAppDelegate class]);
           DBG
           pr(@"appDelegateName %@\n",appDelegateName);
           return UIApplicationMain(argc, argv, nil, appDelegateName);
