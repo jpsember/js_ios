@@ -33,7 +33,8 @@
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect {
-    glClearColor(1.0, 0.0, 0.0, 1.0);
+    // A nice green color
+    glClearColor(0.0,.5,.1, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 

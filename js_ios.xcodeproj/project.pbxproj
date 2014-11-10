@@ -170,10 +170,6 @@
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
-		30F4D2199E16E2AD56C6213D /* JSGLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLAppDelegate.h; sourceTree = "<group>"; };
-		30F4D31A251AE5C6208F48C7 /* JSGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLKView.m; sourceTree = "<group>"; };
-		30F4D34E49A59EC31CA267E1 /* JSGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLKView.h; sourceTree = "<group>"; };
-		30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLAppDelegate.m; sourceTree = "<group>"; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		F42EA3C11A117202009993C5 /* JSExperiment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSExperiment.swift; sourceTree = "<group>"; };
 		F458860F1A10819700A887CF /* JSGLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLAppDelegate.h; sourceTree = "<group>"; };
@@ -278,7 +274,6 @@
 				1F8559F2185CF61F009667DE /* boilerplate */,
 				1F8559EB185CF61F009667DE /* Frameworks */,
 				1F8559EA185CF61F009667DE /* Products */,
-				30F4D32CA0B38F54206DED0D /* gl */,
 			);
 			sourceTree = "<group>";
 		};
@@ -363,17 +358,6 @@
 				1F855A0E185CF61F009667DE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		30F4D32CA0B38F54206DED0D /* gl */ = {
-			isa = PBXGroup;
-			children = (
-				30F4D34E49A59EC31CA267E1 /* JSGLKView.h */,
-				30F4D31A251AE5C6208F48C7 /* JSGLKView.m */,
-				30F4D2199E16E2AD56C6213D /* JSGLAppDelegate.h */,
-				30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */,
-			);
-			path = gl;
 			sourceTree = "<group>";
 		};
 		F458860D1A10819700A887CF /* gl */ = {
