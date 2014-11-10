@@ -13,4 +13,6 @@ Format lines            cmd shift f
 Rename                  cmd shift r
 Run                     f9
 Build                   cmd b
+Search everywhere       shift shift
+Previous/next method    ctrl up/down
 

@@ -1,5 +1,4 @@
 #include "JSBase.h"
-#include "JSFileUtil.h"
 
 @implementation NSFileManager (JSFileUtil_NSFileManagerCategory)
 

@@ -2,7 +2,6 @@
 
 #import "JSBase.h"
 #import "JSMemoryMonitor.h"
-#import "JSSymbolicNames.h"
 #import "JSStackTraceElement.h"
 
 

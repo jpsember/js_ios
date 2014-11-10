@@ -1,4 +1,3 @@
-#import "JSBase.h"
 #import "JSAppDelegate.h"
 
 @implementation JSAppDelegate

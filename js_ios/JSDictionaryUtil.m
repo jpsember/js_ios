@@ -1,5 +1,3 @@
-#import "JSBase.h"
-
 @implementation NSDictionary (JSDictionaryUtil_NSDictionaryCategory)
 
 - (BOOL)containsKey:(id)key

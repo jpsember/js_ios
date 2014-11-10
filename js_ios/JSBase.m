@@ -1,5 +1,4 @@
 #import <execinfo.h>
-#import <stdarg.h>
 #import <objc/runtime.h>
 #import "JSBase.h"
 #if DEBUG

@@ -67,9 +67,10 @@
 		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
-		30F4D23D7D1B31AC34DC8A70 /* JSGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F4D31A251AE5C6208F48C7 /* JSGLKView.m */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
-		30F4DE583C825DD645177ACF /* JSGLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */; };
+		F42EA3C21A117202009993C5 /* JSExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EA3C11A117202009993C5 /* JSExperiment.swift */; };
+		F45886141A10819700A887CF /* JSGLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F45886101A10819700A887CF /* JSGLAppDelegate.m */; };
+		F45886151A10819700A887CF /* JSGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45886121A10819700A887CF /* JSGLKView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +175,11 @@
 		30F4D34E49A59EC31CA267E1 /* JSGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLKView.h; sourceTree = "<group>"; };
 		30F4DBE223E73C213ADE1C36 /* JSGLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLAppDelegate.m; sourceTree = "<group>"; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		F42EA3C11A117202009993C5 /* JSExperiment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSExperiment.swift; sourceTree = "<group>"; };
+		F458860F1A10819700A887CF /* JSGLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLAppDelegate.h; sourceTree = "<group>"; };
+		F45886101A10819700A887CF /* JSGLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLAppDelegate.m; sourceTree = "<group>"; };
+		F45886111A10819700A887CF /* JSGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLKView.h; sourceTree = "<group>"; };
+		F45886121A10819700A887CF /* JSGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLKView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -266,6 +272,7 @@
 		1F8559E0185CF61F009667DE = {
 			isa = PBXGroup;
 			children = (
+				F458860D1A10819700A887CF /* gl */,
 				1F36427B185D0ABC008B7883 /* js_ios */,
 				1F855A0B185CF61F009667DE /* js_iosTests */,
 				1F8559F2185CF61F009667DE /* boilerplate */,
@@ -369,6 +376,18 @@
 			path = gl;
 			sourceTree = "<group>";
 		};
+		F458860D1A10819700A887CF /* gl */ = {
+			isa = PBXGroup;
+			children = (
+				F42EA3C11A117202009993C5 /* JSExperiment.swift */,
+				F458860F1A10819700A887CF /* JSGLAppDelegate.h */,
+				F45886101A10819700A887CF /* JSGLAppDelegate.m */,
+				F45886111A10819700A887CF /* JSGLKView.h */,
+				F45886121A10819700A887CF /* JSGLKView.m */,
+			);
+			path = gl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -466,6 +485,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F45886141A10819700A887CF /* JSGLAppDelegate.m in Sources */,
+				F42EA3C21A117202009993C5 /* JSExperiment.swift in Sources */,
 				1FE0E61318B6E3CC00839060 /* JSMemoryMonitor.m in Sources */,
 				1FE492221896F04700CF2FCB /* JSStringUtil.m in Sources */,
 				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
@@ -478,6 +499,7 @@
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
+				F45886151A10819700A887CF /* JSGLKView.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
 				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,
@@ -489,8 +511,6 @@
 				1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */,
 				1F7F9DD0189AF135001D9DE3 /* JSLayoutManager.m in Sources */,
 				1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */,
-				30F4D23D7D1B31AC34DC8A70 /* JSGLKView.m in Sources */,
-				30F4DE583C825DD645177ACF /* JSGLAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,9 +651,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
 				INFOPLIST_FILE = "js_ios/js_ios-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = "-Wall";
@@ -646,11 +668,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "js_ios/js_ios-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=0";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				INFOPLIST_FILE = "js_ios/js_ios-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WARNING_CFLAGS = "-Wall";
@@ -662,6 +686,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/js_ios.app/js_ios";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -683,6 +708,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/js_ios.app/js_ios";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
