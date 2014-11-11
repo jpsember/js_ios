@@ -1,5 +1,4 @@
 #import "JSGLAppDelegate.h"
-#import "JSGLKView.h"
 
 #import "js_ios-Swift.h"
 #import "JSBase.h"
@@ -20,7 +19,7 @@
 - (void)buildViewController {
     // Build a root view controller
     UIViewController *viewController = [[UIViewController alloc] init];
-    JSGLKView *view = [JSGLKView viewWithFrame:self.window.bounds];
+    JSGLView *view =  [JSGLView buildWithFrame:self.window.bounds];
     view.delegate = self;
     [viewController setView:view];
     [self.window setRootViewController:viewController];

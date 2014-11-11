@@ -67,10 +67,10 @@
 		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
+		30F4D9A30D4FD2F83378574E /* JSGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4D4C72BA891E9187E9D35 /* JSGLView.swift */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
 		F42EA3C21A117202009993C5 /* JSExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EA3C11A117202009993C5 /* JSExperiment.swift */; };
 		F45886141A10819700A887CF /* JSGLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F45886101A10819700A887CF /* JSGLAppDelegate.m */; };
-		F45886151A10819700A887CF /* JSGLKView.m in Sources */ = {isa = PBXBuildFile; fileRef = F45886121A10819700A887CF /* JSGLKView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,12 +170,11 @@
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
+		30F4D4C72BA891E9187E9D35 /* JSGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSGLView.swift; sourceTree = "<group>"; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		F42EA3C11A117202009993C5 /* JSExperiment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSExperiment.swift; sourceTree = "<group>"; };
 		F458860F1A10819700A887CF /* JSGLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLAppDelegate.h; sourceTree = "<group>"; };
 		F45886101A10819700A887CF /* JSGLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLAppDelegate.m; sourceTree = "<group>"; };
-		F45886111A10819700A887CF /* JSGLKView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLKView.h; sourceTree = "<group>"; };
-		F45886121A10819700A887CF /* JSGLKView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLKView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -366,8 +365,7 @@
 				F42EA3C11A117202009993C5 /* JSExperiment.swift */,
 				F458860F1A10819700A887CF /* JSGLAppDelegate.h */,
 				F45886101A10819700A887CF /* JSGLAppDelegate.m */,
-				F45886111A10819700A887CF /* JSGLKView.h */,
-				F45886121A10819700A887CF /* JSGLKView.m */,
+				30F4D4C72BA891E9187E9D35 /* JSGLView.swift */,
 			);
 			path = gl;
 			sourceTree = "<group>";
@@ -483,7 +481,6 @@
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
-				F45886151A10819700A887CF /* JSGLKView.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
 				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,
@@ -495,6 +492,7 @@
 				1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */,
 				1F7F9DD0189AF135001D9DE3 /* JSLayoutManager.m in Sources */,
 				1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */,
+				30F4D9A30D4FD2F83378574E /* JSGLView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
