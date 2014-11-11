@@ -1,3 +1,5 @@
+AppCode (and some XCode)
+--------------------------------------------
 Go to declaration       cmd enter
 Toggle source/header    cmd enter
 Delete line             cmd D
@@ -16,3 +18,8 @@ Build                   cmd b
 Search everywhere       shift shift
 Previous/next method    ctrl up/down
 
+Xcode only
+--------------------------------------------
+Stop                    cmd `
+Open anything           ctrl x
+Toggle console          ctrl z
