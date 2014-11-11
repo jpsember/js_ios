@@ -1,5 +1,6 @@
 import GLKit
 
+@UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : JSAppDelegate, GLKViewDelegate {
     
     override public func application(application: UIApplication,

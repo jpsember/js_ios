@@ -45,7 +45,6 @@
 		1F8EE70518C3046F00F247A3 /* JSPointerArrayTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F8EE70418C3046F00F247A3 /* JSPointerArrayTests.m */; };
 		1F96135E186B91FB003A239A /* JSIORecorderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F96135D186B91FB003A239A /* JSIORecorderTests.m */; };
 		1FA26813185FB56D00808EAF /* JSStringUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA26812185FB56D00808EAF /* JSStringUtilTests.m */; };
-		1FAC0FD71896F13000F80450 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FAC0FD61896F13000F80450 /* main.m */; };
 		1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB9E9A618A1ED2B00BC9E9F /* JSSymbolicNames.m */; };
 		1FC6DB0E18BAD9DD0001D1CB /* test_resources in Resources */ = {isa = PBXBuildFile; fileRef = 1FC6DB0D18BAD9DD0001D1CB /* test_resources */; };
 		1FDC24081860E0E3002DF091 /* JSSimulatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDC24071860E0E3002DF091 /* JSSimulatorTests.m */; };
@@ -133,7 +132,6 @@
 		1F8EE70418C3046F00F247A3 /* JSPointerArrayTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSPointerArrayTests.m; sourceTree = "<group>"; };
 		1F96135D186B91FB003A239A /* JSIORecorderTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSIORecorderTests.m; sourceTree = "<group>"; };
 		1FA26812185FB56D00808EAF /* JSStringUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSStringUtilTests.m; sourceTree = "<group>"; };
-		1FAC0FD61896F13000F80450 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = js_ios/main.m; sourceTree = SOURCE_ROOT; };
 		1FB9E9A618A1ED2B00BC9E9F /* JSSymbolicNames.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSSymbolicNames.m; path = js_ios/JSSymbolicNames.m; sourceTree = SOURCE_ROOT; };
 		1FB9E9A718A1ED2B00BC9E9F /* JSSymbolicNames.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSymbolicNames.h; path = js_ios/JSSymbolicNames.h; sourceTree = SOURCE_ROOT; };
 		1FC6DB0D18BAD9DD0001D1CB /* test_resources */ = {isa = PBXFileReference; lastKnownFileType = folder; name = test_resources; path = ../test_resources; sourceTree = "<group>"; };
@@ -252,7 +250,6 @@
 				1FE492161896F04700CF2FCB /* JSSwizzler.m */,
 				1FB9E9A718A1ED2B00BC9E9F /* JSSymbolicNames.h */,
 				1FB9E9A618A1ED2B00BC9E9F /* JSSymbolicNames.m */,
-				1FAC0FD61896F13000F80450 /* main.m */,
 				1F33523318DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.h */,
 				1F33523418DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m */,
 				1F74C3CF19009486004DA3A3 /* NSMutableString+JSMutableStringCategory.h */,
@@ -483,7 +480,6 @@
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
 				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,
-				1FAC0FD71896F13000F80450 /* main.m in Sources */,
 				1F7F9E1B189F8080001D9DE3 /* JSPointerArray.m in Sources */,
 				1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */,
 				1FE0E60418B6945900839060 /* JSAppDelegate.m in Sources */,
