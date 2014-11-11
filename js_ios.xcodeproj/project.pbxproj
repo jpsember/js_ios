@@ -69,8 +69,8 @@
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
 		30F4D9A30D4FD2F83378574E /* JSGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4D4C72BA891E9187E9D35 /* JSGLView.swift */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
-		F42EA3C21A117202009993C5 /* JSExperiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42EA3C11A117202009993C5 /* JSExperiment.swift */; };
 		F45886141A10819700A887CF /* JSGLAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F45886101A10819700A887CF /* JSGLAppDelegate.m */; };
+		F47D5B0F1A11E868003F91CD /* JSBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* JSBase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,9 +172,10 @@
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
 		30F4D4C72BA891E9187E9D35 /* JSGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSGLView.swift; sourceTree = "<group>"; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
-		F42EA3C11A117202009993C5 /* JSExperiment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSExperiment.swift; sourceTree = "<group>"; };
 		F458860F1A10819700A887CF /* JSGLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSGLAppDelegate.h; sourceTree = "<group>"; };
 		F45886101A10819700A887CF /* JSGLAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSGLAppDelegate.m; sourceTree = "<group>"; };
+		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		F47D5B0E1A11E868003F91CD /* JSBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBase.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,10 +211,12 @@
 		1F36427B185D0ABC008B7883 /* js_ios */ = {
 			isa = PBXGroup;
 			children = (
+				F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */,
 				1FE0E60318B6945900839060 /* JSAppDelegate.h */,
 				1FE0E60218B6945900839060 /* JSAppDelegate.m */,
 				1F74C3CA19009279004DA3A3 /* JSAppendStringProtocol.h */,
 				1FE492081896F04700CF2FCB /* JSBase.h */,
+				F47D5B0E1A11E868003F91CD /* JSBase.swift */,
 				1FE492121896F04700CF2FCB /* JSBase.m */,
 				1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */,
 				1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */,
@@ -362,7 +365,6 @@
 		F458860D1A10819700A887CF /* gl */ = {
 			isa = PBXGroup;
 			children = (
-				F42EA3C11A117202009993C5 /* JSExperiment.swift */,
 				F458860F1A10819700A887CF /* JSGLAppDelegate.h */,
 				F45886101A10819700A887CF /* JSGLAppDelegate.m */,
 				30F4D4C72BA891E9187E9D35 /* JSGLView.swift */,
@@ -468,7 +470,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F45886141A10819700A887CF /* JSGLAppDelegate.m in Sources */,
-				F42EA3C21A117202009993C5 /* JSExperiment.swift in Sources */,
 				1FE0E61318B6E3CC00839060 /* JSMemoryMonitor.m in Sources */,
 				1FE492221896F04700CF2FCB /* JSStringUtil.m in Sources */,
 				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
@@ -478,6 +479,7 @@
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,
 				1FDF076E18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m in Sources */,
 				1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */,
+				F47D5B0F1A11E868003F91CD /* JSBase.swift in Sources */,
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
@@ -640,6 +642,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "js_ios/js_ios-Bridging-Header.h";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
@@ -659,6 +662,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "js_ios/js_ios-Bridging-Header.h";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};

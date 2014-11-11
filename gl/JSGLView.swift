@@ -3,10 +3,14 @@ import OpenGLES
 
 public class JSGLView: GLKView {
 
+    override public var description: String {
+        return "frame=\(self.frame)"
+    }
+
     // Factory constructor
     public class func build(#frame:CGRect) -> JSGLView {
         let view = JSGLView(frame:frame)
-        println("Built JSGLView \(view)")
+        puts("Built JSGLView \(view)")
         return view
     }
 
@@ -18,5 +22,6 @@ public class JSGLView: GLKView {
     public required init(coder decoder: NSCoder) {
         super.init(coder: decoder)
     }
+    
 
 }

@@ -1,7 +1,6 @@
-#import "JSGLAppDelegate.h"
-
 #import "js_ios-Swift.h"
 #import "JSBase.h"
+#import "JSGLAppDelegate.h"
 
 @implementation JSGLAppDelegate
 
@@ -10,10 +9,6 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
-    
-    JSExperiment *exp = [[JSExperiment alloc] init];
-    DBG
-    pr(@"Built JSExperiment %@, frame rate %f\n",exp,exp.frameRate);
 }
 
 - (void)buildViewController {

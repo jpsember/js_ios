@@ -11,8 +11,6 @@ int main(int argc, char *argv[]) {
             else
 #endif
                 appDelegateName = NSStringFromClass([JSGLAppDelegate class]);
-            DBG
-            pr(@"appDelegateName %@\n", appDelegateName);
             return UIApplicationMain(argc, argv, nil, appDelegateName);
         } @catch (JSDieException *e) {
             NSLog(@"Terminating:\n%@", e);
