@@ -72,9 +72,11 @@
 //#if DEBUG
   if ([JSBase testModeActive]) {
     NSString *app_resources_name = @"test_resources";
-    NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"JSTestAppDelegate") ];
+    NSBundle *bundle = [NSBundle bundleForClass:NSClassFromString(@"JSBaseTests") ];
     NSURL *appResourcesURL = [bundle URLForResource:app_resources_name withExtension:nil];
-    if (!appResourcesURL) die(@"could not locate app_resources; app_resources_name=%@ bundle %@",app_resources_name,bundle);
+      if (!appResourcesURL) {
+          die(@"could not locate app_resources; app_resources_name=%@ bundle %@",app_resources_name,bundle);
+      }
     self.appResourcesPath = appResourcesURL.path;
   }
   else

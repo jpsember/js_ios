@@ -20,7 +20,7 @@ static id defaultLogHandler;
 
 @implementation DefaultLogHandler
 - (void)appendString:(NSString *)string {
-    fputs([string UTF8String], stdout);
+  fputs([string UTF8String], stdout);
 }
 @end
 
@@ -38,19 +38,19 @@ static id defaultLogHandler;
 }
 
 + (void)pushLogHandler:(id<JSAppendStringProtocol>)handler {
-    dispatch_async(printerQueue,^{
-        [printHandlerStack addObject:handler];
-        activeLogHandler = handler;
-    });
-    [self flushLog];
+  dispatch_async(printerQueue,^{
+    [printHandlerStack addObject:handler];
+    activeLogHandler = handler;
+  });
+  [self flushLog];
 }
 
 + (void)popLogHandler {
-    dispatch_async(printerQueue,^{
-        [printHandlerStack removeLastObject];
-        activeLogHandler = [printHandlerStack lastObject];
-    });
-    [self flushLog];
+  dispatch_async(printerQueue,^{
+    [printHandlerStack removeLastObject];
+    activeLogHandler = [printHandlerStack lastObject];
+  });
+  [self flushLog];
 }
 #endif
 
@@ -59,11 +59,11 @@ static id defaultLogHandler;
   DBG
   IFDBG(
         if (![JSBase testModeActive]) {
-        warning(@"DBG is true in dieWithMessage, this is normally false");
-        printf("dying with %s\n",[[e description] UTF8String]);
-        [self breakpoint];
+          warning(@"DBG is true in dieWithMessage, this is normally false");
+          printf("dying with %s\n",[[e description] UTF8String]);
+          [self breakpoint];
         }
-      );
+        );
   @throw e;
 }
 
@@ -71,7 +71,10 @@ static id defaultLogHandler;
 + (BOOL)testModeActive {
   static BOOL active;
   ONCE_ONLY(^{
-    active = objc_lookUpClass("JSTestAppDelegate") != nil;
+    // It can't find JSTestAppDelegate, now that it's a .swift file
+    active = objc_lookUpClass("JSBaseTests") != nil;
+    DBG
+    pr(@"active=%d\n",active);
   });
   return active;
 }
@@ -111,36 +114,35 @@ static id defaultLogHandler;
 
 
 + (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber {
-    return [NSString stringWithFormat:@"(%@:%d)",[path lastPathComponent],lineNumber];
+  return [NSString stringWithFormat:@"(%@:%d)",[path lastPathComponent],lineNumber];
 }
 
 + (void)log:(NSString *)format, ... {
-    va_list vl;
-    va_start(vl, format);
-    NSString* str = [[NSString alloc] initWithFormat:format arguments:vl];
-    va_end(vl);
-    [JSBase logString:str];
+  va_list vl;
+  va_start(vl, format);
+  NSString* str = [[NSString alloc] initWithFormat:format arguments:vl];
+  va_end(vl);
+  [JSBase logString:str];
 }
 
 + (void)logString:(NSString *)string {
   ASSERT(string,@"attempt to log nil string");
-//  printf(">>>logging: %s",[string UTF8String]);
-    dispatch_async(printerQueue,^{
-        [activeLogHandler appendString:string];
-    });
+  dispatch_async(printerQueue,^{
+    [activeLogHandler appendString:string];
+  });
   [self flushLog];
 }
 
 + (void)flushLog {
-    // This is only safe if we're in the main thread; or, specifically,
-    // if we're not already in the printerQueue thread.
-    if ([NSThread mainThread])
-       dispatch_sync(printerQueue,^{});
+  // This is only safe if we're in the main thread; or, specifically,
+  // if we're not already in the printerQueue thread.
+  if ([NSThread mainThread])
+    dispatch_sync(printerQueue,^{});
 }
 
 + (void)breakpoint {
   [self flushLog];
- // DBG
+  // DBG
   pr(@"(Breakpoint...)\n");
   [self sleepFor:.2];
   pr(@"\n");
@@ -162,33 +164,33 @@ static id defaultLogHandler;
 }
 
 + (NSMutableArray *)stackTrace {
-    NSMutableArray *parsedElements = [NSMutableArray array];
-    
-    int maxElements = 10;
-    void *array[maxElements];
-    int nElements = backtrace(array,maxElements);
-    char **bs = backtrace_symbols(array,nElements);
-    for (int i = 0; i < nElements; i++) {
-        NSString *s = [NSString stringWithUTF8String:bs[i]];
-        JSStackTraceElement *elem = [JSStackTraceElement parse:s];
-        if (elem)
-            [parsedElements addObject:elem];
-    }
-    free(bs);
-    return parsedElements;
+  NSMutableArray *parsedElements = [NSMutableArray array];
+  
+  int maxElements = 10;
+  void *array[maxElements];
+  int nElements = backtrace(array,maxElements);
+  char **bs = backtrace_symbols(array,nElements);
+  for (int i = 0; i < nElements; i++) {
+    NSString *s = [NSString stringWithUTF8String:bs[i]];
+    JSStackTraceElement *elem = [JSStackTraceElement parse:s];
+    if (elem)
+      [parsedElements addObject:elem];
+  }
+  free(bs);
+  return parsedElements;
 }
 
 + (void)oneTimeReport:(NSString *)fileAndLine message:(NSString *)message reportType:(NSString *)reportType {
-    static NSMutableSet *reportsMade;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        reportsMade = [NSMutableSet set];
-    });
-    NSString *reportText = [NSString stringWithFormat:@"*** %@ %@: %@\n",reportType,fileAndLine,message];
-    if (![reportsMade containsObject:reportText]) {
-        [reportsMade addObject:reportText];
-        [JSBase logString:reportText];
-    }
+  static NSMutableSet *reportsMade;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    reportsMade = [NSMutableSet set];
+  });
+  NSString *reportText = [NSString stringWithFormat:@"*** %@ %@: %@\n",reportType,fileAndLine,message];
+  if (![reportsMade containsObject:reportText]) {
+    [reportsMade addObject:reportText];
+    [JSBase logString:reportText];
+  }
 }
 
 static JSSymbolicNames *names;
@@ -203,7 +205,7 @@ static JSSymbolicNames *names;
   
   @synchronized([self class]) {
     if (!names) {
-        names = [[JSSymbolicNames alloc] init];
+      names = [[JSSymbolicNames alloc] init];
     }
     return [names nameFor:ptr];
   }
@@ -216,7 +218,7 @@ static JSSymbolicNames *names;
 }
 
 + (void)sleepFor:(float)timeInSeconds {
-    [NSThread sleepForTimeInterval: timeInSeconds];
+  [NSThread sleepForTimeInterval: timeInSeconds];
 }
 
 #endif // DEBUG
@@ -245,8 +247,8 @@ static JSSymbolicNames *names;
 
 + (void)dieWithFilename:(const char *)filename line:(int)line
 {
-    NSString *message = [NSString stringWithFormat:@"*** fatal error: (%s:%d)",filename,line];
-    [JSBase dieWithMessage:message];
+  NSString *message = [NSString stringWithFormat:@"*** fatal error: (%s:%d)",filename,line];
+  [JSBase dieWithMessage:message];
 }
 
 @end
@@ -264,8 +266,8 @@ bool _DEBUG_PRINTING_ = NO;
 
 - (instancetype)initWithDescription:(NSString *)description maxIterations:(int)maxIter {
   if (self = [super init]) {
-  _ourDescription = description;
-  _maxIterations = maxIter;
+    _ourDescription = description;
+    _maxIterations = maxIter;
   }
   return self;
 }

@@ -212,6 +212,7 @@ class Program
   def run_unit_tests
 
     command = "iosb"
+    command << " -v" if @verbose
     command << " --clean" if @options[:clean]
     command << " -e \"OS=8.1,name=iPad 2\""
     output,_ = runcmd(command,"...testing")

@@ -4,6 +4,5 @@
 #import <Foundation/Foundation.h>
 #import <GLKit/GLKit.h>
 #import "JSBase.h"
-#import "JSAppDelegate.h"
 
 #endif
