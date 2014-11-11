@@ -5,3 +5,4 @@ func puts(message: String!) {
         JSBase.logString(msg + "\n")
     }
 }
+

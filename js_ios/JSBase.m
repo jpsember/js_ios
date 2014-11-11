@@ -73,8 +73,6 @@ static id defaultLogHandler;
   ONCE_ONLY(^{
     // It can't find JSTestAppDelegate, now that it's a .swift file
     active = objc_lookUpClass("JSBaseTests") != nil;
-    DBG
-    pr(@"active=%d\n",active);
   });
   return active;
 }

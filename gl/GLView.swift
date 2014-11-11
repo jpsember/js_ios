@@ -1,17 +1,15 @@
 import GLKit
 import OpenGLES
 
-public class JSGLView: GLKView {
+public class GLView: GLKView {
 
     override public var description: String {
         return "frame=\(self.frame)"
     }
 
     // Factory constructor
-    public class func build(#frame:CGRect) -> JSGLView {
-        let view = JSGLView(frame:frame)
-        puts("Built JSGLView \(view)")
-        return view
+    public class func build(#frame:CGRect) -> GLView {
+        return GLView(frame:frame)
     }
 
     public override init(frame:CGRect) {

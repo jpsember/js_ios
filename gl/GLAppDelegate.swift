@@ -1,7 +1,7 @@
 import GLKit
 
 @UIApplicationMain // Allows us to omit a main.m file
-public class GLAppDelegate : JSAppDelegate, GLKViewDelegate {
+public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     public func glkView(view : GLKView!, drawInRect : CGRect) {
         // A nice green color
@@ -10,7 +10,7 @@ public class GLAppDelegate : JSAppDelegate, GLKViewDelegate {
     }
     
     override public func buildView() -> UIView {
-        let view = JSGLView(frame:self.window!.bounds)
+        let view = GLView(frame:self.window!.bounds)
         view.delegate = self
         return view
     }

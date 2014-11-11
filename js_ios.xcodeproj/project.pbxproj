@@ -64,12 +64,12 @@
 		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
-		30F4D9A30D4FD2F83378574E /* JSGLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4D4C72BA891E9187E9D35 /* JSGLView.swift */; };
+		30F4D9A30D4FD2F83378574E /* GLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4D4C72BA891E9187E9D35 /* GLView.swift */; };
 		30F4D9FE266C1D09540495F6 /* GLAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30F4DE4780B834C4C89BCF0E /* GLAppDelegate.swift */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
-		F446EE8D1A129CFB0091791B /* JSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* JSAppDelegate.swift */; };
-		F47D5B0F1A11E868003F91CD /* JSBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* JSBase.swift */; };
-		F47D5B111A129576003F91CD /* JSAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* JSAppDelegate.swift */; };
+		F446EE8D1A129CFB0091791B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* AppDelegate.swift */; };
+		F47D5B0F1A11E868003F91CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* Base.swift */; };
+		F47D5B111A129576003F91CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,13 +165,13 @@
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
-		30F4D4C72BA891E9187E9D35 /* JSGLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSGLView.swift; sourceTree = "<group>"; };
+		30F4D4C72BA891E9187E9D35 /* GLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLView.swift; sourceTree = "<group>"; };
 		30F4DE4780B834C4C89BCF0E /* GLAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLAppDelegate.swift; sourceTree = "<group>"; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		F446EE8A1A129B400091791B /* js_iosTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "js_iosTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
-		F47D5B0E1A11E868003F91CD /* JSBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSBase.swift; sourceTree = SOURCE_ROOT; };
-		F47D5B101A129576003F91CD /* JSAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSAppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		F47D5B0E1A11E868003F91CD /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = SOURCE_ROOT; };
+		F47D5B101A129576003F91CD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -208,10 +208,10 @@
 			isa = PBXGroup;
 			children = (
 				F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */,
-				F47D5B101A129576003F91CD /* JSAppDelegate.swift */,
+				F47D5B101A129576003F91CD /* AppDelegate.swift */,
 				1F74C3CA19009279004DA3A3 /* JSAppendStringProtocol.h */,
 				1FE492081896F04700CF2FCB /* JSBase.h */,
-				F47D5B0E1A11E868003F91CD /* JSBase.swift */,
+				F47D5B0E1A11E868003F91CD /* Base.swift */,
 				1FE492121896F04700CF2FCB /* JSBase.m */,
 				1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */,
 				1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */,
@@ -359,7 +359,7 @@
 		F458860D1A10819700A887CF /* gl */ = {
 			isa = PBXGroup;
 			children = (
-				30F4D4C72BA891E9187E9D35 /* JSGLView.swift */,
+				30F4D4C72BA891E9187E9D35 /* GLView.swift */,
 				30F4DE4780B834C4C89BCF0E /* GLAppDelegate.swift */,
 			);
 			path = gl;
@@ -469,10 +469,10 @@
 				1F65153D18F5AE0200851E9F /* NSScanner+JSScannerCategory.m in Sources */,
 				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,
-				F47D5B111A129576003F91CD /* JSAppDelegate.swift in Sources */,
+				F47D5B111A129576003F91CD /* AppDelegate.swift in Sources */,
 				1FDF076E18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m in Sources */,
 				1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */,
-				F47D5B0F1A11E868003F91CD /* JSBase.swift in Sources */,
+				F47D5B0F1A11E868003F91CD /* Base.swift in Sources */,
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
@@ -485,7 +485,7 @@
 				1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */,
 				1F7F9DD0189AF135001D9DE3 /* JSLayoutManager.m in Sources */,
 				1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */,
-				30F4D9A30D4FD2F83378574E /* JSGLView.swift in Sources */,
+				30F4D9A30D4FD2F83378574E /* GLView.swift in Sources */,
 				30F4D9FE266C1D09540495F6 /* GLAppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -494,7 +494,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F446EE8D1A129CFB0091791B /* JSAppDelegate.swift in Sources */,
+				F446EE8D1A129CFB0091791B /* AppDelegate.swift in Sources */,
 				1F41447718FB1EAD009C4EBB /* JSFreezableTests.m in Sources */,
 				1F0701C7185F9657000FC4AE /* JSBaseTests.m in Sources */,
 				1F96135E186B91FB003A239A /* JSIORecorderTests.m in Sources */,
