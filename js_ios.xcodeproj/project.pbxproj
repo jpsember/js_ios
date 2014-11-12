@@ -70,6 +70,8 @@
 		F446EE8D1A129CFB0091791B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* AppDelegate.swift */; };
 		F47D5B0F1A11E868003F91CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* Base.swift */; };
 		F47D5B111A129576003F91CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* AppDelegate.swift */; };
+		F4A3603A1A12C1E700F48E71 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A360391A12C1E700F48E71 /* Texture.swift */; };
+		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +174,8 @@
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F47D5B0E1A11E868003F91CD /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = SOURCE_ROOT; };
 		F47D5B101A129576003F91CD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = SOURCE_ROOT; };
+		F4A360391A12C1E700F48E71 /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
+		F4A3603C1A12C4B200F48E71 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +268,7 @@
 		1F8559E0185CF61F009667DE = {
 			isa = PBXGroup;
 			children = (
+				F4A3603B1A12C4B200F48E71 /* resources */,
 				F458860D1A10819700A887CF /* gl */,
 				1F36427B185D0ABC008B7883 /* js_ios */,
 				1F855A0B185CF61F009667DE /* js_iosTests */,
@@ -360,9 +365,18 @@
 			isa = PBXGroup;
 			children = (
 				30F4D4C72BA891E9187E9D35 /* GLView.swift */,
+				F4A360391A12C1E700F48E71 /* Texture.swift */,
 				30F4DE4780B834C4C89BCF0E /* GLAppDelegate.swift */,
 			);
 			path = gl;
+			sourceTree = "<group>";
+		};
+		F4A3603B1A12C4B200F48E71 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				F4A3603C1A12C4B200F48E71 /* sample.png */,
+			);
+			path = resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +457,7 @@
 				1F8559F7185CF61F009667DE /* InfoPlist.strings in Resources */,
 				1F8559FF185CF61F009667DE /* Images.xcassets in Resources */,
 				1FE4922E1896F04700CF2FCB /* en.lproj in Resources */,
+				F4A3603D1A12C4B200F48E71 /* sample.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +488,7 @@
 				1FDF076E18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m in Sources */,
 				1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */,
 				F47D5B0F1A11E868003F91CD /* Base.swift in Sources */,
+				F4A3603A1A12C1E700F48E71 /* Texture.swift in Sources */,
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
@@ -635,6 +651,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "js_ios/js_ios-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
@@ -655,6 +672,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "js_ios/js_ios-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wall";
 				WRAPPER_EXTENSION = app;
 			};
