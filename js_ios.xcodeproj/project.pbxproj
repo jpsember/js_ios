@@ -72,6 +72,11 @@
 		F47D5B111A129576003F91CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B101A129576003F91CD /* AppDelegate.swift */; };
 		F4A3603A1A12C1E700F48E71 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A360391A12C1E700F48E71 /* Texture.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
+		F4A360431A1415C800F48E71 /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A360421A1415C800F48E71 /* Shader.swift */; };
+		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
+		F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */; };
+		F4A360491A1426DA00F48E71 /* GLTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A360481A1426DA00F48E71 /* GLTools.swift */; };
+		F4A3604B1A145D0900F48E71 /* SpriteContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A3604A1A145D0900F48E71 /* SpriteContext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,6 +181,11 @@
 		F47D5B101A129576003F91CD /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		F4A360391A12C1E700F48E71 /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
 		F4A3603C1A12C4B200F48E71 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
+		F4A360421A1415C800F48E71 /* Shader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shader.swift; sourceTree = "<group>"; };
+		F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fragment_shader_texture.glsl; sourceTree = "<group>"; };
+		F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex_shader_texture.glsl; sourceTree = "<group>"; };
+		F4A360481A1426DA00F48E71 /* GLTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GLTools.swift; sourceTree = "<group>"; };
+		F4A3604A1A145D0900F48E71 /* SpriteContext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpriteContext.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,7 +375,10 @@
 			isa = PBXGroup;
 			children = (
 				30F4D4C72BA891E9187E9D35 /* GLView.swift */,
+				F4A3604A1A145D0900F48E71 /* SpriteContext.swift */,
+				F4A360481A1426DA00F48E71 /* GLTools.swift */,
 				F4A360391A12C1E700F48E71 /* Texture.swift */,
+				F4A360421A1415C800F48E71 /* Shader.swift */,
 				30F4DE4780B834C4C89BCF0E /* GLAppDelegate.swift */,
 			);
 			path = gl;
@@ -374,6 +387,8 @@
 		F4A3603B1A12C4B200F48E71 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */,
+				F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */,
 				F4A3603C1A12C4B200F48E71 /* sample.png */,
 			);
 			path = resources;
@@ -455,6 +470,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8559F7185CF61F009667DE /* InfoPlist.strings in Resources */,
+				F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */,
+				F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */,
 				1F8559FF185CF61F009667DE /* Images.xcassets in Resources */,
 				1FE4922E1896F04700CF2FCB /* en.lproj in Resources */,
 				F4A3603D1A12C4B200F48E71 /* sample.png in Resources */,
@@ -486,12 +503,15 @@
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,
 				F47D5B111A129576003F91CD /* AppDelegate.swift in Sources */,
 				1FDF076E18AAB9CA001AFFFF /* NSUserDefaults+JSUserDefaultsCategory.m in Sources */,
+				F4A3604B1A145D0900F48E71 /* SpriteContext.swift in Sources */,
 				1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */,
 				F47D5B0F1A11E868003F91CD /* Base.swift in Sources */,
 				F4A3603A1A12C1E700F48E71 /* Texture.swift in Sources */,
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
+				F4A360431A1415C800F48E71 /* Shader.swift in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
+				F4A360491A1426DA00F48E71 /* GLTools.swift in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
 				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,

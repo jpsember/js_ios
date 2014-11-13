@@ -11,6 +11,9 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     let t = Texture()
     warning("Loading 'sample' texture")
     t.loadBitmap("sample")
+    
+    let vertexShader = Shader.readVertexShader("vertex_shader_texture.glsl")
+    let fragmentShader = Shader.readFragmentShader("fragment_shader_texture.glsl")
   }
   
   override public func buildView() -> UIView {
