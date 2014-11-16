@@ -3,5 +3,9 @@
 
 #import <Foundation/Foundation.h>
 #import "JSBase.h"
+#import "CTools.h"
+#import "SpriteContext.h"
+#import "B.h"
+#import "GLSpriteProgram.h"
 
 #endif

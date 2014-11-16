@@ -1,9 +1,11 @@
 import Foundation
 import GLKit
 
-public class Texture {
+public class Texture : NSObject {
  
   private var textureId: GLuint? = nil
+  public var width = 0
+  public var height = 0
   
   // Load UImage from resource "<name>.png"
   //
@@ -39,17 +41,27 @@ public class Texture {
     
     // Draw UIImage to CGContext
     let (width,height,context) = plotUImage(uImage!)
+    self.width = width
+    self.height = height
     
     // Create GL Texture
     var texture: GLuint = 0;
     glGenTextures(GLsizei(1), &texture);
+    GLTools.verifyNoError()
     
     glBindTexture(GLenum(GL_TEXTURE_2D), texture);
+    GLTools.verifyNoError()
     
+    if (true) {
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE);
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE);
+    GLTools.verifyNoError()
+//		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR_MIPMAP_LINEAR);
+//    GLTools.verifyNoError()
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE);
+    GLTools.verifyNoError()
+		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE);
+    GLTools.verifyNoError()
+    }
     
     glTexImage2D(
       GLenum(GL_TEXTURE_2D),
@@ -61,8 +73,17 @@ public class Texture {
       GLenum(GL_RGBA),
       GLenum(GL_UNSIGNED_BYTE),
       CGBitmapContextGetData(context))
+    GLTools.verifyNoError()
     
     textureId = texture
   }
+
+  public func select() {
+//    warning("skipping")
+//    if (true) {return}
+    puts("binding to texture \(textureId!)")
+		glBindTexture(GLenum(GL_TEXTURE_2D), textureId!);
+  }
+  
 
 }

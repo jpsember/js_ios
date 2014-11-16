@@ -1,4 +1,6 @@
 import Foundation
+import UIKit
+// Why is compiling suddenly very slow?
 
 func puts(message: String!) {
   if let msg = message {
@@ -32,4 +34,15 @@ func check(error: NSError?) {
     ASSERT(false,"Error! \(e)")
   }
 }
+
+// WARNING: if you attempt to dump(0), compiler slows down to a crawl
+func dump(doubleValue:Double,  format:String = "7.2f") -> String {
+	return NSString(format:"%\(format)",doubleValue)
+}
+
+func dump(CGFloatValue:CGFloat, format:String = "7.2f") -> String {
+  return dump(Double(CGFloatValue), format:format)
+}
+
+
 

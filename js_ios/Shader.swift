@@ -1,9 +1,7 @@
 import Foundation
 import UIKit
-//import OpenGLES
 
-
-public class Shader {
+public class Shader : NSObject {
 
   public class func readVertexShader(filename : String) -> Shader {
     let shader = Shader(type: Type.Vertex)
@@ -30,6 +28,10 @@ public class Shader {
     self.type = type
   }
 
+  public func getId() -> GLuint {
+    return shaderId!
+  }
+  
   private func compileSource(source: String) {
   	shaderId = glCreateShader(GLenum(self.type == Type.Vertex ? GL_VERTEX_SHADER : GL_FRAGMENT_SHADER))
     ASSERT(shaderId != nil)
