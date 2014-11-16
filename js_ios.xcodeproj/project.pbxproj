@@ -71,8 +71,8 @@
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
 		F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */; };
-		F4AA66E01A1701F30058452F /* CTools.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D41A1701F30058452F /* CTools.m */; };
-		F4AA66E11A1701F30058452F /* SpriteContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D51A1701F30058452F /* SpriteContext.m */; };
+		F4AA66E01A1701F30058452F /* GLTools2.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D41A1701F30058452F /* GLTools2.m */; };
+		F4AA66E11A1701F30058452F /* GLSpriteContext.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D51A1701F30058452F /* GLSpriteContext.m */; };
 		F4AA66E21A1701F30058452F /* CGAffineTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D61A1701F30058452F /* CGAffineTransform.swift */; };
 		F4AA66E31A1701F30058452F /* GLAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D71A1701F30058452F /* GLAppDelegate.swift */; };
 		F4AA66E41A1701F30058452F /* GLTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D81A1701F30058452F /* GLTools.swift */; };
@@ -83,9 +83,8 @@
 		F4AA66E91A1701F30058452F /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DD1A1701F30058452F /* Shader.swift */; };
 		F4AA66EA1A1701F30058452F /* _SKIP_SpriteProgram.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DE1A1701F30058452F /* _SKIP_SpriteProgram.swift */; };
 		F4AA66EB1A1701F30058452F /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DF1A1701F30058452F /* Texture.swift */; };
-		F4AA66F01A170A410058452F /* B.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66EF1A170A410058452F /* B.m */; };
-		F4AA66F41A170C510058452F /* A.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66F31A170C510058452F /* A.swift */; };
 		F4AA66F71A17C8B30058452F /* GLSpriteProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66F61A17C8B30058452F /* GLSpriteProgram.m */; };
+		F4AA66F91A1950FA0058452F /* AlphaBall.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AA66F81A1950FA0058452F /* AlphaBall.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -189,10 +188,10 @@
 		F4A3603C1A12C4B200F48E71 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 		F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fragment_shader_texture.glsl; sourceTree = "<group>"; };
 		F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex_shader_texture.glsl; sourceTree = "<group>"; };
-		F4AA66D21A1701F30058452F /* CTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CTools.h; path = js_ios/CTools.h; sourceTree = SOURCE_ROOT; };
-		F4AA66D31A1701F30058452F /* SpriteContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteContext.h; path = js_ios/SpriteContext.h; sourceTree = SOURCE_ROOT; };
-		F4AA66D41A1701F30058452F /* CTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CTools.m; path = js_ios/CTools.m; sourceTree = SOURCE_ROOT; };
-		F4AA66D51A1701F30058452F /* SpriteContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SpriteContext.m; path = js_ios/SpriteContext.m; sourceTree = SOURCE_ROOT; };
+		F4AA66D21A1701F30058452F /* GLTools2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTools2.h; path = js_ios/GLTools2.h; sourceTree = SOURCE_ROOT; };
+		F4AA66D31A1701F30058452F /* GLSpriteContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLSpriteContext.h; path = js_ios/GLSpriteContext.h; sourceTree = SOURCE_ROOT; };
+		F4AA66D41A1701F30058452F /* GLTools2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLTools2.m; path = js_ios/GLTools2.m; sourceTree = SOURCE_ROOT; };
+		F4AA66D51A1701F30058452F /* GLSpriteContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLSpriteContext.m; path = js_ios/GLSpriteContext.m; sourceTree = SOURCE_ROOT; };
 		F4AA66D61A1701F30058452F /* CGAffineTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGAffineTransform.swift; path = js_ios/CGAffineTransform.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66D71A1701F30058452F /* GLAppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLAppDelegate.swift; path = js_ios/GLAppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66D81A1701F30058452F /* GLTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLTools.swift; path = js_ios/GLTools.swift; sourceTree = SOURCE_ROOT; };
@@ -203,11 +202,9 @@
 		F4AA66DD1A1701F30058452F /* Shader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shader.swift; path = js_ios/Shader.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66DE1A1701F30058452F /* _SKIP_SpriteProgram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = _SKIP_SpriteProgram.swift; path = js_ios/_SKIP_SpriteProgram.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66DF1A1701F30058452F /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Texture.swift; path = js_ios/Texture.swift; sourceTree = SOURCE_ROOT; };
-		F4AA66EE1A170A410058452F /* B.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = B.h; sourceTree = "<group>"; };
-		F4AA66EF1A170A410058452F /* B.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = B.m; sourceTree = "<group>"; };
-		F4AA66F31A170C510058452F /* A.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = A.swift; sourceTree = "<group>"; };
 		F4AA66F51A17C8B30058452F /* GLSpriteProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpriteProgram.h; sourceTree = "<group>"; };
 		F4AA66F61A17C8B30058452F /* GLSpriteProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpriteProgram.m; sourceTree = "<group>"; };
+		F4AA66F81A1950FA0058452F /* AlphaBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlphaBall.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,16 +393,13 @@
 		F458860D1A10819700A887CF /* gl */ = {
 			isa = PBXGroup;
 			children = (
-				F4AA66F31A170C510058452F /* A.swift */,
-				F4AA66EE1A170A410058452F /* B.h */,
-				F4AA66EF1A170A410058452F /* B.m */,
-				F4AA66D21A1701F30058452F /* CTools.h */,
+				F4AA66D21A1701F30058452F /* GLTools2.h */,
 				F4AA66F51A17C8B30058452F /* GLSpriteProgram.h */,
 				F4AA66F61A17C8B30058452F /* GLSpriteProgram.m */,
 				F4AA66DE1A1701F30058452F /* _SKIP_SpriteProgram.swift */,
-				F4AA66D31A1701F30058452F /* SpriteContext.h */,
-				F4AA66D51A1701F30058452F /* SpriteContext.m */,
-				F4AA66D41A1701F30058452F /* CTools.m */,
+				F4AA66D31A1701F30058452F /* GLSpriteContext.h */,
+				F4AA66D51A1701F30058452F /* GLSpriteContext.m */,
+				F4AA66D41A1701F30058452F /* GLTools2.m */,
 				F4AA66D61A1701F30058452F /* CGAffineTransform.swift */,
 				F4AA66D71A1701F30058452F /* GLAppDelegate.swift */,
 				F4AA66D81A1701F30058452F /* GLTools.swift */,
@@ -422,6 +416,7 @@
 		F4A3603B1A12C4B200F48E71 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4AA66F81A1950FA0058452F /* AlphaBall.png */,
 				F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */,
 				F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */,
 				F4A3603C1A12C4B200F48E71 /* sample.png */,
@@ -508,6 +503,7 @@
 				F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */,
 				F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */,
 				1F8559FF185CF61F009667DE /* Images.xcassets in Resources */,
+				F4AA66F91A1950FA0058452F /* AlphaBall.png in Resources */,
 				1FE4922E1896F04700CF2FCB /* en.lproj in Resources */,
 				F4A3603D1A12C4B200F48E71 /* sample.png in Resources */,
 			);
@@ -529,9 +525,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4AA66F41A170C510058452F /* A.swift in Sources */,
 				F4AA66E81A1701F30058452F /* Renderer.swift in Sources */,
-				F4AA66E11A1701F30058452F /* SpriteContext.m in Sources */,
+				F4AA66E11A1701F30058452F /* GLSpriteContext.m in Sources */,
 				1FE0E61318B6E3CC00839060 /* JSMemoryMonitor.m in Sources */,
 				1FE492221896F04700CF2FCB /* JSStringUtil.m in Sources */,
 				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
@@ -540,7 +535,7 @@
 				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,
 				F4AA66E31A1701F30058452F /* GLAppDelegate.swift in Sources */,
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,
-				F4AA66E01A1701F30058452F /* CTools.m in Sources */,
+				F4AA66E01A1701F30058452F /* GLTools2.m in Sources */,
 				F4AA66E91A1701F30058452F /* Shader.swift in Sources */,
 				F4AA66E21A1701F30058452F /* CGAffineTransform.swift in Sources */,
 				F47D5B111A129576003F91CD /* AppDelegate.swift in Sources */,
@@ -548,7 +543,6 @@
 				1FE492211896F04700CF2FCB /* JSOrderedSet.m in Sources */,
 				F47D5B0F1A11E868003F91CD /* Base.swift in Sources */,
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
-				F4AA66F01A170A410058452F /* B.m in Sources */,
 				F4AA66E51A1701F30058452F /* GLView.swift in Sources */,
 				F4AA66E71A1701F30058452F /* Rect.swift in Sources */,
 				F4AA66E41A1701F30058452F /* GLTools.swift in Sources */,

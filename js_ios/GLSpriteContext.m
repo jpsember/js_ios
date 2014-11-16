@@ -1,24 +1,21 @@
 #import <OpenGLES/EAGL.h>
 #import "JSBase.h"
-#import "SpriteContext.h"
+#import "GLSpriteContext.h"
 #import "js_ios-Swift.h"
-#import "CTools.h"
+#import "GLTools2.h"
 
 static int projectionMatrixId = -1;
 static id spriteContext;
 static Renderer *renderer;
-static SpriteContext *normalContext;
+static GLSpriteContext *normalContext;
 
-@interface SpriteContext ()
+@interface GLSpriteContext ()
 {
   GLfloat _tintColor[4];
 }
 
 @property (nonatomic, strong) NSString *transformName;
 @property (nonatomic, assign) BOOL tintMode;
-#define POSITION_COMPONENT_COUNT 2
-#define TEXTURE_COMPONENT_COUNT 2
-#define TOTAL_COMPONENTS (POSITION_COMPONENT_COUNT + TEXTURE_COMPONENT_COUNT)
 
 @property (nonatomic, assign) int preparedProjectionMatrixId;
 @property (nonatomic, assign) int preparedSurfaceId;
@@ -34,7 +31,7 @@ static SpriteContext *normalContext;
 
 @end
 
-@implementation SpriteContext
+@implementation GLSpriteContext
 
 - (int)projectionMatrixId {
   return projectionMatrixId;
@@ -44,8 +41,8 @@ static SpriteContext *normalContext;
   projectionMatrixId = matrixId;
 }
 
-+ (SpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
-  return [[SpriteContext alloc] initWithTransformName:transformName tintMode:tintMode];
++ (GLSpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
+  return [[GLSpriteContext alloc] initWithTransformName:transformName tintMode:tintMode];
 }
 
 - (id)initWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
@@ -59,7 +56,7 @@ static SpriteContext *normalContext;
 
 - (void)setTintColor:(UIColor *)color {
   ASSERT(self.tintMode,@"expected tint mode");
-  [CTools setGLColor:color];
+  [GLTools2 setGLColor:color];
 }
 
 - (void)prepareShaders {
@@ -69,18 +66,16 @@ static SpriteContext *normalContext;
 
 + (void)prepare:(Renderer *)r {
   renderer = r;
-  normalContext = [SpriteContext spriteContextWithTransformName:[Renderer transformNameDeviceToNDC] tintMode:NO];
+  normalContext = [GLSpriteContext spriteContextWithTransformName:[Renderer transformNameDeviceToNDC] tintMode:NO];
 }
 
-+ (SpriteContext *)normalContext {
++ (GLSpriteContext *)normalContext {
   return normalContext;
 }
 
 #define ARRAY 0
 
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(int)length position:(CGPoint)position {
-  DBG
-  pr(@"renderSprite, texture %@ position %f,%f\n",texture,position.x,position.y);
   
   [self activateProgram];
   [self prepareProjection];
@@ -126,7 +121,6 @@ static SpriteContext *normalContext;
 }
 
 - (void)prepareProgram {
-  ASSERT(renderer != nil,@"renderer is nil");
   self.programObjectId = [GLTools createProgram];
   glAttachShader(self.programObjectId, [self.vertexShader getId]);
   glAttachShader(self.programObjectId, [self.fragmentShader getId]);
@@ -147,11 +141,8 @@ static SpriteContext *normalContext;
 }
 
 - (void)prepareProjection {
-  //    DBG
-  pr(@"prepareProjection\n");
   int currentProjectionMatrixId = projectionMatrixId;
   if (currentProjectionMatrixId == self.preparedProjectionMatrixId) {
-    pr(@" unchanged, returning\n");
     return;
   }
   _preparedProjectionMatrixId = currentProjectionMatrixId;
@@ -164,7 +155,6 @@ static SpriteContext *normalContext;
     0,0,1,0,//
     matrix.tx,matrix.ty,0,1 //
   };
-  pr(@" storing matrix:\n%@\n",dFloats(matrix44,16));
   glUniformMatrix4fv(self.matrixLocation,1,NO, matrix44);
 }
 

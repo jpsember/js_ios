@@ -25,7 +25,7 @@ public class Renderer : NSObject {
     invalidateMatrixId()
     constructTransforms()
     
-    SpriteContext.prepare(self)
+    GLSpriteContext.prepare(self)
   }
   
   /**

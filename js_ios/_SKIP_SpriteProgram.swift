@@ -9,10 +9,10 @@ public class SWIFTSpriteProgram  : NSObject{
   let texture: Texture
   let textureWindow: Rect
   var position: Point = Point.zero
-  let context: SpriteContext
+  let context: GLSpriteContext
   var vertexInfo: [CGFloat]?
   
-  init(context: SpriteContext, texture:Texture, textureWindow:Rect) {
+  init(context: GLSpriteContext, texture:Texture, textureWindow:Rect) {
     self.context = context
     self.texture = texture
     self.textureWindow = textureWindow

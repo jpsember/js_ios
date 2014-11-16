@@ -36,8 +36,9 @@ public class Texture : NSObject {
   // Load texture's bitmap from a resource '<name>.png'
   //
   public func loadBitmap(name: String) {
-    
+    puts("attempting to load \(name)")
   	let uImage = loadUImage(name)
+    puts("loaded \(name): \(uImage)")
     
     // Draw UIImage to CGContext
     let (width,height,context) = plotUImage(uImage!)
@@ -52,16 +53,7 @@ public class Texture : NSObject {
     glBindTexture(GLenum(GL_TEXTURE_2D), texture);
     GLTools.verifyNoError()
     
-    if (true) {
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
-    GLTools.verifyNoError()
-//		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR_MIPMAP_LINEAR);
-//    GLTools.verifyNoError()
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE);
-    GLTools.verifyNoError()
-		glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE);
-    GLTools.verifyNoError()
-    }
     
     glTexImage2D(
       GLenum(GL_TEXTURE_2D),
@@ -73,17 +65,14 @@ public class Texture : NSObject {
       GLenum(GL_RGBA),
       GLenum(GL_UNSIGNED_BYTE),
       CGBitmapContextGetData(context))
+    
     GLTools.verifyNoError()
     
     textureId = texture
   }
 
   public func select() {
-//    warning("skipping")
-//    if (true) {return}
-    puts("binding to texture \(textureId!)")
 		glBindTexture(GLenum(GL_TEXTURE_2D), textureId!);
   }
-  
 
 }

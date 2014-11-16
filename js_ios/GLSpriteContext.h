@@ -1,14 +1,23 @@
 #import <OpenGLES/EAGL.h>
 #import <UIKit/UIKit.h>
 
+#define POSITION_COMPONENT_COUNT 2
+#define TEXTURE_COMPONENT_COUNT 2
+
+#define POSITION_COMPONENT_OFFSET 0
+#define TEXTURE_COMPONENT_OFFSET 2
+#define TOTAL_COMPONENTS 4
+
+#define TOTAL_VERTICES 6
+
 @class Renderer;
 @class Texture;
 
-@interface SpriteContext : NSObject
+@interface GLSpriteContext : NSObject
 
-+ (SpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode;
++ (GLSpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode;
 + (void)prepare:(Renderer *)renderer;
-+ (SpriteContext *)normalContext;
++ (GLSpriteContext *)normalContext;
 - (int)projectionMatrixId;
 - (void)setProjectionMatrixId:(int)matrixId;
 - (void)setTintColor:(UIColor *)color;
