@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+# Kills Xcode (if it's running), and deletes contents of the derived data folder
+
+require 'js_base'
+
+scall("killall Xcode", false)
+path = File.join(Dir.home,"Library/Developer/Xcode/DerivedData")
+FileUtils.directory_entries(path,true).each do |ent|
+  f = File.join(path,ent)
+  FileUtils.rm_rf(f)
+end
