@@ -21,7 +21,7 @@ public class GLTools : NSObject {
     let err = glGetError()
     if (err != 0) {
       warning("OpenGL error #\(err)")
-//      die("OpenGL error! Number \(err)")
+      die("OpenGL error! Number \(err)")
     }
   }
   

@@ -4,6 +4,7 @@
 
 + (void)setGLColor:(UIColor *)uiColor;
 + (GLuint)installTexture:(UIImage *)image size:(CGPoint *)sizePtr;
++ (void)setGLColor:(UIColor *)uiColor destination:(GLfloat *)dest;
 
 @end
 

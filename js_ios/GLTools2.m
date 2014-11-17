@@ -14,6 +14,12 @@
 	glColor4f(red,green, blue, alpha);
 }
 
++ (void)setGLColor:(UIColor *)uiColor destination:(GLfloat *)dest {
+  const CGFloat *components = CGColorGetComponents(uiColor.CGColor);
+  memcpy(dest,components,sizeof(GLfloat) * 4);
+}
+
+
 #if DEBUG
 + (void)exploreImage:(UIImage *)image {
   DBG

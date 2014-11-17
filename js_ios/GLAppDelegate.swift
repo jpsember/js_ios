@@ -6,9 +6,12 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var timer : NSTimer?
   private var view : UIView?
   private var texture : Texture?
+  private var texture2 : Texture?
   private var spriteProgram : GLSpriteProgram?
   private var renderer : Renderer?
   private var spriteContext : GLSpriteContext?
+  private var spriteContext2 : GLSpriteContext?
+  private var spriteProgram2 : GLSpriteProgram?
   
   private var angle = 0.0
   private let PI = 3.141592
@@ -24,23 +27,21 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     
-    let t = Texture()
-    var pngName = "AlphaBall"
-   	pngName = "sample"
-    
-    t.loadBitmap(pngName)
-    texture = t
+    let tex1 = Texture()
+    tex1.loadBitmap("sample")
+    texture = tex1
 
-    let tintMode = false
-    if (tintMode) {
-      spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
-      spriteContext!.setTintColor(UIColor.redColor())
-    } else {
-      spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
-    }
-    
+    spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
+    spriteContext2 = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
+    spriteContext2!.setTintColor(UIColor.redColor())
     let tw = CGRectMake(0,0,CGFloat(texture!.width),CGFloat(texture!.height))
     spriteProgram = GLSpriteProgram(context: spriteContext, texture: texture, window: tw)
+    
+    let tex2 = Texture()
+    tex2.loadBitmap("AlphaBall")
+    texture2 = tex2
+    let tw2 = CGRectMake(0,0,CGFloat(tex2.width),CGFloat(tex2.height))
+    spriteProgram2 = GLSpriteProgram(context: spriteContext2, texture:tex2, window:tw2)
   }
   
   private func prepareGraphics(viewSize : CGSize) {
@@ -49,8 +50,6 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     preparedViewSize = viewSize
-    puts("preparing renderer for view size \(preparedViewSize)")
-    
     if (renderer == nil) {
       renderer = Renderer()
     }
@@ -59,9 +58,6 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     if (spriteProgram != nil) {
       return
     }
-    
-    puts("preparing shaders, textures, sprites")
-    
     loadTextures()
   }
   
@@ -83,6 +79,16 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     spriteProgram!.setPosition(x,y:y)
     spriteProgram!.render()
+    
+    spriteProgram2!.setPosition(view!.bounds.size.width / 2, y:view!.bounds.size.height/2);
+    spriteProgram2!.render();
+    
+    if (true) {
+      let t = (angle % (2*PI))/(2*PI)
+      let color = UIColor(red:CGFloat(t), green:CGFloat(0.25+t/2), blue: CGFloat(0.75-t/2), alpha: CGFloat(t))
+      spriteContext2!.setTintColor(color)
+    }
+    
     GLTools.verifyNoError()
   }
   

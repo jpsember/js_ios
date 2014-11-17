@@ -51,7 +51,7 @@ static GLSpriteContext *normalContext;
 
 - (void)setTintColor:(UIColor *)color {
   ASSERT(self.tintMode,@"expected tint mode");
-  [GLTools2 setGLColor:color];
+  [GLTools2 setGLColor:color destination:_tintColor];
 }
 
 - (void)prepareShaders {
@@ -77,7 +77,6 @@ static GLSpriteContext *normalContext;
   glUniform2f(self.spritePositionLocation, position.x,position.y);
   
   if (self.tintMode) {
-    // Send one vec4 (the second parameter; this was a gotcha)
     glUniform4fv(self.colorLocation, 1, _tintColor);
   }
   
