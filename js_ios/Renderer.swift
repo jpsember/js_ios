@@ -25,6 +25,10 @@ public class Renderer : NSObject {
     invalidateMatrixId()
     constructTransforms()
     
+    // Enable alpha channel blending (otherwise the alpha channel, if present, will have no effect)
+    glBlendFunc(GLenum(GL_SRC_ALPHA),GLenum(GL_ONE_MINUS_SRC_ALPHA))
+    glEnable(GLenum(GL_BLEND))
+    
     GLSpriteContext.prepare(self)
   }
   
@@ -32,24 +36,16 @@ public class Renderer : NSObject {
 	 * Construct transformation matrices for the current surface. Default
 	 * implementation throws out any old transforms, and generates
 	 * TRANSFORM_NAME_DEVICE_TO_NDC which converts from device space to
-	 * normalized device coordinates (see
-	 * https://github.com/jpsember/geometry/issues/22)
-	 *
+	 * normalized device coordinates
+   *
 	 * Here's a summary of the coordinate spaces:
 	 *
 	 * <pre>
-	 *
-	 *  algorithm space : this maps a fixed virtual coordinate system
-	 *      (e.g. 1000 x 1200) to the device, no matter its size or
-	 *      orientation (origin at bottom left)
 	 *
 	 *  device space : origin at bottom left, this corresponds to pixels
 	 *
 	 *  normalized device coordinates : the coordinate system that OpenGL
 	 *     uses
-	 *
-	 *  view space : the coordinate system of an Android View; like device
-	 *     space, but has its origin in the top left
 	 *
 	 * </pre>
 	 */
@@ -99,7 +95,6 @@ public class Renderer : NSObject {
 	 *            the matrix
 	 */
   public func addTransform(name: String, _ transform: CGAffineTransform) {
-//    puts("adding transform \(name):\n\(transform)")
     transformMap[name] = transform
   }
 

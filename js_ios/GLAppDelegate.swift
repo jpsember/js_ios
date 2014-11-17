@@ -13,8 +13,8 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     GLTools.verifyNoError()
     
     let t = Texture()
-    var pngName = "sample"
-    pngName = "AlphaBall"
+    var pngName = "AlphaBall"
+   	pngName = "word"
     
     t.loadBitmap(pngName)
     

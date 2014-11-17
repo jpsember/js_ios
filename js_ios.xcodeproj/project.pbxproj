@@ -85,6 +85,7 @@
 		F4AA66EB1A1701F30058452F /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DF1A1701F30058452F /* Texture.swift */; };
 		F4AA66F71A17C8B30058452F /* GLSpriteProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66F61A17C8B30058452F /* GLSpriteProgram.m */; };
 		F4AA66F91A1950FA0058452F /* AlphaBall.png in Resources */ = {isa = PBXBuildFile; fileRef = F4AA66F81A1950FA0058452F /* AlphaBall.png */; };
+		F4B092C31A197FC60043108E /* word.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B092C21A197FC60043108E /* word.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +206,7 @@
 		F4AA66F51A17C8B30058452F /* GLSpriteProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLSpriteProgram.h; sourceTree = "<group>"; };
 		F4AA66F61A17C8B30058452F /* GLSpriteProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLSpriteProgram.m; sourceTree = "<group>"; };
 		F4AA66F81A1950FA0058452F /* AlphaBall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AlphaBall.png; sourceTree = "<group>"; };
+		F4B092C21A197FC60043108E /* word.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = word.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +395,7 @@
 		F458860D1A10819700A887CF /* gl */ = {
 			isa = PBXGroup;
 			children = (
+				F4AA66D71A1701F30058452F /* GLAppDelegate.swift */,
 				F4AA66D21A1701F30058452F /* GLTools2.h */,
 				F4AA66F51A17C8B30058452F /* GLSpriteProgram.h */,
 				F4AA66F61A17C8B30058452F /* GLSpriteProgram.m */,
@@ -401,7 +404,6 @@
 				F4AA66D51A1701F30058452F /* GLSpriteContext.m */,
 				F4AA66D41A1701F30058452F /* GLTools2.m */,
 				F4AA66D61A1701F30058452F /* CGAffineTransform.swift */,
-				F4AA66D71A1701F30058452F /* GLAppDelegate.swift */,
 				F4AA66D81A1701F30058452F /* GLTools.swift */,
 				F4AA66D91A1701F30058452F /* GLView.swift */,
 				F4AA66DA1A1701F30058452F /* Point.swift */,
@@ -416,6 +418,7 @@
 		F4A3603B1A12C4B200F48E71 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				F4B092C21A197FC60043108E /* word.png */,
 				F4AA66F81A1950FA0058452F /* AlphaBall.png */,
 				F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */,
 				F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */,
@@ -506,6 +509,7 @@
 				F4AA66F91A1950FA0058452F /* AlphaBall.png in Resources */,
 				1FE4922E1896F04700CF2FCB /* en.lproj in Resources */,
 				F4A3603D1A12C4B200F48E71 /* sample.png in Resources */,
+				F4B092C31A197FC60043108E /* word.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
