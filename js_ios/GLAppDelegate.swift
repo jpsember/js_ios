@@ -27,21 +27,16 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     
-    let tex1 = Texture()
-    tex1.loadBitmap("sample")
-    texture = tex1
-
     spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
+    texture = Texture("sample")
+    let tw = CGRectMake(0,0,CGFloat(texture!.width),CGFloat(texture!.height))
+    spriteProgram = GLSpriteProgram(context: spriteContext, texture:texture, window: tw)
+    
     spriteContext2 = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
     spriteContext2!.setTintColor(UIColor.redColor())
-    let tw = CGRectMake(0,0,CGFloat(texture!.width),CGFloat(texture!.height))
-    spriteProgram = GLSpriteProgram(context: spriteContext, texture: texture, window: tw)
-    
-    let tex2 = Texture()
-    tex2.loadBitmap("AlphaBall")
-    texture2 = tex2
-    let tw2 = CGRectMake(0,0,CGFloat(tex2.width),CGFloat(tex2.height))
-    spriteProgram2 = GLSpriteProgram(context: spriteContext2, texture:tex2, window:tw2)
+    texture2 = Texture("AlphaBall")
+    let tw2 = CGRectMake(0,0,CGFloat(texture2!.width),CGFloat(texture2!.height))
+    spriteProgram2 = GLSpriteProgram(context: spriteContext2, texture:texture2, window:tw2)
   }
   
   private func prepareGraphics(viewSize : CGSize) {

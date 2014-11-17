@@ -7,6 +7,13 @@ public class Texture : NSObject {
   public var width = 0
   public var height = 0
   
+  // Constructor
+  // 
+  init(_ pngName:String) {
+    super.init()
+    loadBitmap(pngName)
+  }
+  
   // Load UImage from resource "<name>.png"
   //
   private func loadUImage(name: String) -> UIImage? {
@@ -18,7 +25,7 @@ public class Texture : NSObject {
   
   // Load texture's bitmap from a resource '<name>.png'
   //
-  public func loadBitmap(name: String) {
+  private func loadBitmap(name: String) {
     let uImage = loadUImage(name)
     
     var textureSize = CGPoint()
@@ -30,6 +37,8 @@ public class Texture : NSObject {
     select()
   }
 
+  // Make this the active OpenGL texture
+  //
   public func select() {
 		glBindTexture(GLenum(GL_TEXTURE_2D), textureId!);
   }
