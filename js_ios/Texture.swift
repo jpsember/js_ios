@@ -7,6 +7,10 @@ public class Texture : NSObject {
   public var width = 0
   public var height = 0
   
+  public var bounds: CGRect {
+    return CGRectMake(0,0,CGFloat(width),CGFloat(height))
+  }
+  
   // Constructor
   // 
   init(_ pngName:String) {

@@ -18,10 +18,6 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private let fps = 30.0
   private var preparedViewSize  = CGSizeMake(0,0)
   
-  private func freeTextures() {
- 		texture = nil
-  }
-  
   private func loadTextures() {
     if (texture != nil) {
       return
@@ -29,14 +25,12 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
     texture = Texture("sample")
-    let tw = CGRectMake(0,0,CGFloat(texture!.width),CGFloat(texture!.height))
-    spriteProgram = GLSpriteProgram(context: spriteContext, texture:texture, window: tw)
+    spriteProgram = GLSpriteProgram(context:spriteContext, texture:texture)
     
     spriteContext2 = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
     spriteContext2!.setTintColor(UIColor.redColor())
     texture2 = Texture("AlphaBall")
-    let tw2 = CGRectMake(0,0,CGFloat(texture2!.width),CGFloat(texture2!.height))
-    spriteProgram2 = GLSpriteProgram(context: spriteContext2, texture:texture2, window:tw2)
+    spriteProgram2 = GLSpriteProgram(context: spriteContext2, texture:texture2)
   }
   
   private func prepareGraphics(viewSize : CGSize) {

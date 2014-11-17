@@ -28,6 +28,10 @@
   return self;
 }
 
+- (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture {
+  return [self initWithContext:context texture:texture window:texture.bounds];
+}
+
 - (void)setPosition:(CGPoint)pos {
   [self setPosition:pos.x y:pos.y];
 }
