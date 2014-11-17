@@ -31,9 +31,8 @@ public class Texture : NSObject {
   //
   private func loadBitmap(name: String) {
     let uImage = loadUImage(name)
-    
-    var textureSize = CGPoint()
-    textureId = GLTools2.installTexture(uImage, size:&textureSize)
+    let (textureId,textureSize) = GLTools.installTexture(uImage!)
+   	self.textureId = textureId
     self.width = Int(textureSize.x)
     self.height = Int(textureSize.y)
     GLTools.verifyNoError()

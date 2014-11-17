@@ -6,7 +6,7 @@ public func == (lhs: Rect, rhs: Rect) -> Bool {
   return lhs.x == rhs.x && lhs.y == rhs.y && lhs.width == rhs.width && lhs.height == rhs.height
 }
 
-public struct Rect : Equatable {
+public struct Rect : Equatable, Printable {
   public var x = CGFloat(0)
   public var y = CGFloat(0)
 	public var width = CGFloat(0)

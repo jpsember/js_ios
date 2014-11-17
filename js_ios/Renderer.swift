@@ -21,7 +21,6 @@ public class Renderer : NSObject {
     
     deviceSize = viewSizeInPixels
     invalidateMatrixId()
-    puts("surfaceCreated, matrixId \(matrixId)")
     constructTransforms()
     
     // Enable alpha channel blending (otherwise the alpha channel, if present, will have no effect)

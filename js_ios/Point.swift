@@ -1,9 +1,12 @@
 import Foundation
 import UIKit
 
-public struct Point {
+public struct Point : Printable {
 	public var x = CGFloat(0.0)
 	public var y = CGFloat(0.0)
+  
+  public var ix : Int {return Int(x)}
+  public var iy : Int {return Int(y)}
   
   public static let zero = Point(0,0)
   

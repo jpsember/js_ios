@@ -6,38 +6,13 @@
 @implementation GLTools2
 
 + (void)setGLColor:(UIColor *)uiColor {
-  const CGFloat *components = CGColorGetComponents(uiColor.CGColor);
-	CGFloat red = components[0];
-	CGFloat green = components[1];
-	CGFloat blue = components[2];
-	CGFloat alpha = components[3];
-	glColor4f(red,green, blue, alpha);
+  const CGFloat *c = CGColorGetComponents(uiColor.CGColor);
+  glColor4f(c[0],c[1],c[2],c[3]);
 }
 
 + (void)setGLColor:(UIColor *)uiColor destination:(GLfloat *)dest {
-  const CGFloat *components = CGColorGetComponents(uiColor.CGColor);
-  memcpy(dest,components,sizeof(GLfloat) * 4);
-}
-
-
-#if DEBUG
-+ (void)exploreImage:(UIImage *)image {
-  DBG
-  CGImageRef spriteImage = image.CGImage;
-  ASSERT(spriteImage,@"problem");
-  
-  CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(spriteImage));
-  const byte *pixels = CFDataGetBytePtr(data);
-  pr(@"Image %@, bytes:\n%@\n",image,dBytes(pixels, 128*64*4));
-}
-#endif
-
-+ (GLuint)installTexture:(UIImage *)image size:(CGPoint *)sizePtr {
-  NSError *error = nil;
-  GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:image.CGImage options:nil error:&error];
-  ASSERT(!error,@"failed to install texture: %@",error);
-  *sizePtr = CGPointMake(textureInfo.width, textureInfo.height);
-  return textureInfo.name;
+  const CGFloat *c = CGColorGetComponents(uiColor.CGColor);
+  memcpy(dest,c,sizeof(GLfloat) * 4);
 }
 
 @end
@@ -70,6 +45,18 @@ NSString *dBytes(const byte *array, int len) {
     if ((i+1)%32 == 0)
       [s appendString:@"\n"];
   }
+  return s;
+}
+
+NSString *dImage(UIImage *image) {
+  CGImageRef spriteImage = image.CGImage;
+  CFDataRef data = CGDataProviderCopyData(CGImageGetDataProvider(spriteImage));
+  const byte *pixels = CFDataGetBytePtr(data);
+  int length = CFDataGetLength(data);
+  int dumpedLength = MIN(length, 32*4);
+  NSMutableString *s = [NSMutableString string];
+  [s appendFormat:@"UIImage %d x %d:\n%@\n",
+   (int)image.size.width,(int)image.size.height,dBytes(pixels,dumpedLength)];
   return s;
 }
 

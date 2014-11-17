@@ -100,4 +100,13 @@ public class GLTools : NSObject {
 		return location;
   }
   
+  // Install UIImage as OpenGL texture; return texture id, and size
+  //
+  public class func installTexture(image:UIImage) -> (GLuint,CGPoint) {
+    let error:NSErrorPointer = nil
+    let textureInfo = GLKTextureLoader.textureWithCGImage(image.CGImage,options:nil,error:error)
+    ASSERT(error == nil,"failed to install texture; \(error)")
+    return (textureInfo.name,CGPointMake(CGFloat(textureInfo.width),CGFloat(textureInfo.height)))
+  }
+
 }
