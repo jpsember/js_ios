@@ -18,8 +18,6 @@
 + (GLSpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode;
 + (void)prepare:(Renderer *)renderer;
 + (GLSpriteContext *)normalContext;
-- (int)projectionMatrixId;
-- (void)setProjectionMatrixId:(int)matrixId;
 - (void)setTintColor:(UIColor *)color;
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(NSInteger)length position:(CGPoint)position;
 - (void)activateProgram;

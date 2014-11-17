@@ -8,7 +8,6 @@ public class Renderer : NSObject {
   private var transformMap = [String:CGAffineTransform]()
   private var deviceSize: Point?
   private var matrixId = 10
-  private var surfaceId = 10
 
   public class func transformNameDeviceToNDC() -> String {
     return "device->ndc"
@@ -19,10 +18,10 @@ public class Renderer : NSObject {
   }
 
   public func surfaceCreated(viewSizeInPixels : Point) {
-    surfaceId += 1
     
     deviceSize = viewSizeInPixels
     invalidateMatrixId()
+    puts("surfaceCreated, matrixId \(matrixId)")
     constructTransforms()
     
     // Enable alpha channel blending (otherwise the alpha channel, if present, will have no effect)

@@ -4,7 +4,6 @@
 #import "js_ios-Swift.h"
 #import "GLTools2.h"
 
-static int projectionMatrixId = -1;
 static id spriteContext;
 static Renderer *renderer;
 static GLSpriteContext *normalContext;
@@ -34,11 +33,7 @@ static GLSpriteContext *normalContext;
 @implementation GLSpriteContext
 
 - (int)projectionMatrixId {
-  return projectionMatrixId;
-}
-
-- (void)setProjectionMatrixId:(int)matrixId {
-  projectionMatrixId = matrixId;
+  return [renderer projectionMatrixId];
 }
 
 + (GLSpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
@@ -73,43 +68,33 @@ static GLSpriteContext *normalContext;
   return normalContext;
 }
 
-#define ARRAY 0
 
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(int)length position:(CGPoint)position {
   
   [self activateProgram];
   [self prepareProjection];
   
-#if ARRAY
-  for (int x = -20; x < 20; x++) {
-    for (int y = -20; y < 20; y++) {
-      position = CGPointMake(x*70,y*70);
-#endif
-      glUniform2f(self.spritePositionLocation, position.x,position.y);
-      
-      if (self.tintMode) {
-        // Send one vec4 (the second parameter; this was a gotcha)
-        glUniform4fv(self.colorLocation, 1, _tintColor);
-      }
-      
-      [texture select];
-      
-      int stride = TOTAL_COMPONENTS * sizeof(GLfloat);
-      
-      glVertexAttribPointer(self.positionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, stride, vertexData);
-      glEnableVertexAttribArray(self.positionLocation);
-      
-      glVertexAttribPointer(self.textureCoordinateLocation, TEXTURE_COMPONENT_COUNT, GL_FLOAT, false, stride, vertexData + POSITION_COMPONENT_COUNT);
-      glEnableVertexAttribArray(self.textureCoordinateLocation);
-      
-      glDrawArrays(GL_TRIANGLES, 0, 6);
-      [GLTools verifyNoError];
-      
-#if ARRAY
-    }
+  glUniform2f(self.spritePositionLocation, position.x,position.y);
+  
+  if (self.tintMode) {
+    // Send one vec4 (the second parameter; this was a gotcha)
+    glUniform4fv(self.colorLocation, 1, _tintColor);
   }
-#endif
-	}
+  
+  [texture select];
+  
+  int stride = TOTAL_COMPONENTS * sizeof(GLfloat);
+  
+  glVertexAttribPointer(self.positionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, stride, vertexData);
+  glEnableVertexAttribArray(self.positionLocation);
+  
+  glVertexAttribPointer(self.textureCoordinateLocation, TEXTURE_COMPONENT_COUNT, GL_FLOAT, false, stride, vertexData + POSITION_COMPONENT_COUNT);
+  glEnableVertexAttribArray(self.textureCoordinateLocation);
+  
+  glDrawArrays(GL_TRIANGLES, 0, 6);
+  [GLTools verifyNoError];
+  
+}
 
 - (void)activateProgram {
   if (self.preparedSurfaceId == 0) {
@@ -141,7 +126,7 @@ static GLSpriteContext *normalContext;
 }
 
 - (void)prepareProjection {
-  int currentProjectionMatrixId = projectionMatrixId;
+  int currentProjectionMatrixId = [self projectionMatrixId];
   if (currentProjectionMatrixId == self.preparedProjectionMatrixId) {
     return;
   }

@@ -20,7 +20,8 @@ public class GLTools : NSObject {
   public class func verifyNoError() {
     let err = glGetError()
     if (err != 0) {
-      die("OpenGL error! Number \(err)")
+      warning("OpenGL error #\(err)")
+//      die("OpenGL error! Number \(err)")
     }
   }
   

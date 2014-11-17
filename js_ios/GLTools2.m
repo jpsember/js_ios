@@ -14,6 +14,7 @@
 	glColor4f(red,green, blue, alpha);
 }
 
+#if DEBUG
 + (void)exploreImage:(UIImage *)image {
   DBG
   CGImageRef spriteImage = image.CGImage;
@@ -23,16 +24,13 @@
   const byte *pixels = CFDataGetBytePtr(data);
   pr(@"Image %@, bytes:\n%@\n",image,dBytes(pixels, 128*64*4));
 }
+#endif
 
 + (GLuint)installTexture:(UIImage *)image size:(CGPoint *)sizePtr {
-  DBG
   NSError *error = nil;
-  if (false) [GLTools2 exploreImage:image];
   GLKTextureInfo *textureInfo = [GLKTextureLoader textureWithCGImage:image.CGImage options:nil error:&error];
   ASSERT(!error,@"failed to install texture: %@",error);
   *sizePtr = CGPointMake(textureInfo.width, textureInfo.height);
-  pr(@"installTexture info:\n%@\n",textureInfo);
-  
   return textureInfo.name;
 }
 
