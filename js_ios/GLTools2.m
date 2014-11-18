@@ -18,14 +18,6 @@
 @end
 
 #if DEBUG
-NSString *dPoint(CGPoint pt) {
-  return [NSString stringWithFormat:@"(%5.2f %5.2f) ",pt.x,pt.y];
-}
-
-NSString *dRect(CGRect rect) {
-  return [NSString stringWithFormat:@"(x:%5.2f y:%5.2f w:%5.2f h:%5.2f) ",rect.origin.x,rect.origin.y,rect.size.width,rect.size.height];
-}
-
 NSString *dFloats(const float *array, int len) {
   NSMutableString *s = [NSMutableString string];
   for (int i = 0; i < len; i++) {
@@ -58,15 +50,6 @@ NSString *dImage(UIImage *image) {
   [s appendFormat:@"UIImage %d x %d:\n%@\n",
    (int)image.size.width,(int)image.size.height,dBytes(pixels,dumpedLength)];
   return s;
-}
-
-NSString *dDouble(double x) {
-  return [NSString stringWithFormat:@"%8.2f ",x];
-}
-
-NSString *dDoubleWith(double x, int width, int nDecimals) {
-  NSString *fmt = [NSString stringWithFormat:@"%d.%d ",width,nDecimals];
-  return [NSString stringWithFormat:fmt,x];
 }
 
 #endif

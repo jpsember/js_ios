@@ -92,7 +92,7 @@ extension CGRect :  Printable {
 	}
 
   public var description : String {
-    return dump(x) + dump(y) + dump(width) + dump(height)
+    return "(x:\(d(x))y:\(d(y))w:\(d(width))h:\(d(height)))"
 	}
 
   public mutating func inset(dx:CGFloat,dy:CGFloat) {

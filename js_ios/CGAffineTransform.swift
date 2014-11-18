@@ -76,25 +76,26 @@ extension CGAffineTransform:  Printable {
     
     let f = "8.4f"
     var s = "[ "
-    s += dump(a, format:f)
+    // We need to add 'js_ios.' since d is actually a property name as well
+    s += js_ios.d(a,f)
     s += "   "
-    s += dump(b, format:f)
+    s += js_ios.d(b,f)
     s += "   "
-    s += dump(CGFloat(0), format:f)
+    s += js_ios.d(0.0,f)
     s += " ]\n[ "
-    s += dump(c, format:f)
+    s += js_ios.d(c,f)
     s += "   "
-    s += dump(d, format:f)
+    s += js_ios.d(d,f)
     s += "   "
-    s += dump(CGFloat(0), format:f)
+    s += js_ios.d(0.0,f)
     s += " ]\n[ "
-    s += dump(tx, format:f)
+    s += js_ios.d(tx,f)
     s += "   "
-    s += dump(ty, format:f)
+    s += js_ios.d(ty,f)
     s += "   "
-    s += dump(CGFloat(1), format:f)
+    s += js_ios.d(1.0,f)
     s += " ]\n"
-   return s
+   	return s
   }
  
 }

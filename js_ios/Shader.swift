@@ -53,6 +53,7 @@ public class Shader : NSObject {
   }
   
   deinit {
+    // TODO: OpenGL calls may not be allowed when this object gets destructed!
     if let shader = shaderId {
     	glDeleteShader(shader)
     }

@@ -60,7 +60,7 @@ extension CGPoint :  Printable {
   }
   
   public var description : String {
-    return dump(x) + dump(y)
+    return "(x:\(d(x))y:\(d(y)))"
   }
 
   public mutating func apply(t: CGAffineTransform) {

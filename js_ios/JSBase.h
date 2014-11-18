@@ -6,8 +6,6 @@
 #define DEBUG 1
 #endif
 
-#define WITHSTUFF 1
-
 @protocol JSAppendStringProtocol;
 
 typedef unsigned char byte;

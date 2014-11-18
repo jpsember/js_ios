@@ -9,11 +9,10 @@
 
 #if DEBUG
 // Convenience methods to display non-class objects as strings
-NSString *dPoint(CGPoint pt);
-NSString *dRect(CGRect rect);
+#define dRect(rect) [DebugTools dRect:rect]
+#define dPoint(point) [DebugTools dPoint:point]
+#define dDouble(value) [DebugTools dDouble:value format:nil]
 NSString *dFloats(const float *array, int len);
 NSString *dBytes(const byte *array, int len);
 NSString *dImage(UIImage *image);
-NSString *dDouble(double x);
-NSString *dDoubleWith(double x, int width, int nDecimals);
 #endif
