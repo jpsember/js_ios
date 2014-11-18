@@ -1,4 +1,5 @@
 #import "JSBase.h"
+#import "js_ios-Swift.h"
 
 @interface JSOrderedSet ()
 
@@ -77,7 +78,7 @@
 
 - (BOOL)addItem:(id)item mustNotExist:(BOOL)mustNotExist {
 //  DBG
-  pr(@"addItem %@ mustNotExist %@\n",item,dbool(mustNotExist));
+  pr(@"addItem %@ mustNotExist %@\n",item,dBool(mustNotExist));
   
     BOOL found = NO;
     

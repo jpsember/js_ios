@@ -1,7 +1,7 @@
 #import <objc/runtime.h>
 #import "JSBase.h"
 #import "JSSwizzler.h"
-
+#import "js_ios-Swift.h"
 
 @interface SwizzledMethodEntry : NSObject
 
@@ -28,7 +28,7 @@
     if (self.method2Name) {
         [s appendFormat:@" method2Name=%@",self.method2Name];
     }
-    [s appendFormat:@" isInstance:%@ origLoc=%@",[JSBase stringFromBool:self.isInstanceMethod],self.originalMethodLocation];
+    [s appendFormat:@" isInstance:%@ origLoc=%@",dBool(self.isInstanceMethod),self.originalMethodLocation];
     return s;
 }
 #endif

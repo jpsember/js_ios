@@ -9,12 +9,12 @@
 @protocol JSAppendStringProtocol;
 
 typedef unsigned char byte;
+#import "DebugTools.h"
 
 @interface JSBase : NSObject
 
 + (void)dieWithMessage:(NSString *)message;
 + (void)dieWithFilename:(const char *)filename line:(int)line;
-+ (NSString *)stringFromBool:(BOOL)b;
 + (NSString *)dumpBits:(uint)value;
 + (BOOL)testModeActive;
 #if DEBUG
