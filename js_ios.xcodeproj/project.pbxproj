@@ -78,7 +78,7 @@
 		F4AA66E41A1701F30058452F /* GLTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D81A1701F30058452F /* GLTools.swift */; };
 		F4AA66E51A1701F30058452F /* GLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66D91A1701F30058452F /* GLView.swift */; };
 		F4AA66E61A1701F30058452F /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DA1A1701F30058452F /* CGPoint.swift */; };
-		F4AA66E71A1701F30058452F /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DB1A1701F30058452F /* Rect.swift */; };
+		F4AA66E71A1701F30058452F /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DB1A1701F30058452F /* CGRect.swift */; };
 		F4AA66E81A1701F30058452F /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DC1A1701F30058452F /* Renderer.swift */; };
 		F4AA66E91A1701F30058452F /* Shader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DD1A1701F30058452F /* Shader.swift */; };
 		F4AA66EB1A1701F30058452F /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4AA66DF1A1701F30058452F /* Texture.swift */; };
@@ -200,7 +200,7 @@
 		F4AA66D81A1701F30058452F /* GLTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLTools.swift; path = js_ios/GLTools.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66D91A1701F30058452F /* GLView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GLView.swift; path = js_ios/GLView.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66DA1A1701F30058452F /* CGPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGPoint.swift; path = js_ios/CGPoint.swift; sourceTree = SOURCE_ROOT; };
-		F4AA66DB1A1701F30058452F /* Rect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rect.swift; path = js_ios/Rect.swift; sourceTree = SOURCE_ROOT; };
+		F4AA66DB1A1701F30058452F /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CGRect.swift; path = js_ios/CGRect.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66DC1A1701F30058452F /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Renderer.swift; path = js_ios/Renderer.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66DD1A1701F30058452F /* Shader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shader.swift; path = js_ios/Shader.swift; sourceTree = SOURCE_ROOT; };
 		F4AA66DF1A1701F30058452F /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Texture.swift; path = js_ios/Texture.swift; sourceTree = SOURCE_ROOT; };
@@ -412,7 +412,7 @@
 				F4AA66D61A1701F30058452F /* CGAffineTransform.swift */,
 				F4AA66D91A1701F30058452F /* GLView.swift */,
 				F4AA66DA1A1701F30058452F /* CGPoint.swift */,
-				F4AA66DB1A1701F30058452F /* Rect.swift */,
+				F4AA66DB1A1701F30058452F /* CGRect.swift */,
 				F4AA66DC1A1701F30058452F /* Renderer.swift */,
 				F4AA66DD1A1701F30058452F /* Shader.swift */,
 				F4AA66DF1A1701F30058452F /* Texture.swift */,
@@ -555,7 +555,7 @@
 				F47D5B0F1A11E868003F91CD /* Base.swift in Sources */,
 				1FB9E9A818A1ED2B00BC9E9F /* JSSymbolicNames.m in Sources */,
 				F4AA66E51A1701F30058452F /* GLView.swift in Sources */,
-				F4AA66E71A1701F30058452F /* Rect.swift in Sources */,
+				F4AA66E71A1701F30058452F /* CGRect.swift in Sources */,
 				F4AA66E41A1701F30058452F /* GLTools.swift in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
