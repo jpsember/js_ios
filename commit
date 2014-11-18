@@ -200,7 +200,7 @@ class Program
   def parse_arguments(argv)
     p = Trollop::Parser.new do
       banner <<-EOS
-      Runs unit tests, generates commit for this Android project
+      Runs unit tests, generates commit for this iOS project
       EOS
       opt :clean, "clean projects before running tests"
       opt :detail, "display lots of detail"
