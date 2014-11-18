@@ -9,5 +9,6 @@
 
 // Import any test-only headers...
 #import "JSTestUtil.h"
+#import "JSSimulator.h"
 
 #endif

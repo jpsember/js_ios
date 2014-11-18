@@ -56,6 +56,7 @@ class Unit_Test_ExampleTests: JSTestCase {
       puts("Point: \(q)")
     }
     IORecorder.stop()
+    // JSSimulator.printPath()
   }
 
 }

@@ -85,6 +85,11 @@ class Program
           update_old_git_state
         end
       end
+
+      if !@options[:omit_snapshots]
+        update_snapshots
+      end
+
       passed_tests = true
 
       if !@options[:testonly] && commit_required
@@ -202,6 +207,7 @@ class Program
       opt :verbose, "display progress"
       opt :omit_tests,"omit tests"
       opt :testonly,"perform unit tests only, without generating commit"
+      opt :omit_snapshots, "omit snapshot updating"
     end
 
     Trollop::with_standard_exception_handling p do
@@ -223,6 +229,16 @@ class Program
       puts "-----------------------------------------"
       raise ProgramException,"Problem performing unit tests"
     end
+  end
+
+  def update_snapshots
+    command = "simbuddy"
+    command << " -v" if @verbose
+    sim_dir = File.join(Dir.home,"Library/Developer/CoreSimulator/Devices/"+
+      "7091BCC2-4ED2-4278-8186-A8442BAFA4CD/"+
+      "data/Containers/Data/Application")
+    command << " -s #{sim_dir}"
+    runcmd(command,"...updating snapshots")
   end
 
   def runcmd(cmd,message=nil)

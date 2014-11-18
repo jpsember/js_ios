@@ -20,6 +20,12 @@
     return simulator;
 }
 
++ (void)printPath {
+  NSString *path = [[JSSimulator sharedInstance] filesDumpPath];
+  DBG
+  pr(@"\n\nSimulator directory is:\n\n   %@\n\n",path);
+}
+
 - (instancetype)init {
     if (self = [super init]) {
         [self _findAppResources];

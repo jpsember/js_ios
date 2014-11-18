@@ -109,8 +109,6 @@ static JSIORecorder *activeRecorder;
       // If snapshot already exists, compare with it; otherwise, create it
       snapshotPath = [[JSSimulator sharedInstance] resourcePath:[self _getPathForContent:content] forWriting:NO error:&error];
       ASSERT(!error,0);
-      //DBG
-      pr(@"snapshotpath:\n%@\n\n",snapshotPath);
       
       NSFileManager *fileManager = [NSFileManager defaultManager];
       fileAlreadyExists = [fileManager fileExistsAtPath:snapshotPath];
@@ -147,19 +145,19 @@ static JSIORecorder *activeRecorder;
         resourcePath = [NSString stringWithFormat:@"%@_TEMP_.%@",[resourcePath stringByDeletingPathExtension],ext];
       }
       
-    snapshotPath = [[JSSimulator sharedInstance] resourcePath:resourcePath forWriting:YES error:&error];
-    ASSERT(!error,0);
+      snapshotPath = [[JSSimulator sharedInstance] resourcePath:resourcePath forWriting:YES error:&error];
+      ASSERT(!error,0);
       if (!errorMessage) {
-      puts("\n----------------------------------------------------------------------------");
-    printf("Writing new snapshot to %s:\n",[snapshotPath UTF8String]);
-    if ([content length] <= kMaxDisplaySize) {
-      puts("----------------------------------------------------------------------------");
-      puts([content UTF8String]);
-    }
-    puts("----------------------------------------------------------------------------\n\n");
+        puts("\n----------------------------------------------------------------------------");
+        printf("Writing new snapshot to %s:\n",[snapshotPath UTF8String]);
+        if ([content length] <= kMaxDisplaySize) {
+          puts("----------------------------------------------------------------------------");
+          puts([content UTF8String]);
+        }
+        puts("----------------------------------------------------------------------------\n\n");
       }
-    [content writeToPath:snapshotPath error:&error];
-    ASSERT(!error,0);
+      [content writeToPath:snapshotPath error:&error];
+      ASSERT(!error,0);
     }
     
     if (errorMessage) {
