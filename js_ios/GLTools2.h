@@ -14,4 +14,6 @@ NSString *dRect(CGRect rect);
 NSString *dFloats(const float *array, int len);
 NSString *dBytes(const byte *array, int len);
 NSString *dImage(UIImage *image);
+NSString *dDouble(double x);
+NSString *dDoubleWith(double x, int width, int nDecimals);
 #endif

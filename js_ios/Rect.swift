@@ -58,7 +58,7 @@ public struct Rect : Equatable, Printable {
     return "\(dump(x)) \(dump(y)) \(dump(width)) \(dump(height)) "
 	}
 
-  init(_ pt1:Point, _ pt2:Point) {
+  public init(_ pt1:CGPoint, _ pt2:CGPoint) {
     self.x = min(pt1.x,pt2.x)
     self.y = min(pt1.y,pt2.y)
     self.width = max(pt1.x,pt2.x) - self.x

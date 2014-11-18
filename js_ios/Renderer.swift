@@ -6,7 +6,7 @@ public typealias Matrix = CGAffineTransform
 public class Renderer : NSObject {
 
   private var transformMap = [String:CGAffineTransform]()
-  private var deviceSize: Point?
+  private var deviceSize: CGPoint?
   private var matrixId = 10
 
   public class func transformNameDeviceToNDC() -> String {
@@ -17,7 +17,7 @@ public class Renderer : NSObject {
   	matrixId += 1
   }
 
-  public func surfaceCreated(viewSizeInPixels : Point) {
+  public func surfaceCreated(viewSizeInPixels : CGPoint) {
     
     deviceSize = viewSizeInPixels
     invalidateMatrixId()

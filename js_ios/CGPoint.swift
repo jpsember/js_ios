@@ -1,37 +1,40 @@
 import Foundation
 import UIKit
 
-public struct Point : Printable {
-	public var x = CGFloat(0.0)
-	public var y = CGFloat(0.0)
-  
+extension CGPoint :  Printable {
+
   public var ix : Int {return Int(x)}
   public var iy : Int {return Int(y)}
   
-  public static let zero = Point(0,0)
+  public static let zero = CGPointZero
   
-  init(_ x:CGFloat = 0, _ y:CGFloat = 0) {
-    self.x = x
-    self.y = y
-  }
-  
-  init(_ point: Point) {
-    self.init(point.x,point.y)
-  }
-  
-  init(_ x:Int, _ y:Int) {
+  public init(_ x:Double, _ y:Double) {
     self.x = CGFloat(x)
     self.y = CGFloat(y)
   }
   
-  init(_ point: CGPoint) {
+  public init(_ x:Float = 0, _ y:Float = 0) {
+    self.x = CGFloat(x)
+    self.y = CGFloat(y)
+  }
+
+  public init(_ x:CGFloat = 0, _ y:CGFloat = 0) {
+    self.x = x
+    self.y = y
+  }
+  
+  public init(_ point: CGPoint) {
     self.init(point.x,point.y)
   }
   
-  init(_ size: CGSize) {
-    self.init(size.width,size.height)
+  public init(_ x:Int, _ y:Int) {
+    self.x = CGFloat(x)
+    self.y = CGFloat(y)
   }
   
+  public init(_ size: CGSize) {
+    self.init(size.width,size.height)
+  }
 
   public mutating func setTo(x:CGFloat, _ y:CGFloat) {
     self.x = x
@@ -43,11 +46,11 @@ public struct Point : Printable {
     self.y = 0
   }
   
-  public mutating func setTo(source:Point) {
+  public mutating func setTo(source:CGPoint) {
     setTo(source.x,source.y)
   }
   
-  public mutating func add(other:Point) {
+  public mutating func add(other:CGPoint) {
   	x += other.x
     y += other.y
   }
@@ -57,7 +60,7 @@ public struct Point : Printable {
   }
   
   public var description : String {
-    return "\(x) \(y) "
+    return dump(x) + dump(y) //"\(dump(x))\(dump(y))"
   }
 
   public mutating func apply(t: CGAffineTransform) {

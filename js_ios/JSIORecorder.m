@@ -18,7 +18,7 @@ static JSIORecorder *activeRecorder;
 
 @implementation JSIORecorder
 
-+ (JSIORecorder *)start:(BOOL)replaceIfChanged {
++ (NSArray *)extractClassAndMethodNames {
   NSArray *stackTrace = [JSBase stackTrace];
   JSStackTraceElement *callerElem = nil;
   for (JSStackTraceElement *elem in stackTrace) {
@@ -29,12 +29,26 @@ static JSIORecorder *activeRecorder;
   }
   if (!callerElem)
     die(@"no test methods found in stack trace: %@",stackTrace);
-  
+  NSMutableArray *array = [NSMutableArray array];
+  NSString *className = callerElem.className;
   NSString *mth = callerElem.methodName;
   NSString *methodName = [mth stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+  [array addObject:className];
+  [array addObject:methodName];
+  return array;
+}
+
++ (JSIORecorder *)start:(BOOL)replaceIfChanged {
+  NSArray *names = [JSIORecorder extractClassAndMethodNames];
+  NSString *className = names[0];
+  NSString *methodName = names[1];
+  return [JSIORecorder start:replaceIfChanged className:className methodName:methodName];
+}
+
++ (JSIORecorder *)start:(BOOL)replaceIfChanged className:(NSString *)className methodName:(NSString *)methodName {
   if (replaceIfChanged)
-    warning(@"JSIORecorder replacing old for %@:%@",callerElem.className,methodName);
-  return [self startWithClassName:callerElem.className methodName:methodName replaceIfChanged:replaceIfChanged];
+    warning(@"JSIORecorder replacing old for %@:%@",className,methodName);
+  return [self startWithClassName:className methodName:methodName replaceIfChanged:replaceIfChanged];
 }
 
 + (JSIORecorder *)start {
@@ -95,6 +109,8 @@ static JSIORecorder *activeRecorder;
       // If snapshot already exists, compare with it; otherwise, create it
       snapshotPath = [[JSSimulator sharedInstance] resourcePath:[self _getPathForContent:content] forWriting:NO error:&error];
       ASSERT(!error,0);
+      //DBG
+      pr(@"snapshotpath:\n%@\n\n",snapshotPath);
       
       NSFileManager *fileManager = [NSFileManager defaultManager];
       fileAlreadyExists = [fileManager fileExistsAtPath:snapshotPath];

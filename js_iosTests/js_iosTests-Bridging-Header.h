@@ -8,5 +8,6 @@
 #import "js_ios-Bridging-Header.h"
 
 // Import any test-only headers...
+#import "JSTestUtil.h"
 
 #endif

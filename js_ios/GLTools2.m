@@ -29,7 +29,7 @@ NSString *dRect(CGRect rect) {
 NSString *dFloats(const float *array, int len) {
   NSMutableString *s = [NSMutableString string];
   for (int i = 0; i < len; i++) {
-    [s appendFormat:@"%7.4f ",array[i]];
+    [s appendString:dDouble(array[i])];
     if ((i+1)%4 == 0)
       [s appendString:@"\n"];
   }
@@ -58,6 +58,15 @@ NSString *dImage(UIImage *image) {
   [s appendFormat:@"UIImage %d x %d:\n%@\n",
    (int)image.size.width,(int)image.size.height,dBytes(pixels,dumpedLength)];
   return s;
+}
+
+NSString *dDouble(double x) {
+  return [NSString stringWithFormat:@"%8.2f ",x];
+}
+
+NSString *dDoubleWith(double x, int width, int nDecimals) {
+  NSString *fmt = [NSString stringWithFormat:@"%d.%d ",width,nDecimals];
+  return [NSString stringWithFormat:fmt,x];
 }
 
 #endif

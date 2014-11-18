@@ -42,7 +42,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     if (renderer == nil) {
       renderer = Renderer()
     }
-    renderer!.surfaceCreated(Point(preparedViewSize))
+    renderer!.surfaceCreated(CGPoint(preparedViewSize))
 		
     if (spriteProgram != nil) {
       return
