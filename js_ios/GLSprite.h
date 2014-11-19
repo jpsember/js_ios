@@ -3,12 +3,11 @@
 
 @interface GLSprite : NSObject
 
-- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture window:(CGRect)textureWindow;
-
 /**
- * Initialize with window that encompasses the entire texture
+ * Designated initializer
+ * If program is nil, uses basic program
  */
-- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture;
+- (id)initWithTexture:(Texture *)texture window:(CGRect)textureWindow program:(GLSpriteProgram *)program;
 
 // Render sprite at a location
 //

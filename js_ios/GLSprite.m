@@ -17,18 +17,19 @@
 
 @implementation GLSprite
 
-- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture window:(CGRect)textureWindow {
+/**
+ * Initialize with window that encompasses the entire texture
+ */
+- (id)initWithTexture:(Texture *)texture window:(CGRect)textureWindow program:(GLSpriteProgram *)program {
   if (self = [super init]) {
+    if (program == nil)
+      program = [GLSpriteProgram getProgram];
     _program = program;
     _texture = texture;
     _textureWindow = textureWindow;
     [self constructVertexInfo];
   }
   return self;
-}
-
-- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture {
-  return [self initWithProgram:program texture:texture window:texture.bounds];
 }
 
 - (void)constructVertexInfo {

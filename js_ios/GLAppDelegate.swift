@@ -22,10 +22,10 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     
     texture = Texture("sample")
-    sprite = GLSprite(program:GLSpriteProgram.getProgram(), texture:texture)
+    sprite = GLSprite(texture:texture, window:texture!.bounds, program:nil)
     
     texture2 = Texture("AlphaBall")
-    sprite2 = GLSprite(program:GLTintedSpriteProgram.getProgram(), texture:texture2)
+    sprite2 = GLSprite(texture:texture2, window:texture2!.bounds, program:GLTintedSpriteProgram.getProgram())
   }
   
   private func prepareGraphics(viewSize : CGSize) {
