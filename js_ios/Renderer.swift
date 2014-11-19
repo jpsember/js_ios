@@ -6,7 +6,7 @@ public typealias Matrix = CGAffineTransform
 public class Renderer : NSObject {
 
   private var transformMap = [String:CGAffineTransform]()
-  private var deviceSize: CGPoint?
+  private var deviceSize = CGPoint.zero
   private var matrixId = 10
 
   public class func transformNameDeviceToNDC() -> String {
@@ -19,7 +19,7 @@ public class Renderer : NSObject {
 
   public func surfaceCreated(viewSizeInPixels : CGPoint) {
     
-    deviceSize = viewSizeInPixels
+    deviceSize.setTo(viewSizeInPixels)
     invalidateMatrixId()
     constructTransforms()
     
@@ -72,8 +72,8 @@ public class Renderer : NSObject {
 	 * normalized device coordinates (-1,-1 ... 1,1)
 	 */
   private func buildDeviceToNDCProjectionMatrix() -> CGAffineTransform  {
-    let w = deviceSize!.x
-    let h = deviceSize!.y
+    let w = deviceSize.x
+    let h = deviceSize.y
   	let sx = 2 / w
   	let sy = 2 / h
     

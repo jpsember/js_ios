@@ -1,5 +1,13 @@
 import GLKit
 
+
+public func pointOnCircle(origin:CGPoint, _ radius:CGFloat, _ angle:CGFloat) -> CGPoint {
+  let x : CGFloat = origin.x + cos(angle) * radius
+  let y : CGFloat = origin.y + sin(angle) * radius
+  return CGPoint(x, y)
+}
+
+
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   
@@ -10,10 +18,11 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var sprite : GLSprite?
   private var renderer : Renderer?
   private var sprite2 : GLSprite?
+  private var sprite3 : GLSprite?
   
-  private var angle = 0.0
-  private let PI = 3.141592
-  private let fps = 30.0
+  private var angle : CGFloat = 0.0
+  private let PI : CGFloat  = 3.141592
+  private let fps : CGFloat = 30.0
   private var preparedViewSize  = CGSizeMake(0,0)
   
   private func loadTextures() {
@@ -26,6 +35,10 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     texture2 = Texture("AlphaBall")
     sprite2 = GLSprite(texture:texture2, window:texture2!.bounds, program:GLTintedSpriteProgram.getProgram())
+  
+    let texture3 = Texture("blob")
+    sprite3 = GLSprite(texture:texture3, window:texture3.bounds, program:nil)
+
   }
   
   private func prepareGraphics(viewSize : CGSize) {
@@ -58,10 +71,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     angle += (PI / 180.0) * (60 / fps)
     
-    let x = CGFloat(300.0 + cos(angle) * 250.0)
-    let y = CGFloat(300.0 + sin(angle) * 250.0)
-    
-    sprite!.render(CGPoint(x,y))
+    sprite!.render(pointOnCircle(CGPoint(300,300),250,angle))
     
     if (true) { // Limit the scope of the variables within; swift is missing the feature '{ ... }' of Obj-C, Java, ...
       let t = (angle % (2*PI))/(2*PI)
@@ -69,6 +79,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       GLTintedSpriteProgram.getProgram().setTintColor(color)
     }
     sprite2!.render(view!.bounds.midPoint);
+    sprite3!.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
     
     GLTools.verifyNoError()
     
@@ -84,7 +95,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     // Set up a timer to redraw the screen several times a second
     // Define the timer object
-    timer = NSTimer.scheduledTimerWithTimeInterval(1.0/fps, target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
+    timer = NSTimer.scheduledTimerWithTimeInterval(Double(1.0/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
     return view
   }
   
