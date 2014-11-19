@@ -1,11 +1,8 @@
 #import "js_ios-Swift.h"
 #import "JSBase.h"
-#import "GLTools.h"
 #import "GLTintedSpriteProgram.h"
 
-static id spriteContext;
-static Renderer *renderer;
-static GLTintedSpriteProgram *tintProgram;
+static GLTintedSpriteProgram *program;
 
 @interface GLTintedSpriteProgram ()
 {
@@ -37,12 +34,13 @@ static GLTintedSpriteProgram *tintProgram;
 }
 
 + (void)prepare:(Renderer *)r {
-  renderer = r;
-  tintProgram = [GLTintedSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
 }
 
-+ (GLTintedSpriteProgram *)program {
-  return tintProgram;
++ (GLTintedSpriteProgram *)getProgram {
+   if (!program) {
+      program = [GLTintedSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
+   }
+   return program;
 }
 
 - (void)renderAux {

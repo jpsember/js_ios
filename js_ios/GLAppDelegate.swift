@@ -9,8 +9,6 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var texture2 : Texture?
   private var sprite : GLSprite?
   private var renderer : Renderer?
-  private var spriteProgram : GLSpriteProgram?
-  private var spriteProgram2 : GLTintedSpriteProgram?
   private var sprite2 : GLSprite?
   
   private var angle = 0.0
@@ -23,14 +21,11 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     
-    spriteProgram = GLSpriteProgram(transformName:Renderer.transformNameDeviceToNDC())
     texture = Texture("sample")
-    sprite = GLSprite(program:spriteProgram, texture:texture)
+    sprite = GLSprite(program:GLSpriteProgram.getProgram(), texture:texture)
     
-    spriteProgram2 = GLTintedSpriteProgram(transformName:Renderer.transformNameDeviceToNDC())
-    spriteProgram2!.setTintColor(UIColor.redColor())
     texture2 = Texture("AlphaBall")
-    sprite2 = GLSprite(program: spriteProgram2, texture:texture2)
+    sprite2 = GLSprite(program:GLTintedSpriteProgram.getProgram(), texture:texture2)
   }
   
   private func prepareGraphics(viewSize : CGSize) {
@@ -67,13 +62,13 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     let y = CGFloat(300.0 + sin(angle) * 250.0)
     
     sprite!.render(CGPoint(x,y))
-    sprite2!.render(view!.bounds.midPoint);
     
-    if (true) {
+    if (true) { // Limit the scope of the variables within; swift is missing the feature '{ ... }' of Obj-C, Java, ...
       let t = (angle % (2*PI))/(2*PI)
       let color = UIColor(red:CGFloat(t), green:CGFloat(0.25+t/2), blue: CGFloat(0.75-t/2), alpha: CGFloat(t))
-      spriteProgram2!.setTintColor(color)
+      GLTintedSpriteProgram.getProgram().setTintColor(color)
     }
+    sprite2!.render(view!.bounds.midPoint);
     
     GLTools.verifyNoError()
     

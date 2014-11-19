@@ -3,9 +3,8 @@
 #import "GLSpriteProgram.h"
 #import "GLTools.h"
 
-static id spriteContext;
 static Renderer *renderer;
-static GLSpriteProgram *normalProgram;
+static GLSpriteProgram *program;
 
 @interface GLSpriteProgram ()
 {
@@ -57,11 +56,13 @@ static GLSpriteProgram *normalProgram;
 
 + (void)prepare:(Renderer *)r {
   renderer = r;
-  normalProgram = [GLSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
 }
 
-+ (GLSpriteProgram *)normalProgram {
-  return normalProgram;
++ (GLSpriteProgram *)getProgram {
+  if (!program) {
+    program = [GLSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
+  }
+  return program;
 }
 
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(int)length position:(CGPoint)position {

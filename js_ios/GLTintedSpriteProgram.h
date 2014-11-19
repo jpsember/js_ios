@@ -2,11 +2,9 @@
 
 @interface GLTintedSpriteProgram : GLSpriteProgram
 
-+ (GLTintedSpriteProgram *)programWithTransformName:(NSString *)transformName;
-+ (void)prepare:(Renderer *)renderer;
-+ (GLTintedSpriteProgram *)program;
++ (GLTintedSpriteProgram *)getProgram;
 
-- (id)initWithTransformName:(NSString *)transformName;
++ (void)prepare:(Renderer *)renderer;
 
 - (void)setTintColor:(UIColor *)color;
 
