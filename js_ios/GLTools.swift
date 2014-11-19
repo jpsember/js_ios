@@ -9,6 +9,10 @@ extension GLTools {
     static var programId: GLuint = 0
   }
 
+  public class func initializeOpenGLState() {
+		glBlendFunc(GLenum(GL_SRC_ALPHA),GLenum(GL_ONE_MINUS_SRC_ALPHA))
+  }
+  
   private class func verifyNoProgramError(programId:GLuint, objectParameter:GLenum) {
     var sResultCode: GLint = GLint()
     glGetProgramiv(programId, objectParameter, &sResultCode);

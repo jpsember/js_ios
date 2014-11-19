@@ -42,3 +42,8 @@ public func nonNil<T> (item: T?, _ file:String = __FILE__, _ line:Int = __LINE__
   }
 }
 
+// Provided for conditional compilation that suppresses 'won't be compiled' warnings
+public func alwaysFalse() -> Bool {
+  return false
+}
+

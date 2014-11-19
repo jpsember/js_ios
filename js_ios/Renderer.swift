@@ -23,8 +23,6 @@ public class Renderer : NSObject {
     invalidateMatrixId()
     constructTransforms()
     
-    glBlendFunc(GLenum(GL_SRC_ALPHA),GLenum(GL_ONE_MINUS_SRC_ALPHA))
-    
     GLSpriteProgram.prepare(self)
   }
   

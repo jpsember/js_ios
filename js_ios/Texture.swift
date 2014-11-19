@@ -40,14 +40,20 @@ public class Texture : NSObject {
     self.height = Int(textureSize.y)
     self.hasAlpha = hasAlpha
     GLTools.verifyNoError()
-    
-    select()
   }
 
   // Make this the active OpenGL texture
   //
   public func select() {
 		glBindTexture(GLenum(GL_TEXTURE_2D), textureId!);
+    
+    // We must set the wrapping / clamping options for each individual texture.
+    
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GLint(GL_REPEAT))
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GLint(GL_REPEAT))
+    
+    glTexParameteri(GLenum(GL_TEXTURE_2D),GLenum(GL_TEXTURE_MAG_FILTER),GL_LINEAR)
+    glTexParameteri(GLenum(GL_TEXTURE_2D),GLenum(GL_TEXTURE_MIN_FILTER),GL_LINEAR)
   }
 
 }
