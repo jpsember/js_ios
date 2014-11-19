@@ -14,11 +14,14 @@
 
 @interface GLSpriteProgram : NSObject
 
-+ (GLSpriteProgram *)spriteProgramWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode;
++ (GLSpriteProgram *)programWithTransformName:(NSString *)transformName;
 + (void)prepare:(Renderer *)renderer;
 + (GLSpriteProgram *)normalProgram;
 
-- (void)setTintColor:(UIColor *)color;
+- (id)initWithTransformName:(NSString *)transformName;
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(NSInteger)length position:(CGPoint)position;
+- (NSString *)fragmentShaderName;
+- (void)renderAux;
+- (void)prepareAttributes;
 
 @end

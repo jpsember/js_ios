@@ -35,38 +35,34 @@ static GLSpriteProgram *normalProgram;
   return [renderer projectionMatrixId];
 }
 
-+ (GLSpriteProgram *)spriteProgramWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
-  return [[GLSpriteProgram alloc] initWithTransformName:transformName tintMode:tintMode];
++ (GLSpriteProgram *)programWithTransformName:(NSString *)transformName{
+  return [[GLSpriteProgram alloc] initWithTransformName:transformName];
 }
 
-- (id)initWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
-
+- (id)initWithTransformName:(NSString *)transformName {
   if (self = [super init]) {
     _transformName = transformName;
-    _tintMode = tintMode;
   }
   return self;
 }
 
-- (void)setTintColor:(UIColor *)color {
-  ASSERT(self.tintMode,@"expected tint mode");
-  [GLTools setGLColor:color destination:_tintColor];
+- (NSString *)fragmentShaderName {
+  return @"fragment_shader_texture.glsl";
 }
 
 - (void)prepareShaders {
   self.vertexShader = [Shader readVertexShader:@"vertex_shader_texture.glsl"];
-  self.fragmentShader = [Shader readFragmentShader:(self.tintMode ? @"fragment_shader_mask.glsl" : @"fragment_shader_texture.glsl")];
+  self.fragmentShader = [Shader readFragmentShader:[self fragmentShaderName]];
 }
 
 + (void)prepare:(Renderer *)r {
   renderer = r;
-  normalProgram = [GLSpriteProgram spriteProgramWithTransformName:[Renderer transformNameDeviceToNDC] tintMode:NO];
+  normalProgram = [GLSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
 }
 
 + (GLSpriteProgram *)normalProgram {
   return normalProgram;
 }
-
 
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(int)length position:(CGPoint)position {
   
@@ -75,9 +71,7 @@ static GLSpriteProgram *normalProgram;
   
   glUniform2f(self.spritePositionLocation, position.x,position.y);
   
-  if (self.tintMode) {
-    glUniform4fv(self.colorLocation, 1, _tintColor);
-  }
+  [self renderAux];
   
   [texture select];
   
@@ -92,6 +86,9 @@ static GLSpriteProgram *normalProgram;
   glDrawArrays(GL_TRIANGLES, 0, 6);
   [GLTools verifyNoError];
   
+}
+
+- (void)renderAux {
 }
 
 - (void)activateProgram {

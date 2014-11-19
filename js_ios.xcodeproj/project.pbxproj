@@ -80,6 +80,7 @@
 		F4D8C1AE1A1BD2A00064A139 /* GLSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = F4D8C1AD1A1BD2A00064A139 /* GLSprite.m */; };
 		F4F8DD071A1BE57500DB19EB /* DebugTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD051A1BE4E900DB19EB /* DebugTools.swift */; };
 		F4F8DD091A1BE60900DB19EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD081A1BE60900DB19EB /* AppDelegate.swift */; };
+		F4F8DD0F1A1C362700DB19EB /* GLTintedSpriteProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -192,6 +193,8 @@
 		F4F8DD051A1BE4E900DB19EB /* DebugTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DebugTools.swift; path = js_ios/DebugTools.swift; sourceTree = SOURCE_ROOT; };
 		F4F8DD081A1BE60900DB19EB /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = js_ios/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		F4F8DD0A1A1BEDBC00DB19EB /* DebugTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugTools.h; path = js_ios/DebugTools.h; sourceTree = SOURCE_ROOT; };
+		F4F8DD0D1A1C362700DB19EB /* GLTintedSpriteProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTintedSpriteProgram.h; path = js_ios/GLTintedSpriteProgram.h; sourceTree = SOURCE_ROOT; };
+		F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLTintedSpriteProgram.m; path = js_ios/GLTintedSpriteProgram.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +381,8 @@
 				F4AA66D21A1701F30058452F /* GLTools.h */,
 				F4AA66D41A1701F30058452F /* GLTools.m */,
 				F4AA66D31A1701F30058452F /* GLSpriteProgram.h */,
+				F4F8DD0D1A1C362700DB19EB /* GLTintedSpriteProgram.h */,
+				F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */,
 				F4AA66D51A1701F30058452F /* GLSpriteProgram.m */,
 				F4AA66D61A1701F30058452F /* CGAffineTransform.swift */,
 				F4AA66D91A1701F30058452F /* GLView.swift */,
@@ -510,6 +515,7 @@
 				F4AA66E81A1701F30058452F /* Renderer.swift in Sources */,
 				F4AA66E11A1701F30058452F /* GLSpriteProgram.m in Sources */,
 				1FE492221896F04700CF2FCB /* JSStringUtil.m in Sources */,
+				F4F8DD0F1A1C362700DB19EB /* GLTintedSpriteProgram.m in Sources */,
 				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
 				1F33523518DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m in Sources */,
 				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,

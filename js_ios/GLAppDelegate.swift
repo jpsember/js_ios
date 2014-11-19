@@ -10,7 +10,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var sprite : GLSprite?
   private var renderer : Renderer?
   private var spriteProgram : GLSpriteProgram?
-  private var spriteProgram2 : GLSpriteProgram?
+  private var spriteProgram2 : GLTintedSpriteProgram?
   private var sprite2 : GLSprite?
   
   private var angle = 0.0
@@ -23,11 +23,11 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     
-    spriteProgram = GLSpriteProgram(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
+    spriteProgram = GLSpriteProgram(transformName:Renderer.transformNameDeviceToNDC())
     texture = Texture("sample")
     sprite = GLSprite(program:spriteProgram, texture:texture)
     
-    spriteProgram2 = GLSpriteProgram(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
+    spriteProgram2 = GLTintedSpriteProgram(transformName:Renderer.transformNameDeviceToNDC())
     spriteProgram2!.setTintColor(UIColor.redColor())
     texture2 = Texture("AlphaBall")
     sprite2 = GLSprite(program: spriteProgram2, texture:texture2)
