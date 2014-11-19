@@ -1,13 +1,13 @@
 #import "js_ios-Swift.h"
 #import "JSBase.h"
-#import "GLSpriteContext.h"
+#import "GLSpriteProgram.h"
 #import "GLTools.h"
 
 static id spriteContext;
 static Renderer *renderer;
-static GLSpriteContext *normalContext;
+static GLSpriteProgram *normalProgram;
 
-@interface GLSpriteContext ()
+@interface GLSpriteProgram ()
 {
   GLfloat _tintColor[4];
 }
@@ -29,14 +29,14 @@ static GLSpriteContext *normalContext;
 
 @end
 
-@implementation GLSpriteContext
+@implementation GLSpriteProgram
 
 - (int)projectionMatrixId {
   return [renderer projectionMatrixId];
 }
 
-+ (GLSpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
-  return [[GLSpriteContext alloc] initWithTransformName:transformName tintMode:tintMode];
++ (GLSpriteProgram *)spriteProgramWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
+  return [[GLSpriteProgram alloc] initWithTransformName:transformName tintMode:tintMode];
 }
 
 - (id)initWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode {
@@ -60,11 +60,11 @@ static GLSpriteContext *normalContext;
 
 + (void)prepare:(Renderer *)r {
   renderer = r;
-  normalContext = [GLSpriteContext spriteContextWithTransformName:[Renderer transformNameDeviceToNDC] tintMode:NO];
+  normalProgram = [GLSpriteProgram spriteProgramWithTransformName:[Renderer transformNameDeviceToNDC] tintMode:NO];
 }
 
-+ (GLSpriteContext *)normalContext {
-  return normalContext;
++ (GLSpriteProgram *)normalProgram {
+  return normalProgram;
 }
 
 

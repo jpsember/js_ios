@@ -12,16 +12,13 @@
 @class Renderer;
 @class Texture;
 
-@interface GLSpriteContext : NSObject
+@interface GLSpriteProgram : NSObject
 
-+ (GLSpriteContext *)spriteContextWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode;
++ (GLSpriteProgram *)spriteProgramWithTransformName:(NSString *)transformName tintMode:(BOOL)tintMode;
 + (void)prepare:(Renderer *)renderer;
-+ (GLSpriteContext *)normalContext;
++ (GLSpriteProgram *)normalProgram;
+
 - (void)setTintColor:(UIColor *)color;
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(NSInteger)length position:(CGPoint)position;
-- (void)activateProgram;
-- (void)prepareProgram;
-- (void)prepareAttributes;
-- (void)prepareProjection;
 
 @end

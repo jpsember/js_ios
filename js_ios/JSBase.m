@@ -191,6 +191,10 @@ static id defaultLogHandler;
   }
 }
 
++ (void)exitApp {
+  exit(0);
+}
+
 static JSSymbolicNames *names;
 
 + (NSString *)symbolicNameForId:(id)object {

@@ -1,14 +1,14 @@
 #import <UIKit/UIKit.h>
-#import "GLSpriteContext.h"
+#import "GLSpriteProgram.h"
 
 @interface GLSprite : NSObject
 
-- (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture window:(CGRect)textureWindow;
+- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture window:(CGRect)textureWindow;
 
 /**
  * Initialize with window that encompasses the entire texture
  */
-- (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture;
+- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture;
 
 // Render sprite at a location
 //

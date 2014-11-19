@@ -36,6 +36,8 @@ typedef unsigned char byte;
 
 + (NSString *)stackTraceString:(int)skipElements max:(int)maxElements;
 
++ (void)exitApp;
+
 // Exposed for testing
 + (void)resetSymbolicPtrNames;
 #endif

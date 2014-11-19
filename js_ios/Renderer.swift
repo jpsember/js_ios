@@ -27,7 +27,7 @@ public class Renderer : NSObject {
     glBlendFunc(GLenum(GL_SRC_ALPHA),GLenum(GL_ONE_MINUS_SRC_ALPHA))
     glEnable(GLenum(GL_BLEND))
     
-    GLSpriteContext.prepare(self)
+    GLSpriteProgram.prepare(self)
   }
   
   /**

@@ -9,8 +9,8 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var texture2 : Texture?
   private var sprite : GLSprite?
   private var renderer : Renderer?
-  private var spriteContext : GLSpriteContext?
-  private var spriteContext2 : GLSpriteContext?
+  private var spriteProgram : GLSpriteProgram?
+  private var spriteProgram2 : GLSpriteProgram?
   private var sprite2 : GLSprite?
   
   private var angle = 0.0
@@ -23,14 +23,14 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     
-    spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
+    spriteProgram = GLSpriteProgram(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
     texture = Texture("sample")
-    sprite = GLSprite(context:spriteContext, texture:texture)
+    sprite = GLSprite(program:spriteProgram, texture:texture)
     
-    spriteContext2 = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
-    spriteContext2!.setTintColor(UIColor.redColor())
+    spriteProgram2 = GLSpriteProgram(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
+    spriteProgram2!.setTintColor(UIColor.redColor())
     texture2 = Texture("AlphaBall")
-    sprite2 = GLSprite(context: spriteContext2, texture:texture2)
+    sprite2 = GLSprite(program: spriteProgram2, texture:texture2)
   }
   
   private func prepareGraphics(viewSize : CGSize) {
@@ -72,10 +72,14 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     if (true) {
       let t = (angle % (2*PI))/(2*PI)
       let color = UIColor(red:CGFloat(t), green:CGFloat(0.25+t/2), blue: CGFloat(0.75-t/2), alpha: CGFloat(t))
-      spriteContext2!.setTintColor(color)
+      spriteProgram2!.setTintColor(color)
     }
     
     GLTools.verifyNoError()
+    
+    if (angle > PI*6) {
+      exitApp()
+    }
   }
   
   override public func buildView() -> UIView {

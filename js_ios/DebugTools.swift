@@ -33,6 +33,9 @@ public func d(image:UIImage) -> String {
   return DebugTools.dImage(image)
 }
 
+public func exitApp() {
+  JSBase.exitApp()
+}
 
 // These methods are placed within a class, so they're accessible to objective c code
 

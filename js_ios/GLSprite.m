@@ -10,16 +10,16 @@
 
 @property (nonatomic, strong) Texture *texture;
 @property (nonatomic, assign) CGRect textureWindow;
-@property (nonatomic, strong) GLSpriteContext *context;
+@property (nonatomic, strong) GLSpriteProgram *program;
 
 @end
 
 
 @implementation GLSprite
 
-- (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture window:(CGRect)textureWindow {
+- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture window:(CGRect)textureWindow {
   if (self = [super init]) {
-    _context = context;
+    _program = program;
     _texture = texture;
     _textureWindow = textureWindow;
     [self constructVertexInfo];
@@ -27,8 +27,8 @@
   return self;
 }
 
-- (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture {
-  return [self initWithContext:context texture:texture window:texture.bounds];
+- (id)initWithProgram:(GLSpriteProgram *)program texture:(Texture *)texture {
+  return [self initWithProgram:program texture:texture window:texture.bounds];
 }
 
 - (void)constructVertexInfo {
@@ -54,7 +54,7 @@
 }
 
 - (void)render:(CGPoint)position {
-  [self.context renderSprite:self.texture vertexData:_vertexInfo
+  [self.program renderSprite:self.texture vertexData:_vertexInfo
                   dataLength:(TOTAL_VERTICES * TOTAL_COMPONENTS)
                     position:position];
 }
