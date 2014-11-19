@@ -34,3 +34,11 @@ public func check(error: NSError?) {
   }
 }
 
+public func nonNil<T> (item: T?, _ file:String = __FILE__, _ line:Int = __LINE__) {
+  if item == nil {
+    // TODO: get simple name from file
+    // TODO: make this debug-only
+    die("Optional is nil at \(file):\(line)")
+  }
+}
+

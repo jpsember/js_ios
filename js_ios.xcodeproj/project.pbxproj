@@ -57,6 +57,7 @@
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
+		F41351931A1C52BA00D65EA3 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = F41351921A1C52BA00D65EA3 /* tile.png */; };
 		F47D5B0F1A11E868003F91CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* Base.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
@@ -165,6 +166,7 @@
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		F41351921A1C52BA00D65EA3 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
 		F446EE8A1A129B400091791B /* js_iosTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "js_iosTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F47D5B0E1A11E868003F91CD /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = SOURCE_ROOT; };
@@ -401,6 +403,7 @@
 		F4A3603B1A12C4B200F48E71 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				F41351921A1C52BA00D65EA3 /* tile.png */,
 				F4F8DD101A1C43BE00DB19EB /* blob.png */,
 				F4AA66F81A1950FA0058452F /* AlphaBall.png */,
 				F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */,
@@ -487,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F8559F7185CF61F009667DE /* InfoPlist.strings in Resources */,
+				F41351931A1C52BA00D65EA3 /* tile.png in Resources */,
 				F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */,
 				F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */,
 				1F8559FF185CF61F009667DE /* Images.xcassets in Resources */,

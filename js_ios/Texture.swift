@@ -6,6 +6,7 @@ public class Texture : NSObject {
   private var textureId: GLuint? = nil
   public var width = 0
   public var height = 0
+  public var hasAlpha = false
   
   public var bounds: CGRect {
     return CGRectMake(0,0,CGFloat(width),CGFloat(height))
@@ -22,6 +23,8 @@ public class Texture : NSObject {
   //
   private func loadUImage(name: String) -> UIImage? {
     let url = NSBundle.mainBundle().URLForResource(name, withExtension: "png")
+    nonNil(url)
+    
     var err: NSError?
     var imageData = NSData(contentsOfURL:url!, options:NSDataReadingOptions.DataReadingMappedIfSafe, error:&err)
     return UIImage(data: imageData!)
@@ -31,10 +34,11 @@ public class Texture : NSObject {
   //
   private func loadBitmap(name: String) {
     let uImage = loadUImage(name)
-    let (textureId,textureSize) = GLTools.installTexture(uImage!)
+    let (textureId,textureSize,hasAlpha) = GLTools.installTexture(uImage!)
    	self.textureId = textureId
     self.width = Int(textureSize.x)
     self.height = Int(textureSize.y)
+    self.hasAlpha = hasAlpha
     GLTools.verifyNoError()
     
     select()

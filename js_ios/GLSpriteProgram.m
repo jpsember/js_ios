@@ -76,6 +76,14 @@ static GLSpriteProgram *program;
   
   [texture select];
   
+  // Enable blending iff texture has alpha channel
+  // TODO: cache opengl state to avoid unnecessary calls here
+  if (texture.hasAlpha) {
+    glEnable(GL_BLEND);
+  } else {
+    glDisable(GL_BLEND);
+  }
+  
   int stride = TOTAL_COMPONENTS * sizeof(GLfloat);
   
   glVertexAttribPointer(self.positionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, stride, vertexData);

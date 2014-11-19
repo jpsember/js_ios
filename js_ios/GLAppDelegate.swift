@@ -22,7 +22,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       return
     }
     
-    texture = Texture("sample")
+    texture = Texture("tile")
     sprite = GLSprite(texture:texture, window:texture!.bounds, program:nil)
     
     texture2 = Texture("AlphaBall")
@@ -72,6 +72,19 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     sprite2!.render(view!.bounds.midPoint);
     sprite3!.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
+    
+    // Plot overlapping alpha & non-alpha sprites in a circle to test the blending
+    for i:Int in 0..<10 {
+      let loc = CGPoint(400+i*2,200+i*24)
+      var s : GLSprite
+      switch (i % 2) {
+      case 0: s = sprite!
+      default: s = sprite3!
+      }
+      
+      let orig = CGPoint(300,350)
+      s.render(pointOnCircle( orig, CGFloat(60.2), degrees(CGFloat(i*36)) ))
+    }
     
     GLTools.verifyNoError()
     

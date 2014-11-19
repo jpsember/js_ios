@@ -23,9 +23,7 @@ public class Renderer : NSObject {
     invalidateMatrixId()
     constructTransforms()
     
-    // Enable alpha channel blending (otherwise the alpha channel, if present, will have no effect)
     glBlendFunc(GLenum(GL_SRC_ALPHA),GLenum(GL_ONE_MINUS_SRC_ALPHA))
-    glEnable(GLenum(GL_BLEND))
     
     GLSpriteProgram.prepare(self)
   }
