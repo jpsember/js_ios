@@ -1,7 +1,7 @@
-#import "JSBase.h"
-#import "GLSpriteProgram.h"
 #import "js_ios-Swift.h"
+#import "JSBase.h"
 #import "GLTools.h"
+#import "GLSpriteProgram.h"
 
 @interface GLSpriteProgram ()
 {
@@ -10,7 +10,6 @@
 
 @property (nonatomic, strong) Texture *texture;
 @property (nonatomic, assign) CGRect textureWindow;
-@property (nonatomic, assign) CGPoint position;
 @property (nonatomic, strong) GLSpriteContext *context;
 
 @end
@@ -30,14 +29,6 @@
 
 - (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture {
   return [self initWithContext:context texture:texture window:texture.bounds];
-}
-
-- (void)setPosition:(CGPoint)pos {
-  [self setPosition:pos.x y:pos.y];
-}
-
-- (void)setPosition:(CGFloat)x y:(CGFloat)y {
-  _position = CGPointMake(x,y);
 }
 
 - (void)constructVertexInfo {
@@ -62,10 +53,10 @@
 #undef M
 }
 
-- (void)render {
+- (void)render:(CGPoint)position {
   [self.context renderSprite:self.texture vertexData:_vertexInfo
                   dataLength:(TOTAL_VERTICES * TOTAL_COMPONENTS)
-                    position:self.position];
+                    position:position];
 }
 
 @end

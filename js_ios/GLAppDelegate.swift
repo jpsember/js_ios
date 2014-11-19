@@ -66,11 +66,8 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     let x = CGFloat(300.0 + cos(angle) * 250.0)
     let y = CGFloat(300.0 + sin(angle) * 250.0)
     
-    spriteProgram!.setPosition(x,y:y)
-    spriteProgram!.render()
-    
-    spriteProgram2!.setPosition(view!.bounds.size.width / 2, y:view!.bounds.size.height/2);
-    spriteProgram2!.render();
+    spriteProgram!.render(CGPoint(x,y))
+    spriteProgram2!.render(view!.bounds.midPoint);
     
     if (true) {
       let t = (angle % (2*PI))/(2*PI)
