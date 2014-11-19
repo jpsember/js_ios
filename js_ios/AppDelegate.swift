@@ -18,14 +18,6 @@ public class AppDelegate : UIResponder, UIApplicationDelegate {
         return true
       }
       buildViewController()
-      let r = CGRect(1,2,3,4)
-      let p = CGPoint(1,2)
-      
-      d(34.23)
-      
-      DebugTools.dRect(r)
-      
-      puts("r=\(d(r)) p=\(d(p)) val=\(d(123.423))")
       return true
   }
   

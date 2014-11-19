@@ -22,10 +22,4 @@
 // returns nil if memory problem.
 - (NSMutableData *)permutation:(NSUInteger)count;
 
-#if DEBUG
-// Some JSAlgorithmProtocol methods
-- (void)encodeInput:(NSMutableString *)destination;
-- (void)decodeInput:(NSScanner *)scanner;
-#endif
-
 @end

@@ -1,6 +1,5 @@
 #import "JSBase.h"
 #import "JSRandom.h"
-#import "NSScanner+JSScannerCategory.h"
 
 @interface JSRandom ()
 
@@ -14,21 +13,6 @@
 @end
 
 @implementation JSRandom
-
-// JSAlgorithmProtocol
-#if DEBUG
-- (void)encodeInput:(NSMutableString *)destination {
-  [destination appendFormat:@" RND %d %d %x %x",self.seed,self.generationsSinceSeeded,self.w,self.z];
-}
-
-- (void)decodeInput:(NSScanner *)scanner{
-  [scanner getTag:@"RND"];
-  self.seed = [scanner getInt];
-  self.generationsSinceSeeded = [scanner getInt];
-  self.w = [scanner getHex];
-  self.z = [scanner getHex];
-}
-#endif
 
 #if DEBUG
 
