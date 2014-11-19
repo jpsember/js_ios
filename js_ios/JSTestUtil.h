@@ -6,15 +6,6 @@
 #import "JSIORecorder.h"
 #import "JSRandom.h"
 
-#define ENDM -999999
-
-#define Match_f(a1,a2, format...) \
-XCTAssertEqualWithAccuracy(a1, a2, 1e-4, ## format)
-
-#define Match_pt(p1,p2, format...) { \
-Match_f(p1.x,p2.x,## format); \
-Match_f(p1.y,p2.y,## format); }
-
 #define XCTAssertExceptionWithSubstring(__substring__,__block__) { \
   NSString *__result__ = [JSTestCase verifyExceptionWithSubstring:__substring__ block:__block__]; \
   XCTAssert(!__result__,@"%@",__result__); \

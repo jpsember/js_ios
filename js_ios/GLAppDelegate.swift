@@ -75,7 +75,8 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     // Plot overlapping alpha & non-alpha sprites in a circle to test the blending
     for i:Int in 0..<10 {
-      let loc = CGPoint(400+i*2,200+i*24)
+      let i2 = CGFloat(i)
+      let loc = CGPoint(400.0+i2*2,200.0+i2*24)
       var s : GLSprite
       switch (i % 2) {
       case 0: s = sprite!
@@ -100,7 +101,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     // Set up a timer to redraw the screen several times a second
     // Define the timer object
-    timer = NSTimer.scheduledTimerWithTimeInterval(Double(1.0/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
+    timer = NSTimer.scheduledTimerWithTimeInterval(Double(1/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
     return view
   }
   

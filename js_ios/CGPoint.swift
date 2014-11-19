@@ -12,11 +12,6 @@ extension CGPoint :  Printable {
     self.x = CGFloat(x)
     self.y = CGFloat(y)
   }
-  
-  public init(_ x:Float = 0, _ y:Float = 0) {
-    self.x = CGFloat(x)
-    self.y = CGFloat(y)
-  }
 
   public init(_ x:CGFloat = 0, _ y:CGFloat = 0) {
     self.x = x
