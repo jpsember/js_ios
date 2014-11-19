@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "GLSpriteContext.h"
 
-@interface GLSpriteProgram : NSObject
+@interface GLSprite : NSObject
 
 - (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture window:(CGRect)textureWindow;
 

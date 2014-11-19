@@ -7,11 +7,11 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var view : UIView?
   private var texture : Texture?
   private var texture2 : Texture?
-  private var spriteProgram : GLSpriteProgram?
+  private var sprite : GLSprite?
   private var renderer : Renderer?
   private var spriteContext : GLSpriteContext?
   private var spriteContext2 : GLSpriteContext?
-  private var spriteProgram2 : GLSpriteProgram?
+  private var sprite2 : GLSprite?
   
   private var angle = 0.0
   private let PI = 3.141592
@@ -25,12 +25,12 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     spriteContext = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:false )
     texture = Texture("sample")
-    spriteProgram = GLSpriteProgram(context:spriteContext, texture:texture)
+    sprite = GLSprite(context:spriteContext, texture:texture)
     
     spriteContext2 = GLSpriteContext(transformName:Renderer.transformNameDeviceToNDC(), tintMode:true )
     spriteContext2!.setTintColor(UIColor.redColor())
     texture2 = Texture("AlphaBall")
-    spriteProgram2 = GLSpriteProgram(context: spriteContext2, texture:texture2)
+    sprite2 = GLSprite(context: spriteContext2, texture:texture2)
   }
   
   private func prepareGraphics(viewSize : CGSize) {
@@ -44,7 +44,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     renderer!.surfaceCreated(CGPoint(preparedViewSize))
 		
-    if (spriteProgram != nil) {
+    if (sprite != nil) {
       return
     }
     loadTextures()
@@ -66,8 +66,8 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     let x = CGFloat(300.0 + cos(angle) * 250.0)
     let y = CGFloat(300.0 + sin(angle) * 250.0)
     
-    spriteProgram!.render(CGPoint(x,y))
-    spriteProgram2!.render(view!.bounds.midPoint);
+    sprite!.render(CGPoint(x,y))
+    sprite2!.render(view!.bounds.midPoint);
     
     if (true) {
       let t = (angle % (2*PI))/(2*PI)

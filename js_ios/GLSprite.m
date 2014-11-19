@@ -1,9 +1,9 @@
 #import "js_ios-Swift.h"
 #import "JSBase.h"
 #import "GLTools.h"
-#import "GLSpriteProgram.h"
+#import "GLSprite.h"
 
-@interface GLSpriteProgram ()
+@interface GLSprite ()
 {
     GLfloat _vertexInfo[TOTAL_VERTICES * TOTAL_COMPONENTS];
 }
@@ -15,7 +15,7 @@
 @end
 
 
-@implementation GLSpriteProgram
+@implementation GLSprite
 
 - (id)initWithContext:(GLSpriteContext *)context texture:(Texture *)texture window:(CGRect)textureWindow {
   if (self = [super init]) {

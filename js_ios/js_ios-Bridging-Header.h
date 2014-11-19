@@ -5,6 +5,6 @@
 #import "JSBase.h"
 #import "GLTools.h"
 #import "GLSpriteContext.h"
-#import "GLSpriteProgram.h"
+#import "GLSprite.h"
 
 #endif
