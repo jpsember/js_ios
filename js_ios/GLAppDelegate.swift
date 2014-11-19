@@ -1,13 +1,6 @@
 import GLKit
 
 
-public func pointOnCircle(origin:CGPoint, _ radius:CGFloat, _ angle:CGFloat) -> CGPoint {
-  let x : CGFloat = origin.x + cos(angle) * radius
-  let y : CGFloat = origin.y + sin(angle) * radius
-  return CGPoint(x, y)
-}
-
-
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   
@@ -21,7 +14,6 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var sprite3 : GLSprite?
   
   private var angle : CGFloat = 0.0
-  private let PI : CGFloat  = 3.141592
   private let fps : CGFloat = 30.0
   private var preparedViewSize  = CGSizeMake(0,0)
   
@@ -69,12 +61,12 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     prepareGraphics(view!.bounds.size)
     
-    angle += (PI / 180.0) * (60 / fps)
+    angle += degrees(60 / fps)
     
     sprite!.render(pointOnCircle(CGPoint(300,300),250,angle))
     
     if (true) { // Limit the scope of the variables within; swift is missing the feature '{ ... }' of Obj-C, Java, ...
-      let t = (angle % (2*PI))/(2*PI)
+      let t = (angle % (2*pi))/(2*pi)
       let color = UIColor(red:CGFloat(t), green:CGFloat(0.25+t/2), blue: CGFloat(0.75-t/2), alpha: CGFloat(t))
       GLTintedSpriteProgram.getProgram().setTintColor(color)
     }
@@ -83,7 +75,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     GLTools.verifyNoError()
     
-    if (angle > PI*6) {
+    if (angle > pi*6) {
       exitApp()
     }
   }

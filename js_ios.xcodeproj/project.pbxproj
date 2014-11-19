@@ -81,6 +81,7 @@
 		F4F8DD091A1BE60900DB19EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD081A1BE60900DB19EB /* AppDelegate.swift */; };
 		F4F8DD0F1A1C362700DB19EB /* GLTintedSpriteProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */; };
 		F4F8DD111A1C43BE00DB19EB /* blob.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F8DD101A1C43BE00DB19EB /* blob.png */; };
+		F4F8DD131A1C470D00DB19EB /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD121A1C470D00DB19EB /* Math.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -195,6 +196,7 @@
 		F4F8DD0D1A1C362700DB19EB /* GLTintedSpriteProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTintedSpriteProgram.h; path = js_ios/GLTintedSpriteProgram.h; sourceTree = SOURCE_ROOT; };
 		F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLTintedSpriteProgram.m; path = js_ios/GLTintedSpriteProgram.m; sourceTree = SOURCE_ROOT; };
 		F4F8DD101A1C43BE00DB19EB /* blob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blob.png; sourceTree = "<group>"; };
+		F4F8DD121A1C470D00DB19EB /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			children = (
 				F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */,
 				F4F8DD051A1BE4E900DB19EB /* DebugTools.swift */,
+				F4F8DD121A1C470D00DB19EB /* Math.swift */,
 				F4F8DD0A1A1BEDBC00DB19EB /* DebugTools.h */,
 				F4F8DD081A1BE60900DB19EB /* AppDelegate.swift */,
 				1F74C3CA19009279004DA3A3 /* JSAppendStringProtocol.h */,
@@ -538,6 +541,7 @@
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
 				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,
 				F4AA66EB1A1701F30058452F /* Texture.swift in Sources */,
+				F4F8DD131A1C470D00DB19EB /* Math.swift in Sources */,
 				1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */,
 				1F4487E618DF71340067F1F1 /* JSDieException.m in Sources */,
 				F4AA66E61A1701F30058452F /* CGPoint.swift in Sources */,
