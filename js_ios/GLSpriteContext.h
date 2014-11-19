@@ -1,4 +1,3 @@
-#import <OpenGLES/EAGL.h>
 #import <UIKit/UIKit.h>
 
 #define POSITION_COMPONENT_COUNT 2

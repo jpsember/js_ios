@@ -1,7 +1,7 @@
 #import "JSBase.h"
 #import "GLSpriteProgram.h"
 #import "js_ios-Swift.h"
-#import "GLTools2.h"
+#import "GLTools.h"
 
 @interface GLSpriteProgram ()
 {

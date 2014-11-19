@@ -1,9 +1,8 @@
-#import "JSBase.h"
-#import "GLTools2.h"
 #import "js_ios-Swift.h"
-#import <OpenGLES/EAGL.h>
+#import "JSBase.h"
+#import "GLTools.h"
 
-@implementation GLTools2
+@implementation GLTools
 
 + (void)setGLColor:(UIColor *)uiColor {
   const CGFloat *c = CGColorGetComponents(uiColor.CGColor);

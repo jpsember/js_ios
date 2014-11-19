@@ -1,8 +1,7 @@
-#import <OpenGLES/EAGL.h>
+#import "js_ios-Swift.h"
 #import "JSBase.h"
 #import "GLSpriteContext.h"
-#import "js_ios-Swift.h"
-#import "GLTools2.h"
+#import "GLTools.h"
 
 static id spriteContext;
 static Renderer *renderer;
@@ -51,7 +50,7 @@ static GLSpriteContext *normalContext;
 
 - (void)setTintColor:(UIColor *)color {
   ASSERT(self.tintMode,@"expected tint mode");
-  [GLTools2 setGLColor:color destination:_tintColor];
+  [GLTools setGLColor:color destination:_tintColor];
 }
 
 - (void)prepareShaders {

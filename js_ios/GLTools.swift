@@ -3,7 +3,7 @@ import GLKit
 import OpenGLES
 import UIKit
 
-public class GLTools : NSObject {
+extension GLTools {
 
   private struct S {
     static var programId: GLuint = 0

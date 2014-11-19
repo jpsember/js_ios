@@ -1,4 +1,3 @@
-#import <OpenGLES/EAGL.h>
 #import <UIKit/UIKit.h>
 #import "GLSpriteContext.h"
 
