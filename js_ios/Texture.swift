@@ -12,11 +12,23 @@ public class Texture : NSObject {
     return CGRectMake(0,0,CGFloat(width),CGFloat(height))
   }
   
+  public override init() {
+    super.init()
+  }
+  
   // Constructor
   // 
-  init(_ pngName:String) {
-    super.init()
+  convenience init(pngName:String) {
+   	self.init()
     loadBitmap(pngName)
+  }
+  
+  convenience init(buffer:GLBuffer) {
+    self.init();
+    self.textureId = buffer.textureId
+    self.width = buffer.size.ix
+    self.height = buffer.size.iy
+    self.hasAlpha = buffer.hasAlpha
   }
   
   // Load UImage from resource "<name>.png"

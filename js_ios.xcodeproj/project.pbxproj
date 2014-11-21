@@ -58,6 +58,7 @@
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
 		F41351931A1C52BA00D65EA3 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = F41351921A1C52BA00D65EA3 /* tile.png */; };
+		F41351A01A1FD25300D65EA3 /* GLBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F413519F1A1FD25300D65EA3 /* GLBuffer.m */; };
 		F47D5B0F1A11E868003F91CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* Base.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
@@ -167,6 +168,8 @@
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		F41351921A1C52BA00D65EA3 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
+		F413519E1A1FD25300D65EA3 /* GLBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLBuffer.h; path = js_ios/GLBuffer.h; sourceTree = SOURCE_ROOT; };
+		F413519F1A1FD25300D65EA3 /* GLBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLBuffer.m; path = js_ios/GLBuffer.m; sourceTree = SOURCE_ROOT; };
 		F446EE8A1A129B400091791B /* js_iosTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "js_iosTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F47D5B0E1A11E868003F91CD /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Base.swift; sourceTree = SOURCE_ROOT; };
@@ -379,9 +382,11 @@
 		F458860D1A10819700A887CF /* gl */ = {
 			isa = PBXGroup;
 			children = (
+				F413519E1A1FD25300D65EA3 /* GLBuffer.h */,
+				F413519F1A1FD25300D65EA3 /* GLBuffer.m */,
+				F4AA66D71A1701F30058452F /* GLAppDelegate.swift */,
 				F4D8C1AC1A1BD2A00064A139 /* GLSprite.h */,
 				F4D8C1AD1A1BD2A00064A139 /* GLSprite.m */,
-				F4AA66D71A1701F30058452F /* GLAppDelegate.swift */,
 				F4AA66D81A1701F30058452F /* GLTools.swift */,
 				F4AA66D21A1701F30058452F /* GLTools.h */,
 				F4AA66D41A1701F30058452F /* GLTools.m */,
@@ -539,6 +544,7 @@
 				F4AA66E51A1701F30058452F /* GLView.swift in Sources */,
 				F4AA66E71A1701F30058452F /* CGRect.swift in Sources */,
 				F4AA66E41A1701F30058452F /* GLTools.swift in Sources */,
+				F41351A01A1FD25300D65EA3 /* GLBuffer.m in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,

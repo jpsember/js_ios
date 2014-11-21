@@ -3,6 +3,8 @@
 
 @interface GLSprite : NSObject
 
+@property (nonatomic, readonly, strong) Texture *texture;
+
 /**
  * Designated initializer
  * If program is nil, uses basic program

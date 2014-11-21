@@ -56,7 +56,7 @@ static id defaultLogHandler;
 
 + (void)dieWithMessage:(NSString *)message {
   JSDieException *e = [JSDieException exceptionWithMessage:message];
-  DBG
+//  DBG
   IFDBG(
         if (![JSBase testModeActive]) {
           warning(@"DBG is true in dieWithMessage, this is normally false");

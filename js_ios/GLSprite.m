@@ -8,7 +8,6 @@
     GLfloat _vertexInfo[TOTAL_VERTICES * TOTAL_COMPONENTS];
 }
 
-@property (nonatomic, strong) Texture *texture;
 @property (nonatomic, assign) CGRect textureWindow;
 @property (nonatomic, strong) GLSpriteProgram *program;
 
