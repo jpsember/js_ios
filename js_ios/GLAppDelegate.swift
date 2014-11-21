@@ -1,38 +1,36 @@
 import GLKit
 
-
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   
   private var timer : NSTimer?
   private var view : UIView?
-  private var texture : Texture?
-  private var texture2 : Texture?
-  private var sprite : GLSprite?
-  private var renderer : Renderer?
-  private var sprite2 : GLSprite?
-  private var sprite3 : GLSprite?
+  private var bgndTexture : Texture?
+  private var ballTexture : Texture?
   private var bgndSprite : GLSprite?
+  private var renderer : Renderer?
+  private var ballSprite : GLSprite?
+  private var blobSprite : GLSprite?
   
   private var angle : CGFloat = 0.0
   private let fps : CGFloat = 30.0
   private var preparedViewSize  = CGSizeMake(0,0)
   
   private func loadTextures() {
-    if (texture != nil) {
+    if (bgndTexture != nil) {
       return
     }
     
-    texture = Texture("tile")
-    sprite = GLSprite(texture:texture, window:texture!.bounds, program:nil)
+    bgndTexture = Texture("tile")
+    bgndSprite = GLSprite(texture:bgndTexture, window:bgndTexture!.bounds, program:nil)
     
-    texture2 = Texture("AlphaBall")
-    sprite2 = GLSprite(texture:texture2, window:texture2!.bounds, program:GLTintedSpriteProgram.getProgram())
+    ballTexture = Texture("AlphaBall")
+    ballSprite = GLSprite(texture:ballTexture, window:ballTexture!.bounds, program:GLTintedSpriteProgram.getProgram())
   
-    let texture3 = Texture("blob")
-    sprite3 = GLSprite(texture:texture3, window:texture3.bounds, program:nil)
+    let blobTexture = Texture("blob")
+    blobSprite = GLSprite(texture:blobTexture, window:blobTexture.bounds, program:nil)
 
-    bgndSprite = GLSprite(texture:texture, window:CGRect(-120,-120,1000,1000), program:nil)
+    bgndSprite = GLSprite(texture:bgndTexture, window:CGRect(-120,-120,1000,1000), program:nil)
   }
   
   private func prepareGraphics(viewSize : CGSize) {
@@ -46,13 +44,16 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     renderer!.surfaceCreated(CGPoint(preparedViewSize))
 		
-    if (sprite != nil) {
+    if (bgndSprite != nil) {
       return
     }
     loadTextures()
   }
   
   public func glkView(view : GLKView!, drawInRect : CGRect) {
+    
+    let EXAMPLE_TINT = true || alwaysFalse()
+    let EXAMPLE_TILE = true || alwaysFalse()
     
     GLTools.verifyNoError()
     
@@ -64,34 +65,19 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     prepareGraphics(view!.bounds.size)
     
-    
     angle += degrees(60 / fps)
-    bgndSprite!.render(pointOnCircle(CGPoint.zero, 0.5, angle*5))
-    sprite!.render(pointOnCircle(CGPoint(300,300),250,angle))
+    if (EXAMPLE_TILE) {
+   	  bgndSprite!.render(pointOnCircle(CGPoint.zero, 0.5, angle*5))
+    }
     
-    if (true) { // Limit the scope of the variables within; swift is missing the feature '{ ... }' of Obj-C, Java, ...
+    if (EXAMPLE_TINT) { // Limit the scope of the variables within; swift is missing the feature '{ ... }' of Obj-C, Java, ...
       let t = (angle % (2*pi))/(2*pi)
       let color = UIColor(red:CGFloat(t), green:CGFloat(0.25+t/2), blue: CGFloat(0.75-t/2), alpha: CGFloat(t))
       GLTintedSpriteProgram.getProgram().setTintColor(color)
+      ballSprite!.render(view!.bounds.midPoint);
     }
-    sprite2!.render(view!.bounds.midPoint);
-    sprite3!.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
-    
-    if (alwaysFalse()) {
-      // Plot overlapping alpha & non-alpha sprites in a circle to test the blending
-      for i:Int in 0..<10 {
-        let i2 = CGFloat(i)
-        let loc = CGPoint(400.0+i2*2,200.0+i2*24)
-        var s : GLSprite
-        switch (i % 2) {
-        case 0: s = sprite!
-        default: s = sprite3!
-        }
-        
-        let orig = CGPoint(300,350)
-        s.render(pointOnCircle( orig, CGFloat(60.2), degrees(CGFloat(i*36)) ))
-      }
-    }
+    blobSprite!.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
+    blobSprite!.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
     
     GLTools.verifyNoError()
     
