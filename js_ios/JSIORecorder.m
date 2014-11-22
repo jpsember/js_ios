@@ -19,7 +19,7 @@ static JSIORecorder *activeRecorder;
 @implementation JSIORecorder
 
 + (NSArray *)extractClassAndMethodNames {
-  NSArray *stackTrace = [JSBase stackTrace];
+  NSArray *stackTrace = [JSStackTraceElement stackTrace];
   JSStackTraceElement *callerElem = nil;
   for (JSStackTraceElement *elem in stackTrace) {
     if ([elem.methodName hasPrefix:@"test"]) {

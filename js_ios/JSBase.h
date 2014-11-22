@@ -29,11 +29,6 @@ typedef unsigned char byte;
 + (void)sleepFor:(float)timeInSeconds;
 + (void)showTimeStamp:(NSString *)format,...;
 
-// Get array of StackTraceElement objects.
-+ (NSMutableArray *)stackTrace;
-
-+ (NSString *)stackTraceString:(int)skipElements max:(int)maxElements;
-
 + (void)exitApp;
 
 // Exposed for testing
@@ -83,18 +78,6 @@ NSString *__s__ = @"(no reason given)"; \
 if (__a__) __s__ = [NSString stringWithFormat:__a__,##__VA_ARGS__]; \
 NSString *__m__ = [NSString stringWithFormat:@"*** fatal error %@: %@",__FILE_AND_LINE__,__s__]; \
 [JSBase dieWithMessage:__m__]; \
-}
-
-#define MY_TEST_BEGIN [JSBase log:@"\n\n\n\n\n\n\n------ Testing: %@ ------\n\n",__FILE_AND_LINE__]; @try {
-#define MY_TEST_END } \
-@catch (NSException *e) { \
-warning(@"Caught: %@\n",e); \
-} @finally { \
-if (_DEBUG_PRINTING_) { \
-[JSBase log:@"\n\n\n...exiting"]; \
-[JSBase sleepFor:2.0f]; \
-exit(0); \
-} \
 }
 
 #define ASSERT(__flag__,__a__,...) { \

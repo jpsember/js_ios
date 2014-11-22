@@ -1,4 +1,5 @@
 #import "JSTestUtil.h"
+#import "JSStackTraceElement.h"
 
 @interface JSBaseTests : JSTestCase
 
@@ -124,7 +125,7 @@
   return [self _gamma];
 }
 - (id)_gamma {
-  return [JSBase stackTraceString:0 max:3];
+  return [JSStackTraceElement stackTraceString:0 max:3];
 }
 
 - (void)testStackTraceString {

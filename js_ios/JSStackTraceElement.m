@@ -1,6 +1,39 @@
+#import <execinfo.h>
 #import "JSStackTraceElement.h"
 
 @implementation JSStackTraceElement
+
++ (NSString *)stackTraceString:(int)skipElements0 max:(int)maxElements {
+  NSArray *array = [JSStackTraceElement stackTrace];
+
+  NSMutableString *s = [NSMutableString stringWithString:@""];
+
+  int skipElements = skipElements0 + 2;
+
+  int iStop = MIN(skipElements + maxElements, (int)array.count);
+  for (int i = skipElements; i < iStop; i++) {
+    NSString *s2 = [NSString stringWithFormat:@"%-44s ",[[array[i] description] UTF8String]];
+    [s appendString:s2];
+  }
+  return s;
+}
+
++ (NSMutableArray *)stackTrace {
+  NSMutableArray *parsedElements = [NSMutableArray array];
+
+  int maxElements = 10;
+  void *array[maxElements];
+  int nElements = backtrace(array,maxElements);
+  char **bs = backtrace_symbols(array,nElements);
+  for (int i = 0; i < nElements; i++) {
+    NSString *s = [NSString stringWithUTF8String:bs[i]];
+    JSStackTraceElement *elem = [JSStackTraceElement parse:s];
+    if (elem)
+      [parsedElements addObject:elem];
+  }
+  free(bs);
+  return parsedElements;
+}
 
 + (JSStackTraceElement *)parse:(NSString *)s {
     
