@@ -62,8 +62,6 @@ typedef unsigned char byte;
 
 extern bool _DEBUG_PRINTING_;
 #define DBG const bool _DEBUG_PRINTING_ = true; (void)_DEBUG_PRINTING_;
-#define DBGIF(a) bool _DEBUG_PRINTING_ = (a); (void)_DEBUG_PRINTING_;
-#define IFDBG(a) do {if (_DEBUG_PRINTING_) {a;}} while (0)
 #define DBGWARN DBG warning(@"debug printing enabled");
 #define pr(...) {if (_DEBUG_PRINTING_) [JSBase log:__VA_ARGS__];}
 
@@ -92,16 +90,10 @@ NSString *__m__ = [NSString stringWithFormat:@"*** fatal error %@: %@",__FILE_AN
 #define NO_DEFAULT_INITIALIZER
 #define die(__a__,...) [JSBase dieWithFilename:__FILE__ line:__LINE__]
 #define pr(...) {}
-#define INF_DEFINE(...)
-#define INF_DEFINEN(__x__,...)
-#define INF_UPDATE()
 #define ASSERT(__flag__,__a__,...)
-#define IFDBG(a) 
 #define warning(__a__,...)
 #define unimp(__a__,...)
 #define DBG
-#define DBGIF(a)
-#define IFDBG(a)
 #define FLUSHLOG()
 #define USED_DEBUG_ONLY __attribute__((unused))
 
