@@ -50,7 +50,6 @@
 		1FE492241896F04700CF2FCB /* JSQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4920C1896F04700CF2FCB /* JSQueue.m */; };
 		1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492101896F04700CF2FCB /* JSIORecorder.m */; };
 		1FE492271896F04700CF2FCB /* JSBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492121896F04700CF2FCB /* JSBase.m */; };
-		1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492141896F04700CF2FCB /* JSFileUtil.m */; };
 		1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492151896F04700CF2FCB /* JSSimulator.m */; };
 		1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492161896F04700CF2FCB /* JSSwizzler.m */; };
 		1FE4922B1896F04700CF2FCB /* JSStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTrace.m */; };
@@ -156,14 +155,12 @@
 		1FE492101896F04700CF2FCB /* JSIORecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSIORecorder.m; path = js_ios/JSIORecorder.m; sourceTree = SOURCE_ROOT; };
 		1FE492121896F04700CF2FCB /* JSBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSBase.m; path = js_ios/JSBase.m; sourceTree = SOURCE_ROOT; };
 		1FE492131896F04700CF2FCB /* JSIORecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSIORecorder.h; path = js_ios/JSIORecorder.h; sourceTree = SOURCE_ROOT; };
-		1FE492141896F04700CF2FCB /* JSFileUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSFileUtil.m; path = js_ios/JSFileUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE492151896F04700CF2FCB /* JSSimulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSSimulator.m; path = js_ios/JSSimulator.m; sourceTree = SOURCE_ROOT; };
 		1FE492161896F04700CF2FCB /* JSSwizzler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSSwizzler.m; path = js_ios/JSSwizzler.m; sourceTree = SOURCE_ROOT; };
 		1FE492171896F04700CF2FCB /* JSSwizzler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSwizzler.h; path = js_ios/JSSwizzler.h; sourceTree = SOURCE_ROOT; };
 		1FE492181896F04700CF2FCB /* JSSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSimulator.h; path = js_ios/JSSimulator.h; sourceTree = SOURCE_ROOT; };
 		1FE492191896F04700CF2FCB /* JSStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStackTrace.h; path = js_ios/JSStackTrace.h; sourceTree = SOURCE_ROOT; };
 		1FE4921A1896F04700CF2FCB /* JSStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSStackTrace.m; path = js_ios/JSStackTrace.m; sourceTree = SOURCE_ROOT; };
-		1FE4921C1896F04700CF2FCB /* JSFileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSFileUtil.h; path = js_ios/JSFileUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
@@ -253,8 +250,6 @@
 				1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */,
 				1F4487E418DF71340067F1F1 /* JSDieException.h */,
 				1F4487E518DF71340067F1F1 /* JSDieException.m */,
-				1FE4921C1896F04700CF2FCB /* JSFileUtil.h */,
-				1FE492141896F04700CF2FCB /* JSFileUtil.m */,
 				1F41447418FB138B009C4EBB /* JSFreezable.h */,
 				1F41447A18FB259F009C4EBB /* JSFreezable.m */,
 				1FE492131896F04700CF2FCB /* JSIORecorder.h */,
@@ -553,7 +548,6 @@
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
-				1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */,
 				F4AA66EB1A1701F30058452F /* Texture.swift in Sources */,
 				1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */,
 				1F4487E618DF71340067F1F1 /* JSDieException.m in Sources */,
