@@ -1,5 +1,5 @@
 #import "JSTestUtil.h"
-#import "JSStackTraceElement.h"
+#import "JSStackTrace.h"
 
 @interface JSBaseTests : JSTestCase
 

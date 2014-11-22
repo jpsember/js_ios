@@ -1,5 +1,14 @@
 #import <execinfo.h>
-#import "JSStackTraceElement.h"
+#import "JSStackTrace.h"
+
+@interface JSStackTraceElement : NSObject
+@property (nonatomic, strong) NSString *className;
+@property (nonatomic, strong) NSString *methodType;
+@property (nonatomic, strong) NSString *methodName;
+@property (nonatomic, assign) int lineNumber;
+
++ (JSStackTraceElement *)parse:(NSString *)string;
+@end
 
 @implementation JSStackTraceElement
 
@@ -66,4 +75,42 @@
   free(bs);
   return parsedElements;
 }
+
++ (NSArray *)extractClassAndMethodNames {
+  NSArray *stackTrace = [JSStackTrace stackTrace];
+  JSStackTraceElement *callerElem = nil;
+  for (JSStackTraceElement *elem in stackTrace) {
+    if ([elem.methodName hasPrefix:@"test"]) {
+      callerElem = elem;
+      break;
+    }
+  }
+  if (!callerElem)
+  die(@"no test methods found in stack trace: %@",stackTrace);
+  NSMutableArray *array = [NSMutableArray array];
+  NSString *className = callerElem.className;
+  NSString *mth = callerElem.methodName;
+  NSString *methodName = [mth stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+  [array addObject:className];
+  [array addObject:methodName];
+  return array;
+}
+
++ (NSArray *)callerWithMethodNamePrefix:(NSString *)prefix {
+  NSArray *stackTrace = [JSStackTrace stackTrace];
+  JSStackTraceElement *callerElem = nil;
+  for (JSStackTraceElement *elem in stackTrace) {
+    if ([elem.methodName hasPrefix:prefix]) {
+      callerElem = elem;
+      break;
+    }
+  }
+
+  if (!callerElem)
+    return nil;
+  NSString *className = callerElem.className;
+  NSString *methodName = [callerElem.methodName stringByReplacingOccurrencesOfString:@":" withString:@"_"];
+  return @[className, methodName];
+}
+
 @end

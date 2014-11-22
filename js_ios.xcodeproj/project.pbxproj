@@ -53,7 +53,7 @@
 		1FE492281896F04700CF2FCB /* JSFileUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492141896F04700CF2FCB /* JSFileUtil.m */; };
 		1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492151896F04700CF2FCB /* JSSimulator.m */; };
 		1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE492161896F04700CF2FCB /* JSSwizzler.m */; };
-		1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */; };
+		1FE4922B1896F04700CF2FCB /* JSStackTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921A1896F04700CF2FCB /* JSStackTrace.m */; };
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
@@ -160,8 +160,8 @@
 		1FE492161896F04700CF2FCB /* JSSwizzler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSSwizzler.m; path = js_ios/JSSwizzler.m; sourceTree = SOURCE_ROOT; };
 		1FE492171896F04700CF2FCB /* JSSwizzler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSwizzler.h; path = js_ios/JSSwizzler.h; sourceTree = SOURCE_ROOT; };
 		1FE492181896F04700CF2FCB /* JSSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSSimulator.h; path = js_ios/JSSimulator.h; sourceTree = SOURCE_ROOT; };
-		1FE492191896F04700CF2FCB /* JSStackTraceElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStackTraceElement.h; path = js_ios/JSStackTraceElement.h; sourceTree = SOURCE_ROOT; };
-		1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSStackTraceElement.m; path = js_ios/JSStackTraceElement.m; sourceTree = SOURCE_ROOT; };
+		1FE492191896F04700CF2FCB /* JSStackTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSStackTrace.h; path = js_ios/JSStackTrace.h; sourceTree = SOURCE_ROOT; };
+		1FE4921A1896F04700CF2FCB /* JSStackTrace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSStackTrace.m; path = js_ios/JSStackTrace.m; sourceTree = SOURCE_ROOT; };
 		1FE4921C1896F04700CF2FCB /* JSFileUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSFileUtil.h; path = js_ios/JSFileUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSDictionaryUtil.h; path = js_ios/JSDictionaryUtil.h; sourceTree = SOURCE_ROOT; };
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
@@ -266,8 +266,8 @@
 				1FE492051896F04700CF2FCB /* JSRandom.m */,
 				1FE492181896F04700CF2FCB /* JSSimulator.h */,
 				1FE492151896F04700CF2FCB /* JSSimulator.m */,
-				1FE492191896F04700CF2FCB /* JSStackTraceElement.h */,
-				1FE4921A1896F04700CF2FCB /* JSStackTraceElement.m */,
+				1FE492191896F04700CF2FCB /* JSStackTrace.h */,
+				1FE4921A1896F04700CF2FCB /* JSStackTrace.m */,
 				1FE492091896F04700CF2FCB /* JSStringUtil.h */,
 				1FE4920A1896F04700CF2FCB /* JSStringUtil.m */,
 				1FE492171896F04700CF2FCB /* JSSwizzler.h */,
@@ -545,7 +545,7 @@
 				F4AA66E71A1701F30058452F /* CGRect.swift in Sources */,
 				F4AA66E41A1701F30058452F /* GLTools.swift in Sources */,
 				F41351A01A1FD25300D65EA3 /* GLBuffer.m in Sources */,
-				1FE4922B1896F04700CF2FCB /* JSStackTraceElement.m in Sources */,
+				1FE4922B1896F04700CF2FCB /* JSStackTrace.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
