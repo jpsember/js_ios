@@ -1,7 +1,7 @@
 #import "js_ios-Swift.h"
-#import "DebugTools.h"
+#import "JSDebugTools.h"
 
-@implementation DebugTools
+@implementation JSDebugTools
 
 // These methods are placed within a class, so they're accessible to objective c code
 
@@ -23,7 +23,7 @@
 }
 
 + (NSString *)dDouble:(double)value {
-  return [DebugTools dDouble:value format:nil];
+  return [JSDebugTools dDouble:value format:nil];
 }
 
 + (NSString *)dBoolean:(BOOL)value {
@@ -62,7 +62,7 @@
   const byte *pixels = CFDataGetBytePtr(data);
   int length = CFDataGetLength(data);
   int dumpedLength = MIN(length,32*4);
-  return [NSString stringWithFormat:@"UIImage %d x %d:\n%@",(int)image.size.width,(int)image.size.height,[DebugTools dBytes:pixels length:dumpedLength]];
+  return [NSString stringWithFormat:@"UIImage %d x %d:\n%@",(int)image.size.width,(int)image.size.height,[JSDebugTools dBytes:pixels length:dumpedLength]];
 }
 
 + (NSString *)dBits:(int)value {

@@ -6,31 +6,31 @@ import UIKit
 // on the lookout for dramatic increases in compile time; this was happening before)
 
 public func d(rect:CGRect) -> String {
-  return DebugTools.dRect(rect)
+  return JSDebugTools.dRect(rect)
 }
 
 public func d(point:CGPoint) -> String {
-  return DebugTools.dPoint(point)
+  return JSDebugTools.dPoint(point)
 }
 
 public func d(value:Double,_ format:String? = nil) -> String {
-  return DebugTools.dDouble(value)
+  return JSDebugTools.dDouble(value)
 }
 
 public func d(value:CGFloat,_ format:String? = nil) -> String {
-  return DebugTools.dDouble(Double(value))
+  return JSDebugTools.dDouble(Double(value))
 }
 
 public func d(value:Float,_ format:String? = nil) -> String {
-  return DebugTools.dDouble(Double(value))
+  return JSDebugTools.dDouble(Double(value))
 }
 
 public func d(value:Bool) -> String {
-  return DebugTools.dBoolean(value)
+  return JSDebugTools.dBoolean(value)
 }
 
 public func d(image:UIImage) -> String {
-  return DebugTools.dImage(image)
+  return JSDebugTools.dImage(image)
 }
 
 public func exitApp() {
