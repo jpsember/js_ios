@@ -223,29 +223,4 @@ static JSSymbolicNames *names;
 
 #if DEBUG
 bool _DEBUG_PRINTING_ = NO;
-
-@interface Inf()
-@property (nonatomic, strong) NSString *ourDescription;
-@property (nonatomic, assign) int iteration;
-@property (nonatomic, assign) int maxIterations;
-@end
-
-@implementation Inf
-
-- (instancetype)initWithDescription:(NSString *)description maxIterations:(int)maxIter {
-  if (self = [super init]) {
-    _ourDescription = description;
-    _maxIterations = maxIter;
-  }
-  return self;
-}
-
-- (void)update {
-  _iteration++;
-  if (_iteration == _maxIterations) {
-    die(@"Infinite loop detected (%@); iterations=%d",_ourDescription,_iteration);
-  }
-}
-
-@end
 #endif

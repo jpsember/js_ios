@@ -84,17 +84,6 @@ NSString *__m__ = [NSString stringWithFormat:@"*** fatal error %@: %@",__FILE_AN
     if (!(__flag__)) die(__a__,##__VA_ARGS__); \
 }
 
-@interface Inf : NSObject;
-- (instancetype)initWithDescription:(NSString *)description maxIterations:(int)maxIter;
-- (void)update;
-@end
-#define INF_DEFINE(...) \
-  Inf *__infvar__ = [[Inf alloc] initWithDescription:(__FILE_AND_LINE__,##__VA_ARGS__) maxIterations:1000]
-#define INF_DEFINEN(__x__,...) \
- Inf *__infvar__ = [[Inf alloc] initWithDescription:(__FILE_AND_LINE__,##__VA_ARGS__) maxIterations:__x__]
-
-#define INF_UPDATE() [__infvar__ update]
-
 #define NO_DEFAULT_INITIALIZER -(id)init { die(@"Please call the designated initializer"); return nil; }
 #define USED_DEBUG_ONLY
 
