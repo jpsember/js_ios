@@ -16,7 +16,7 @@ static GLTintedSpriteProgram *program;
 @implementation GLTintedSpriteProgram
 
 + (GLTintedSpriteProgram *)programWithTransformName:(NSString *)transformName {
-  return [[GLTintedSpriteProgram alloc] initWithTransformName:transformName];
+	return [[GLTintedSpriteProgram alloc] initWithTransformName:transformName];
 }
 
 - (id)initWithTransformName:(NSString *)transformName {

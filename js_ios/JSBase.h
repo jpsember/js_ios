@@ -13,7 +13,6 @@ typedef unsigned char byte;
 
 + (void)dieWithMessage:(NSString *)message;
 + (void)dieWithFilename:(const char *)filename line:(int)line;
-+ (NSString *)dumpBits:(uint)value;
 + (BOOL)testModeActive;
 #if DEBUG
 + (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber;
@@ -28,9 +27,7 @@ typedef unsigned char byte;
 + (NSString *)symbolicNameForPtr:(const void *) ptr;
 + (void)sleepFor:(float)timeInSeconds;
 + (void)showTimeStamp:(NSString *)format,...;
-
 + (void)exitApp;
-
 // Exposed for testing
 + (void)resetSymbolicPtrNames;
 #endif
@@ -41,9 +38,6 @@ typedef unsigned char byte;
     static dispatch_once_t onceToken; \
     dispatch_once(&onceToken, __a__ ); \
 }
-
-#define dbits(__value__) [JSBase dumpBits:__value__]
-#define dbool(__bool__) [JSBase stringFromBool:__bool__]
 
 #if DEBUG
 

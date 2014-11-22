@@ -1,5 +1,7 @@
+#import "JSBase.h"
 #import "JSTestUtil.h"
 #import "JSStackTrace.h"
+#import "js_iosTests-Swift.h"
 
 @interface JSBaseTests : JSTestCase
 
@@ -113,7 +115,7 @@
     DBG
     [JSIORecorder start];
     for (int i = 0; v[i] != -99; i++) {
-        pr(@"%10d = %@\n",v[i],dbits(v[i]));
+        pr(@"%10d = %@\n",v[i], dBits(v[i]) );
     }
     [JSIORecorder stop];
 }
