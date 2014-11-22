@@ -125,7 +125,7 @@
   return [self _gamma];
 }
 - (id)_gamma {
-  return [JSStackTraceElement stackTraceString:0 max:3];
+  return [JSStackTrace stackTraceString:0 max:3];
 }
 
 - (void)testStackTraceString {
