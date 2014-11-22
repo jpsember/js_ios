@@ -1,5 +1,3 @@
-#import <Foundation/Foundation.h>
-
 // This shouldn't be necessary, but the autocompletion is crippled without it, since DEBUG
 // is unknown to it otherwise
 #ifndef DEBUG

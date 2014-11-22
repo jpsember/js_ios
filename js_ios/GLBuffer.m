@@ -1,5 +1,7 @@
-#import "js_ios-Swift.h"
+#import "JSBase.h"
+#import "GLTools.h"
 #import "GLBuffer.h"
+#import "js_ios-Swift.h"
 
 @interface GLBuffer()
 
