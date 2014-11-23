@@ -41,8 +41,6 @@ typedef unsigned char byte;
 
 #if DEBUG
 
-#define FLUSHLOG() [JSBase flushLog]
-
 #define timeStamp(fmt,...) [JSBase showTimeStamp:fmt,##__VA_ARGS__]
 
 // Convert pointer to symbolic string that is easier to read
@@ -88,7 +86,6 @@ NSString *__m__ = [NSString stringWithFormat:@"*** fatal error %@: %@",__FILE_AN
 #define warning(__a__,...)
 #define unimp(__a__,...)
 #define DBG
-#define FLUSHLOG()
 #define USED_DEBUG_ONLY __attribute__((unused))
 
 #endif // DEBUG
