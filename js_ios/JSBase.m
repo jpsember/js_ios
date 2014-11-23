@@ -1,56 +1,13 @@
 #import <objc/runtime.h>
 #import "JSBase.h"
 #if DEBUG
+#import "JSLog.h"
 #import "JSSymbolicNames.h"
 #endif
 
-#if DEBUG
-
-#import "JSAppendStringProtocol.h"
-
-static dispatch_queue_t printerQueue;
-static NSMutableArray *printHandlerStack;
-static id<JSAppendStringProtocol> activeLogHandler;
-static id defaultLogHandler;
-
-@interface DefaultLogHandler: NSObject<JSAppendStringProtocol>
-@end
-
-@implementation DefaultLogHandler
-- (void)appendString:(NSString *)string {
-  fputs([string UTF8String], stdout);
-}
-@end
-
-#endif
 
 
 @implementation JSBase
-
-#if DEBUG
-+ (void)load {
-  printHandlerStack = [NSMutableArray array];
-  printerQueue = dispatch_queue_create("DebugUtil.printerQueue",DISPATCH_QUEUE_SERIAL);
-  defaultLogHandler =[[DefaultLogHandler alloc] init];
-  [self pushLogHandler:defaultLogHandler];
-}
-
-+ (void)pushLogHandler:(id<JSAppendStringProtocol>)handler {
-  dispatch_async(printerQueue,^{
-    [printHandlerStack addObject:handler];
-    activeLogHandler = handler;
-  });
-  [self flushLog];
-}
-
-+ (void)popLogHandler {
-  dispatch_async(printerQueue,^{
-    [printHandlerStack removeLastObject];
-    activeLogHandler = [printHandlerStack lastObject];
-  });
-  [self flushLog];
-}
-#endif
 
 + (void)dieWithMessage:(NSString *)message {
   JSDieException *e = [JSDieException exceptionWithMessage:message];
@@ -99,9 +56,12 @@ static id defaultLogHandler;
   pr(@"%@ %5.2f : %@\n",work,t-startTime,s);
 }
 
-
 + (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber {
   return [NSString stringWithFormat:@"(%@:%d)",[path lastPathComponent],lineNumber];
+}
+
++ (void)logString:(NSString *)string {
+  [JSLog logString:string];
 }
 
 + (void)log:(NSString *)format, ... {
@@ -109,26 +69,11 @@ static id defaultLogHandler;
   va_start(vl, format);
   NSString* str = [[NSString alloc] initWithFormat:format arguments:vl];
   va_end(vl);
-  [JSBase logString:str];
-}
-
-+ (void)logString:(NSString *)string {
-  ASSERT(string,@"attempt to log nil string");
-  dispatch_async(printerQueue,^{
-    [activeLogHandler appendString:string];
-  });
-  [self flushLog];
-}
-
-+ (void)flushLog {
-  // This is only safe if we're in the main thread; or, specifically,
-  // if we're not already in the printerQueue thread.
-  if ([NSThread mainThread])
-    dispatch_sync(printerQueue,^{});
+  [JSLog logString:str];
 }
 
 + (void)breakpoint {
-  [self flushLog];
+  [JSLog flushLog];
   // DBG
   pr(@"(Breakpoint...)\n");
   [self sleepFor:.2];

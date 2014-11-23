@@ -4,9 +4,8 @@
 #define DEBUG 1
 #endif
 
-@protocol JSAppendStringProtocol;
-
 typedef unsigned char byte;
+
 #import "DebugTools.h"
 
 @interface JSBase : NSObject
@@ -16,12 +15,9 @@ typedef unsigned char byte;
 + (BOOL)testModeActive;
 #if DEBUG
 + (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber;
-+ (void)log:(NSString *)format, ...;
-+ (void)flushLog;
-+ (void)breakpoint;
 + (void)logString:(NSString *)string;
-+ (void)pushLogHandler:(id<JSAppendStringProtocol>)handler;
-+ (void)popLogHandler;
++ (void)log:(NSString *)format, ...;
++ (void)breakpoint;
 + (void)oneTimeReport:(NSString *)fileAndLine message:(NSString *)message reportType:(NSString *)reportType;
 + (NSString *)symbolicNameForId:(id)object;
 + (NSString *)symbolicNameForPtr:(const void *) ptr;

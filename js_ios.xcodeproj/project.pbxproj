@@ -60,6 +60,7 @@
 		F41351A01A1FD25300D65EA3 /* GLBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F413519F1A1FD25300D65EA3 /* GLBuffer.m */; };
 		F413CA961A22860D00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
 		F413CA971A22872D00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
+		F413CA9A1A2288F700089841 /* JSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F413CA991A2288F700089841 /* JSLog.m */; };
 		F48E46C51A2040800092E7C0 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C31A2040800092E7C0 /* Base.swift */; };
 		F48E46C61A2040800092E7C0 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C41A2040800092E7C0 /* Math.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
@@ -170,6 +171,8 @@
 		F413519F1A1FD25300D65EA3 /* GLBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLBuffer.m; path = js_ios/GLBuffer.m; sourceTree = SOURCE_ROOT; };
 		F413CA8A1A22860D00089841 /* DebugTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugTools.h; path = js_ios/DebugTools.h; sourceTree = SOURCE_ROOT; };
 		F413CA911A22860D00089841 /* DebugToolsSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DebugToolsSwift.swift; path = js_ios/DebugToolsSwift.swift; sourceTree = SOURCE_ROOT; };
+		F413CA981A2288F700089841 /* JSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLog.h; path = js_ios/JSLog.h; sourceTree = SOURCE_ROOT; };
+		F413CA991A2288F700089841 /* JSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLog.m; path = js_ios/JSLog.m; sourceTree = SOURCE_ROOT; };
 		F446EE8A1A129B400091791B /* js_iosTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "js_iosTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F48E46C31A2040800092E7C0 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = js_ios/Base.swift; sourceTree = SOURCE_ROOT; };
@@ -243,6 +246,8 @@
 				1F74C3CA19009279004DA3A3 /* JSAppendStringProtocol.h */,
 				1FE492081896F04700CF2FCB /* JSBase.h */,
 				1FE492121896F04700CF2FCB /* JSBase.m */,
+				F413CA981A2288F700089841 /* JSLog.h */,
+				F413CA991A2288F700089841 /* JSLog.m */,
 				1FE4921D1896F04700CF2FCB /* JSDictionaryUtil.h */,
 				1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */,
 				1F4487E418DF71340067F1F1 /* JSDieException.h */,
@@ -525,6 +530,7 @@
 				F4F8DD0F1A1C362700DB19EB /* GLTintedSpriteProgram.m in Sources */,
 				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
 				1F33523518DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m in Sources */,
+				F413CA9A1A2288F700089841 /* JSLog.m in Sources */,
 				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,
 				F4AA66E31A1701F30058452F /* GLAppDelegate.swift in Sources */,
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,

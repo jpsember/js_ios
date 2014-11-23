@@ -1,6 +1,7 @@
 #if DEBUG
 
 #import "JSBase.h"
+#import "JSLog.h"
 #import "JSIORecorder.h"
 #import "JSStackTrace.h"
 #import "JSSimulator.h"
@@ -57,7 +58,7 @@ static JSIORecorder *activeRecorder;
 
     _stringBuffer = [NSMutableString string];
 
-    [JSBase pushLogHandler:(id <JSAppendStringProtocol>) self.stringBuffer];
+    [JSLog pushLogHandler:(id <JSAppendStringProtocol>) self.stringBuffer];
 
     activeRecorder = self;
   }
@@ -78,7 +79,7 @@ static JSIORecorder *activeRecorder;
   if (activeRecorder == self) {
     JSIORecorder *saveUntilDoneHere = activeRecorder;
     activeRecorder = nil;
-    [JSBase popLogHandler];
+    [JSLog popLogHandler];
     NSString *content = self.stringBuffer;
     NSString *snapshotPath;
 

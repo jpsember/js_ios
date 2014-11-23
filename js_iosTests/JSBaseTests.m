@@ -1,5 +1,8 @@
 #import "js_iosTests-Swift.h"
 #import "JSBase.h"
+#if DEBUG
+#import "JSLog.h"
+#endif
 #import "JSTestUtil.h"
 #import "JSStackTrace.h"
 
@@ -79,17 +82,17 @@
     NSMutableString *buffer2 = [NSMutableString string];
     NSMutableString *buffer3 = [NSMutableString string];
     
-    [JSBase pushLogHandler:(id<JSAppendStringProtocol>)buffer1];
+    [JSLog pushLogHandler:(id<JSAppendStringProtocol>)buffer1];
     pr(@"Alpha");
-    [JSBase pushLogHandler:(id<JSAppendStringProtocol>)buffer2];
+    [JSLog pushLogHandler:(id<JSAppendStringProtocol>)buffer2];
     pr(@"Beta");
-    [JSBase pushLogHandler:(id<JSAppendStringProtocol>)buffer3];
+    [JSLog pushLogHandler:(id<JSAppendStringProtocol>)buffer3];
     pr(@"Gamma");
-    [JSBase popLogHandler];
+    [JSLog popLogHandler];
     pr(@"Beta");
-    [JSBase popLogHandler];
+    [JSLog popLogHandler];
     pr(@"Alpha");
-    [JSBase popLogHandler];
+    [JSLog popLogHandler];
     XCTAssertEqualObjects(@"AlphaAlpha",buffer1);
     XCTAssertEqualObjects(@"BetaBeta",buffer2);
     XCTAssertEqualObjects(@"Gamma",buffer3);
