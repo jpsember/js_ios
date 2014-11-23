@@ -7,7 +7,7 @@
 @protocol JSAppendStringProtocol;
 
 typedef unsigned char byte;
-#import "JSDebugTools.h"
+#import "DebugTools.h"
 
 @interface JSBase : NSObject
 

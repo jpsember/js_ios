@@ -1,7 +1,7 @@
+#import "js_iosTests-Swift.h"
 #import "JSBase.h"
 #import "JSTestUtil.h"
 #import "JSStackTrace.h"
-#import "js_iosTests-Swift.h"
 
 @interface JSBaseTests : JSTestCase
 
@@ -97,6 +97,12 @@
 
 - (void)testDumpBits
 {
+    if (FALSE) { // Verifying that following lines compile correctly for test target
+      dBits(42);
+//      Renderer *r = [[Renderer alloc] init];
+//      dp(r);
+    }
+  
     int v[] = {
         0,1,2,3,4,5,6,7,8,9,
         15,16,
