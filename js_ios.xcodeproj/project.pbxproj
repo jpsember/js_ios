@@ -59,6 +59,7 @@
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
 		F41351931A1C52BA00D65EA3 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = F41351921A1C52BA00D65EA3 /* tile.png */; };
 		F41351A01A1FD25300D65EA3 /* GLBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F413519F1A1FD25300D65EA3 /* GLBuffer.m */; };
+		F413CA891A22840F00089841 /* DebugTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD051A1BE4E900DB19EB /* DebugTools.swift */; };
 		F47D5B0F1A11E868003F91CD /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F47D5B0E1A11E868003F91CD /* Base.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
@@ -565,6 +566,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F413CA891A22840F00089841 /* DebugTools.swift in Sources */,
 				1F41447718FB1EAD009C4EBB /* JSFreezableTests.m in Sources */,
 				F4D8C1A91A1A88CA0064A139 /* CGPointTests.swift in Sources */,
 				1F0701C7185F9657000FC4AE /* JSBaseTests.m in Sources */,

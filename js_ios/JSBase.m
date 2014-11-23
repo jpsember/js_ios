@@ -182,28 +182,6 @@ static JSSymbolicNames *names;
 
 #endif // DEBUG
 
-+ (NSString *)stringFromBool:(BOOL)b {
-  return b ? @"Y" : @"N";
-}
-
-+ (NSString *)dumpBits:(uint)value {
-  NSMutableString *s = [NSMutableString string];
-  BOOL bitPrinted = NO;
-  for (int bitNumber = 32-1; bitNumber >= 0; bitNumber--) {
-    BOOL bit = (value & (1 << bitNumber)) != 0;
-    if (bit || bitNumber == 4-1) {
-      bitPrinted = YES;
-    }
-    if (bitPrinted) {
-      [s appendString: bit ? @"1" : @"."];
-      if (bitNumber != 0 && bitNumber % 4 == 0) {
-        [s appendString:@" "];
-      }
-    }
-  }
-  return s;
-}
-
 + (void)dieWithFilename:(const char *)filename line:(int)line
 {
   NSString *message = [NSString stringWithFormat:@"*** fatal error: (%s:%d)",filename,line];

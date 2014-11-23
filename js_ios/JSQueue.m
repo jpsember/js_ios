@@ -1,9 +1,9 @@
+#import "js_ios-Swift.h"
 #import "JSBase.h"
 #import "JSQueue.h"
 
 @interface JSQueue()
 
-//@property (nonatomic, assign, readwrite) NSUInteger count;
 @property (nonatomic, strong) NSMutableArray *array;
 @property (nonatomic, assign) NSUInteger head;
 @property (nonatomic, assign) NSUInteger tail;
@@ -14,6 +14,11 @@
 @implementation JSQueue
 
 + (JSQueue *)queue {
+  if (FALSE) { // Verifying that following lines compile correctly for normal target
+    dBits(42);
+    Renderer *r = [[Renderer alloc] init];
+    dp(r);
+  }
   return [JSQueue queueWithCapacity:16];
 }
 

@@ -1,3 +1,5 @@
+#import "js_iosTests-Swift.h"
+#import "JSBase.h"
 #import "JSTestUtil.h"
 #import "JSStackTrace.h"
 
@@ -95,6 +97,12 @@
 
 - (void)testDumpBits
 {
+    if (FALSE) { // Verifying that following lines compile correctly for test target
+      dBits(42);
+//      Renderer *r = [[Renderer alloc] init];
+//      dp(r);
+    }
+  
     int v[] = {
         0,1,2,3,4,5,6,7,8,9,
         15,16,
@@ -113,7 +121,7 @@
     DBG
     [JSIORecorder start];
     for (int i = 0; v[i] != -99; i++) {
-        pr(@"%10d = %@\n",v[i],dbits(v[i]));
+			pr(@"%10d = %@\n",v[i],dBits(v[i]));
     }
     [JSIORecorder stop];
 }

@@ -33,6 +33,10 @@ public func d(image:UIImage) -> String {
   return DebugTools.dImage(image)
 }
 
+public func dBits(value:Int) -> String {
+  return DebugTools.dBits(value)
+}
+
 public func exitApp() {
   JSBase.exitApp()
 }
@@ -79,6 +83,24 @@ public class DebugTools : NSObject {
         } else {
           s += " "
 				}
+      }
+    }
+    return s
+  }
+  
+  public class func dBits(value:Int) -> String {
+    var s = ""
+    var bitPrinted = false
+    for var bitNumber = 32-1; bitNumber >= 0; bitNumber-- {
+      let bit = (value & (1 << bitNumber)) != 0
+      if (bit || bitNumber == 4-1) {
+        bitPrinted = true
+      }
+      if (bitPrinted) {
+        s += bit ? "1" : "."
+        if (bitNumber != 0 && bitNumber % 4 == 0) {
+          s += " "
+        }
       }
     }
     return s
