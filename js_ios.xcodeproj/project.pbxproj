@@ -59,8 +59,8 @@
 		F41351931A1C52BA00D65EA3 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = F41351921A1C52BA00D65EA3 /* tile.png */; };
 		F41351A01A1FD25300D65EA3 /* GLBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = F413519F1A1FD25300D65EA3 /* GLBuffer.m */; };
 		F413CA961A22860D00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
-		F413CA971A22872D00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
 		F413CA9A1A2288F700089841 /* JSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F413CA991A2288F700089841 /* JSLog.m */; };
+		F413CA9B1A2308AA00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
 		F48E46C51A2040800092E7C0 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C31A2040800092E7C0 /* Base.swift */; };
 		F48E46C61A2040800092E7C0 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C41A2040800092E7C0 /* Math.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
@@ -566,7 +566,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F413CA971A22872D00089841 /* DebugToolsSwift.swift in Sources */,
 				1F41447718FB1EAD009C4EBB /* JSFreezableTests.m in Sources */,
 				F4D8C1A91A1A88CA0064A139 /* CGPointTests.swift in Sources */,
 				1F0701C7185F9657000FC4AE /* JSBaseTests.m in Sources */,
@@ -583,6 +582,7 @@
 				1F09C9A218962D4800CE1AE8 /* JSOrderedSetTests.m in Sources */,
 				1F09C9A0189619FF00CE1AE8 /* NSOrderedSetTests.m in Sources */,
 				1F48DE1318A19E2C000BEFD1 /* JSTestUtil.m in Sources */,
+				F413CA9B1A2308AA00089841 /* DebugToolsSwift.swift in Sources */,
 				1FDC24081860E0E3002DF091 /* JSSimulatorTests.m in Sources */,
 				1F2CB662185FEA3E0004878D /* JSDictionaryUtilTests.m in Sources */,
 			);
