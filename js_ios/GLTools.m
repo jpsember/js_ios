@@ -14,9 +14,15 @@
   memcpy(dest,c,sizeof(GLfloat) * 4);
 }
 
-+ (GLuint)createTexture:(CGPoint)size withAlphaChannel:(BOOL)hasAlpha withRepeat:(BOOL)withRepeat; {
++ (GLuint)createTexture:(CGPoint)size withAlphaChannel:(BOOL)hasAlpha withRepeat:(BOOL)withRepeat context:(NSString *)context {
   GLuint textureId;
   glGenTextures(1, &textureId);
+  
+  if (context == nil) {
+    context = @"unknown";
+  }
+  
+  [Texture allocId:textureId context:[NSString stringWithFormat:@"GLTools.createTexture(%@)",context]];
   
   GLuint format = hasAlpha ? GL_RGBA : GL_RGB;
 

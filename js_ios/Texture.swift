@@ -1,6 +1,8 @@
 import Foundation
 import GLKit
 
+public let DB_TEXTURE = cond(true)
+
 public class Texture : NSObject {
  
   private(set) var textureId : GLuint = 0
@@ -54,7 +56,7 @@ public class Texture : NSObject {
   //
   private func loadBitmap(name: String) {
     let uImage = loadUImage(name)
-    let (textureId,textureSize,hasAlpha) = GLTools.installTexture(uImage!)
+    let (textureId,textureSize,hasAlpha) = GLTools.installTexture(uImage!, contextName:name)
    	self.textureId = textureId
     self.width = Int(textureSize.x)
     self.height = Int(textureSize.y)
@@ -68,4 +70,25 @@ public class Texture : NSObject {
 		glBindTexture(GLenum(GL_TEXTURE_2D), textureId);
   }
 
+  public class func allocId(textureId : GLuint,  context : String = "(unknown context)") {
+    if (textureId == 0) {
+      return
+    }
+    if (DB_TEXTURE) {
+      puts("=== texture alloc \(textureId), \(context)")
+    }
+  }
+  
+  public class func deleteId(textureId : GLuint) {
+    if (textureId == 0) {
+      return
+    }
+    if (DB_TEXTURE) {
+      puts("=== texture delete \(textureId)")
+    }
+    
+    var textureName = textureId
+    glDeleteTextures(1, &textureName)
+  }
+  
 }

@@ -69,6 +69,7 @@ public class View : NSObject {
     // Dispose of old texture cache if it exists and its size differs from required
     if (cachedTexture != nil) {
       if (calcRequiredTextureSize() != cachedTexture!.bounds.ptSize) {
+        puts("disposing of old texture cache, size \(cachedTexture!.bounds.ptSize) differs from \(calcRequiredTextureSize())")
       	disposeTextureCache()
       }
     }
@@ -93,7 +94,7 @@ public class View : NSObject {
   
   private func createTextureCache() {
     let texSize = calcRequiredTextureSize()
-    let texId = GLTools.createTexture(texSize,withAlphaChannel:!self.opaque,withRepeat:ENFORCE_TEX_POWER_2)
+    let texId = GLTools.createTexture(texSize,withAlphaChannel:!self.opaque,withRepeat:ENFORCE_TEX_POWER_2, context:"cache for View")
     cachedTexture = Texture(textureId:texId,size:texSize,hasAlpha:!self.opaque)
   }
   

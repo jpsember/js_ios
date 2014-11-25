@@ -46,7 +46,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       glClearColor(0,0,0.7,0.5)
     	glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
       if (cond(true)) {
-        let tex = Texture(pngName:"blob")
+        let tex = self.getTexture("blob")
         let sprite = GLSprite(texture:tex,window:view.bounds,program:nil)
         sprite.render(CGPoint(10,0))
       }
@@ -70,7 +70,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     let ballTexture = getTexture("AlphaBall")
     ballSprite = GLSprite(texture:ballTexture, window:ballTexture.bounds, program:GLTintedSpriteProgram.getProgram())
   
-    let blobTexture = Texture(pngName:"blob")
+    let blobTexture = getTexture("blob")
     blobSprite = GLSprite(texture:blobTexture, window:blobTexture.bounds, program:nil)
 
     bgndSprite = GLSprite(texture:bgndTexture, window:CGRect(-120,-120,1000,1000), program:nil)
@@ -166,17 +166,17 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     
     if (EXAMPLE_VIEW) {
 			let v = mainView!
-      let val = frame % 30
-			if (val == 10 || val == 20) {
-        puts("val \(val), invalidating view")
-        if (val == 20) {
-          puts("changing view size")
+      let val = frame % 15
+			if (val == 5 || val == 10) {
+        puts("\n\nval \(val), invalidating view")
+        if (val == 10) {
+          puts("changing view size, frame \(frame)")
           warning("something is screwing up the coordinates here... transform?")
-          v.bounds = CGRect(320,350,128+2,64+3)
+          v.bounds = CGRect(320,350,128+2,64+(CGFloat(frame/3)))
           v.plotHandler = {(view) in
             	view.defaultPlotHandler()
               if (cond(true)) {
-                let tex = Texture(pngName:"blob")
+                let tex = self.getTexture("blob")
                 let sprite = GLSprite(texture:tex,window:tex.bounds,program:nil)
                 sprite.render(CGPoint(0,0))
               }

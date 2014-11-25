@@ -136,10 +136,11 @@ extension GLTools {
   
   // Install UIImage as OpenGL texture; return texture id, and size
   //
-  public class func installTexture(image:UIImage) -> (GLuint,CGPoint,Bool) {
+  public class func installTexture(image:UIImage, contextName:String = "unknown") -> (GLuint,CGPoint,Bool) {
     let error:NSErrorPointer = nil
     let textureInfo = GLKTextureLoader.textureWithCGImage(image.CGImage,options:nil,error:error)
     ASSERT(error == nil,"failed to install texture; \(error)")
+    Texture.allocId(textureInfo.name,context:"GLToolsAux.installTexture name '\(contextName)'")
   	let alphaInfo = textureInfo.alphaState
     let hasAlpha = (alphaInfo != GLKTextureInfoAlphaState.None)
     return (textureInfo.name,CGPoint(CGFloat(textureInfo.width),CGFloat(textureInfo.height)),hasAlpha)
