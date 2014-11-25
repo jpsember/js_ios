@@ -28,7 +28,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   private var angle : CGFloat = 0.0
   private var frame : Int = 0
   
-  private let fps : CGFloat = 30.0
+  private let fps : CGFloat = 8.0
   private var preparedViewSize  = CGSizeMake(0,0)
   
   let EXAMPLE_TINT = cond(false)
@@ -156,9 +156,17 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     
     if (EXAMPLE_VIEW) {
-      if ((frame % Int(fps*2.0) < Int(fps / 4))) {
-    		mainView!.paint()
-      }
+			let v = mainView!
+      let val = frame % 30
+			if (val == 10 || val == 20) {
+        puts("val \(val), invalidating view")
+        if (val == 20) {
+          	puts("changing view size")
+            v.bounds.size = CGSize(width:200,height:270)
+        }
+				v.invalidate()
+			}
+			v.plot()
     }
     
     frame += 1
