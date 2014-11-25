@@ -29,12 +29,39 @@ public class Texture : NSObject {
     loadBitmap(pngName)
   }
   
-  convenience init(buffer:GLBuffer) {
-    self.init(textureId:buffer.textureId,size:buffer.size,hasAlpha:buffer.hasAlpha)
-  }
-  
-  convenience init(textureId:GLuint,size:CGPoint,hasAlpha:Bool) {
-    self.init();
+  convenience init(size:CGPoint,hasAlpha:Bool,withRepeat:Bool,context:String = "unknown") {
+    self.init()
+    
+    var textureId : GLuint = 0
+      
+    glGenTextures(1, &textureId)
+    
+    Texture.allocId(textureId,context:"Texture.init, context '\(context)'")
+    
+    let format = hasAlpha ? GLint(GL_RGBA) : GLint(GL_RGB)
+        
+    glBindTexture(GLenum(GL_TEXTURE_2D), textureId)
+    
+    glTexImage2D( GLenum(GL_TEXTURE_2D),
+        0,
+        format,
+        GLsizei(size.x), GLsizei(size.y),
+        0,
+        GLenum(format),
+        GLenum(GL_UNSIGNED_BYTE),
+        UnsafePointer<Void>(nil))
+        
+    // Set up parameters for this particular texture
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR);
+        
+    let wrapType = withRepeat ? GLint(GL_REPEAT) : GLint(GL_CLAMP_TO_EDGE)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), wrapType);
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), wrapType);
+        
+    // Unbind existing texture... we're done with it
+    glBindTexture(GLenum(GL_TEXTURE_2D), 0);
+    
     self.textureId = textureId
     self.width = size.ix
     self.height = size.iy

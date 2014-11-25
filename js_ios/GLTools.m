@@ -14,42 +14,6 @@
   memcpy(dest,c,sizeof(GLfloat) * 4);
 }
 
-+ (GLuint)createTexture:(CGPoint)size withAlphaChannel:(BOOL)hasAlpha withRepeat:(BOOL)withRepeat context:(NSString *)context {
-  GLuint textureId;
-  glGenTextures(1, &textureId);
-  
-  if (context == nil) {
-    context = @"unknown";
-  }
-  
-  [Texture allocId:textureId context:[NSString stringWithFormat:@"GLTools.createTexture(%@)",context]];
-  
-  GLuint format = hasAlpha ? GL_RGBA : GL_RGB;
-
-  glBindTexture(GL_TEXTURE_2D, textureId);
-	glTexImage2D( GL_TEXTURE_2D,
-             0,
-             format,
-             size.x, size.y,
-             0,
-             format,
-             GL_UNSIGNED_BYTE,
-             NULL);
-
-	// Set up parameters for this particular texture
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-  
-  GLint wrapType = withRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE;
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapType);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapType);
-  
-  // Unbind existing texture... we're done with it
-  glBindTexture(GL_TEXTURE_2D, 0);
-
-  return textureId;
-}
-
 + (NSString *)dumpBuffer {
   [GLTools verifyNoError];
   

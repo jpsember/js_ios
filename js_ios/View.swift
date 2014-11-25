@@ -94,8 +94,7 @@ public class View : NSObject {
   
   private func createTextureCache() {
     let texSize = calcRequiredTextureSize()
-    let texId = GLTools.createTexture(texSize,withAlphaChannel:!self.opaque,withRepeat:ENFORCE_TEX_POWER_2, context:"cache for View")
-    cachedTexture = Texture(textureId:texId,size:texSize,hasAlpha:!self.opaque)
+    cachedTexture = Texture(size:texSize,hasAlpha:!self.opaque,withRepeat:ENFORCE_TEX_POWER_2,context:"cache for View")
   }
   
   private func plotIntoCache() {

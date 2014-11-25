@@ -120,7 +120,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
 
       b.closeRender()
       
-      builtTexture = Texture(buffer:b)
+      builtTexture = b.texture;
       builtSprite = GLSprite(texture:builtTexture, window:builtTexture!.bounds, program:nil)
     }
     }
