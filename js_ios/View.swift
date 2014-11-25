@@ -1,9 +1,17 @@
 import Foundation
 import GLKit
 
+
 public class View : NSObject {
   
+  public typealias PlotHandler = (View) -> Void
+  
   public var bounds: CGRect
+  
+  // The handler for plotting view content; default clears it and that's all
+  //
+  public var plotHandler : PlotHandler = View.defaultPlotHandlerFunction
+  
   private(set) var opaque:Bool = true
   private(set) var cacheable:Bool = true
   public var children: Array<View> = []
@@ -83,28 +91,28 @@ public class View : NSObject {
     GLTools.verifyNoError()
     GLTools.verifyFrameBufferStatus()
     
-    unimp("call user function to render view content")
-    if (self.opaque) {
-      glClearColor(0.0,0.0,0.5, 1.0)
-    } else {
-      glClearColor(0.2,0.4,0.8,0.5)
-    }
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-    GLTools.verifyNoError()
-    
-    if (cond(true)) {
-      let tex = Texture(pngName:"blob")
-      let sprite = GLSprite(texture:tex,window:self.bounds,program:nil)
-      sprite.render(CGPoint(0,0))
-    }
+    plotHandler(self)
     
     GLTools.popFrameBuffer()
   }
   
   private func plotCachedTexture() {
     let sprite = GLSprite(texture:self.cachedTexture,window:self.bounds,program:nil)
-    sprite.render(CGPoint.zero)
+    sprite.render(bounds.origin)
   }
   
+  public func defaultPlotHandler() {
+    if (opaque) {
+      glClearColor(0,0,0,1)
+    } else {
+      glClearColor(0,0,0,0)
+    }
+    glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+  }
+  
+  private class func defaultPlotHandlerFunction(view : View) {
+    view.defaultPlotHandler()
+  }
+
 }
 

@@ -34,7 +34,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   let EXAMPLE_TINT = cond(false)
   let EXAMPLE_TILE = cond(false)
   let EXAMPLE_VIEW = cond(true)
-	let EXAMPLE_GLBUFFER = cond(true)
+	let EXAMPLE_GLBUFFER = cond(false)
   
   private func buildViews(containerSize:CGPoint) {
     if (mainView != nil) {
@@ -42,7 +42,16 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     let v = View(CGPoint(258,500), false, true)
     mainView = v
-  
+    v.plotHandler = {(view) in
+      view.defaultPlotHandler()
+      if (cond(true)) {
+        let tex = Texture(pngName:"blob")
+        let sprite = GLSprite(texture:tex,window:view.bounds,program:nil)
+        sprite.render(CGPoint(10,10))
+      }
+    }
+    
+    
     if (cond(false)) {
     let v2 = View(CGPoint(128,64))
     subView = v2
@@ -143,7 +152,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       ballSprite!.render(view!.bounds.midPoint);
     }
     blobSprite!.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
-    blobSprite!.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
+//    blobSprite!.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
     
     if (builtSprite != nil) {
     	builtSprite!.render(pointOnCircle(CGPoint(120,120),40,angle*0.2))
@@ -161,8 +170,17 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
 			if (val == 10 || val == 20) {
         puts("val \(val), invalidating view")
         if (val == 20) {
-          	puts("changing view size")
-            v.bounds.size = CGSize(width:200,height:270)
+          puts("changing view size")
+          v.bounds = CGRect(320,350,50,70)
+          v.plotHandler = {(view) in
+            	view.defaultPlotHandler()
+              if (cond(true)) {
+                let tex = Texture(pngName:"blob")
+                puts("constructing sprite for view bounds \(view.bounds)")
+                let sprite = GLSprite(texture:tex,window:tex.bounds,program:nil)
+                sprite.render(CGPoint(0,0))
+              }
+          }
         }
 				v.invalidate()
 			}
