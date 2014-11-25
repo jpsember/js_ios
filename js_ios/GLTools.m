@@ -14,7 +14,7 @@
   memcpy(dest,c,sizeof(GLfloat) * 4);
 }
 
-+ (GLuint)createTexture:(CGPoint)size withAlphaChannel:(BOOL)hasAlpha {
++ (GLuint)createTexture:(CGPoint)size withAlphaChannel:(BOOL)hasAlpha withRepeat:(BOOL)withRepeat; {
   GLuint textureId;
   glGenTextures(1, &textureId);
   
@@ -34,8 +34,9 @@
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
   
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  GLint wrapType = withRepeat ? GL_REPEAT : GL_CLAMP_TO_EDGE;
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapType);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapType);
   
   // Unbind existing texture... we're done with it
   glBindTexture(GL_TEXTURE_2D, 0);

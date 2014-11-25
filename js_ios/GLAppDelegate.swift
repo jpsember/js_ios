@@ -40,17 +40,17 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     if (mainView != nil) {
       return
     }
-    let v = View(CGPoint(258,500), false, true)
+    let v = View(CGPoint(257,511), false, true)
     mainView = v
-    v.plotHandler = {(view) in
-      view.defaultPlotHandler()
+    v.plotHandler = { (view) in
+      glClearColor(0,0,0.7,0.5)
+    	glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
       if (cond(true)) {
         let tex = Texture(pngName:"blob")
         let sprite = GLSprite(texture:tex,window:view.bounds,program:nil)
-        sprite.render(CGPoint(10,10))
+        sprite.render(CGPoint(10,0))
       }
     }
-    
     
     if (cond(false)) {
     let v2 = View(CGPoint(128,64))
@@ -171,12 +171,12 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
         puts("val \(val), invalidating view")
         if (val == 20) {
           puts("changing view size")
-          v.bounds = CGRect(320,350,50,70)
+          warning("something is screwing up the coordinates here... transform?")
+          v.bounds = CGRect(320,350,128+2,64+3)
           v.plotHandler = {(view) in
             	view.defaultPlotHandler()
               if (cond(true)) {
                 let tex = Texture(pngName:"blob")
-                puts("constructing sprite for view bounds \(view.bounds)")
                 let sprite = GLSprite(texture:tex,window:tex.bounds,program:nil)
                 sprite.render(CGPoint(0,0))
               }

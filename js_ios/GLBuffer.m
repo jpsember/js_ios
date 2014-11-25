@@ -28,7 +28,7 @@
 - (void)openRender {
   [GLTools pushNewFrameBuffer];
   
-  _textureId = [GLTools createTexture:_size withAlphaChannel:_hasAlpha];
+  _textureId = [GLTools createTexture:_size withAlphaChannel:_hasAlpha withRepeat:YES];
   
   glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, _textureId, 0);
   [GLTools verifyFrameBufferStatus];

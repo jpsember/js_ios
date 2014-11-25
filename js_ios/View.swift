@@ -12,14 +12,25 @@ public class View : NSObject {
   //
   public var plotHandler : PlotHandler = View.defaultPlotHandlerFunction
   
-  private(set) var opaque:Bool = true
-  private(set) var cacheable:Bool = true
+  // If opaque, completely obscures any view behind it
+  private(set) var opaque = true
+  
+  // If cacheable, view is rendered to an offscreen buffer and plotted from there
+  private(set) var cacheable = true
+  
   public var children: Array<View> = []
   
   // Texture holding cached rendered view
   private var cachedTexture:Texture? = nil
   // True iff the cached view contents (if they exist) are valid, vs need to be redrawn
   private var cachedTextureValid = false
+  
+  // If true, texture constructed for caching view's content will have dimensions padded 
+  // if necessary to be a power of 2.  According to ES 2.0 specificiation
+  // (see http://stackoverflow.com/questions/11069441/non-power-of-two-textures-in-ios ),
+  // non-power-of-two (npot) textures are supported as long as their wrap parameters are
+  // set to CLAMP; not sure about the min/mag settings, or whether mipmapping supported.
+  private var ENFORCE_TEX_POWER_2 = cond(false)
   
   public init(_ size:CGPoint, _ opaque:Bool = true, _ cacheable:Bool = true) {
     self.bounds = CGRect(0,0,size.x,size.y)
@@ -70,7 +81,9 @@ public class View : NSObject {
   
   private func calcRequiredTextureSize() -> CGPoint {
     var texSize = self.bounds.ptSize
-    texSize = GLTools.smallestPowerOfTwo(texSize)
+    if (ENFORCE_TEX_POWER_2) {
+    	texSize = GLTools.smallestPowerOfTwo(texSize)
+    }
     return texSize
   }
   
@@ -80,7 +93,7 @@ public class View : NSObject {
   
   private func createTextureCache() {
     let texSize = calcRequiredTextureSize()
-    let texId = GLTools.createTexture(texSize,withAlphaChannel:!self.opaque)
+    let texId = GLTools.createTexture(texSize,withAlphaChannel:!self.opaque,withRepeat:ENFORCE_TEX_POWER_2)
     cachedTexture = Texture(textureId:texId,size:texSize,hasAlpha:!self.opaque)
   }
   
