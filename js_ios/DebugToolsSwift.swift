@@ -45,6 +45,11 @@ public func exitApp() {
   JSBase.exitApp()
 }
 
+public func dInts(array:UnsafePointer<Int>,length:Int) -> String {
+  return DebugTools.dInts(array,length:length)
+}
+
+
 // These methods are placed within a class, so they're accessible to objective c code
 
 public class DebugTools : NSObject {
@@ -77,6 +82,17 @@ public class DebugTools : NSObject {
 	  return s
   }
   
+  public class func dInts(ints:UnsafePointer<Int>, length:Int) -> String {
+    var s = ""
+    for i in 0..<length {
+      s += "\(ints[i])"
+      if ((i+1) % 4 == 0) {
+        s += "\n"
+      }
+    }
+    return s
+  }
+
   public class func dBytes(array:UnsafePointer<UInt8>,length:Int) -> String {
     var s = ""
     for i in 0..<length {

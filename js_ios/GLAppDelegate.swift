@@ -96,7 +96,8 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   public func glkView(view : GLKView!, drawInRect : CGRect) {
     
     GLTools.verifyNoError()
-
+		Texture.processDeleteList()
+    
     if (EXAMPLE_VIEW) {
     	buildViews(view!.bounds.ptSize)
     }

@@ -101,21 +101,22 @@ public class Texture : NSObject {
     if (textureId == 0) {
       return
     }
+    Texture.dbMessage("texture alloc \(textureId), \(context)")
+  }
+  
+  deinit {
+    Texture.dbMessage("adding \(textureId) to delete list")
+    GLTools.addIdToTextureDeleteList(textureId)
+  }
+  
+  public class func dbMessage(message : String) {
     if (DB_TEXTURE) {
-      puts("=== texture alloc \(textureId), \(context)")
+    	puts("=== \(message)")
     }
   }
   
-  public class func deleteId(textureId : GLuint) {
-    if (textureId == 0) {
-      return
-    }
-    if (DB_TEXTURE) {
-      puts("=== texture delete \(textureId)")
-    }
-    
-    var textureName = textureId
-    glDeleteTextures(1, &textureName)
+  public class func processDeleteList() {
+    GLTools.flushTextureDeleteList()
   }
   
 }

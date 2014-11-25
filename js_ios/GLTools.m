@@ -4,6 +4,33 @@
 
 @implementation GLTools
 
++ (NSMutableArray *)deleteTextureIdList {
+  static NSMutableArray *sDeleteTextureIds;
+  if (sDeleteTextureIds == nil) {
+    sDeleteTextureIds = [NSMutableArray array];
+  }
+  return sDeleteTextureIds;
+}
+
++ (void)addIdToTextureDeleteList:(GLuint)textureId {
+  [[GLTools deleteTextureIdList] addObject:@(textureId)];
+}
+
++ (void)flushTextureDeleteList {
+  NSMutableArray *a = [GLTools deleteTextureIdList];
+  if ([a isEmpty]) {
+    return;
+	}
+  [Texture dbMessage:[NSString stringWithFormat:@"flushTextureDeleteList, deleting %@",a]];
+
+  GLuint b[a.count];
+  for (int i = 0 ; i < a.count; i++) {
+    b[i] = [a[i] integerValue];
+  }
+  glDeleteTextures(a.count, b);
+  [a removeAllObjects];
+}
+
 + (void)setGLColor:(UIColor *)uiColor {
   const CGFloat *c = CGColorGetComponents(uiColor.CGColor);
   glColor4f(c[0],c[1],c[2],c[3]);

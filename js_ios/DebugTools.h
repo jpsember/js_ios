@@ -6,5 +6,6 @@
 #define dBool(value) [DebugTools dBoolean:value]
 #define dBits(value) [DebugTools dBits:value]
 #define dFloats(floats,len) [DebugTools dFloats:floats length:len]
+#define dInts(ints,len) [DebugTools dInts:ints length:len]
 
 #endif
