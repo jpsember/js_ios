@@ -18,7 +18,7 @@ public class Texture : NSObject {
     return CGRectMake(0,0,CGFloat(width),CGFloat(height))
   }
   
-  public override init() {
+  private override init() {
     super.init()
   }
   
