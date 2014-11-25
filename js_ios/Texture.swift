@@ -3,11 +3,15 @@ import GLKit
 
 public class Texture : NSObject {
  
-  private var textureId: GLuint? = nil
+  private(set) var textureId : GLuint = 0
   public var width = 0
   public var height = 0
   public var hasAlpha = false
   
+  public override var description : String {
+    return "(Texture id:\(textureId) size:\(width) x \(height) hasAlpha:\(d(hasAlpha)))"
+  }
+
   public var bounds: CGRect {
     return CGRectMake(0,0,CGFloat(width),CGFloat(height))
   }
@@ -24,11 +28,15 @@ public class Texture : NSObject {
   }
   
   convenience init(buffer:GLBuffer) {
+    self.init(textureId:buffer.textureId,size:buffer.size,hasAlpha:buffer.hasAlpha)
+  }
+  
+  convenience init(textureId:GLuint,size:CGPoint,hasAlpha:Bool) {
     self.init();
-    self.textureId = buffer.textureId
-    self.width = buffer.size.ix
-    self.height = buffer.size.iy
-    self.hasAlpha = buffer.hasAlpha
+    self.textureId = textureId
+    self.width = size.ix
+    self.height = size.iy
+    self.hasAlpha = hasAlpha
   }
   
   // Load UImage from resource "<name>.png"
@@ -55,17 +63,9 @@ public class Texture : NSObject {
   }
 
   // Make this the active OpenGL texture
-  //
   public func select() {
-		glBindTexture(GLenum(GL_TEXTURE_2D), textureId!);
-    
-    // We must set the wrapping / clamping options for each individual texture.
-    
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GLint(GL_REPEAT))
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GLint(GL_REPEAT))
-    
-    glTexParameteri(GLenum(GL_TEXTURE_2D),GLenum(GL_TEXTURE_MAG_FILTER),GL_LINEAR)
-    glTexParameteri(GLenum(GL_TEXTURE_2D),GLenum(GL_TEXTURE_MIN_FILTER),GL_LINEAR)
+    ASSERT(textureId  != 0,"tex id is zero")
+		glBindTexture(GLenum(GL_TEXTURE_2D), textureId);
   }
 
 }

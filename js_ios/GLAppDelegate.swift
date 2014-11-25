@@ -3,31 +3,63 @@ import GLKit
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   
+  private var textureMap = Dictionary<String,Texture>()
+  
+  private func getTexture(name : String) -> Texture {
+    var tex = textureMap[name]
+    if tex == nil {
+      tex = Texture(pngName:name)
+      textureMap[name] = tex
+    }
+    return tex!
+  }
+  
   private var timer : NSTimer?
   private var view : UIView?
-  private var bgndTexture : Texture?
-  private var ballTexture : Texture?
   private var bgndSprite : GLSprite?
   private var renderer : Renderer?
   private var ballSprite : GLSprite?
   private var blobSprite : GLSprite?
   private var builtTexture: Texture?
   private var builtSprite: GLSprite?
+  private var mainView : View?
+  private var subView: View?
   
   private var angle : CGFloat = 0.0
+  private var frame : Int = 0
+  
   private let fps : CGFloat = 30.0
   private var preparedViewSize  = CGSizeMake(0,0)
   
+  let EXAMPLE_TINT = cond(false)
+  let EXAMPLE_TILE = cond(false)
+  let EXAMPLE_VIEW = cond(true)
+	let EXAMPLE_GLBUFFER = cond(true)
+  
+  private func buildViews(containerSize:CGPoint) {
+    if (mainView != nil) {
+      return
+    }
+    let v = View(CGPoint(258,500), false, true)
+    mainView = v
+  
+    if (cond(false)) {
+    let v2 = View(CGPoint(128,64))
+    subView = v2
+    mainView!.add(v2)
+    }
+  }
+  
   private func loadTextures() {
-    if (bgndTexture != nil) {
+    if (textureMap["tile"] != nil) {
       return
     }
     
-    bgndTexture = Texture(pngName:"tile")
-    bgndSprite = GLSprite(texture:bgndTexture, window:bgndTexture!.bounds, program:nil)
+    let bgndTexture = getTexture("tile")
+    bgndSprite = GLSprite(texture:bgndTexture, window:bgndTexture.bounds, program:nil)
     
-    ballTexture = Texture(pngName:"AlphaBall")
-    ballSprite = GLSprite(texture:ballTexture, window:ballTexture!.bounds, program:GLTintedSpriteProgram.getProgram())
+    let ballTexture = getTexture("AlphaBall")
+    ballSprite = GLSprite(texture:ballTexture, window:ballTexture.bounds, program:GLTintedSpriteProgram.getProgram())
   
     let blobTexture = Texture(pngName:"blob")
     blobSprite = GLSprite(texture:blobTexture, window:blobTexture.bounds, program:nil)
@@ -54,11 +86,13 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
   
   public func glkView(view : GLKView!, drawInRect : CGRect) {
     
-    let EXAMPLE_TINT = true || alwaysFalse()
-    let EXAMPLE_TILE = false || alwaysFalse()
-    
     GLTools.verifyNoError()
 
+    if (EXAMPLE_VIEW) {
+    	buildViews(view!.bounds.ptSize)
+    }
+    
+    if (EXAMPLE_GLBUFFER) {
     // If the 'built' texture doesn't exist yet, build it IF the other textures & sprites are available
     if (builtTexture == nil && blobSprite != nil) {
 
@@ -80,7 +114,7 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
       builtTexture = Texture(buffer:b)
       builtSprite = GLSprite(texture:builtTexture, window:builtTexture!.bounds, program:nil)
     }
-    
+    }
     
     // A nice green color
     glClearColor(0.0, 0.5, 0.1, 1.0)
@@ -88,14 +122,21 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     GLTools.verifyNoError()
     GLTools.initializeOpenGLState()
     
+    
+    if (cond(false)) {
+      glFinish()
+      puts(GLTools.dumpBuffer())
+    }
+    
     prepareGraphics(view!.bounds.size)
     
     angle += degrees(60 / fps)
+    
     if (EXAMPLE_TILE) {
    	  bgndSprite!.render(pointOnCircle(CGPoint.zero, 0.5, angle*5))
     }
     
-    if (EXAMPLE_TINT) { // Limit the scope of the variables within; swift is missing the feature '{ ... }' of Obj-C, Java, ...
+    if (EXAMPLE_TINT) {
       let t = (angle % (2*pi))/(2*pi)
       let color = UIColor(red:CGFloat(t), green:CGFloat(0.25+t/2), blue: CGFloat(0.75-t/2), alpha: CGFloat(t))
       GLTintedSpriteProgram.getProgram().setTintColor(color)
@@ -113,6 +154,14 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     if (angle > pi*6) {
       exitApp()
     }
+    
+    if (EXAMPLE_VIEW) {
+      if ((frame % Int(fps*2.0) < Int(fps / 4))) {
+    		mainView!.paint()
+      }
+    }
+    
+    frame += 1
   }
   
   override public func buildView() -> UIView {

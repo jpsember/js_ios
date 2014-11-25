@@ -63,6 +63,7 @@
 		F413CA9B1A2308AA00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
 		F48E46C51A2040800092E7C0 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C31A2040800092E7C0 /* Base.swift */; };
 		F48E46C61A2040800092E7C0 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C41A2040800092E7C0 /* Math.swift */; };
+		F49902271A23C8B300EC4D16 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49902261A23C8B300EC4D16 /* View.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
 		F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */; };
@@ -177,6 +178,7 @@
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F48E46C31A2040800092E7C0 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = js_ios/Base.swift; sourceTree = SOURCE_ROOT; };
 		F48E46C41A2040800092E7C0 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = js_ios/Math.swift; sourceTree = SOURCE_ROOT; };
+		F49902261A23C8B300EC4D16 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = View.swift; path = js_ios/View.swift; sourceTree = SOURCE_ROOT; };
 		F4A3603C1A12C4B200F48E71 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 		F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fragment_shader_texture.glsl; sourceTree = "<group>"; };
 		F4A360451A1421ED00F48E71 /* vertex_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex_shader_texture.glsl; sourceTree = "<group>"; };
@@ -384,6 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				F413519E1A1FD25300D65EA3 /* GLBuffer.h */,
+				F49902261A23C8B300EC4D16 /* View.swift */,
 				F413519F1A1FD25300D65EA3 /* GLBuffer.m */,
 				F4AA66D71A1701F30058452F /* GLAppDelegate.swift */,
 				F4D8C1AC1A1BD2A00064A139 /* GLSprite.h */,
@@ -556,6 +559,7 @@
 				1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */,
 				1F4487E618DF71340067F1F1 /* JSDieException.m in Sources */,
 				F4AA66E61A1701F30058452F /* CGPoint.swift in Sources */,
+				F49902271A23C8B300EC4D16 /* View.swift in Sources */,
 				1F74C3D119009486004DA3A3 /* NSMutableString+JSMutableStringCategory.m in Sources */,
 				F4D8C1AE1A1BD2A00064A139 /* GLSprite.m in Sources */,
 				1FE4922A1896F04700CF2FCB /* JSSwizzler.m in Sources */,

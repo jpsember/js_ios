@@ -3,10 +3,15 @@ import GLKit
 import OpenGLES
 import UIKit
 
+public func dHex(value:GLenum) -> String {
+  return dHex(Int(value))
+}
+
 extension GLTools {
 
   private struct S {
     static var programId: GLuint = 0
+    static var fboStack = [GLuint]()
   }
 
   public class func initializeOpenGLState() {
@@ -24,8 +29,33 @@ extension GLTools {
   public class func verifyNoError() {
     let err = glGetError()
     if (err != 0) {
-      warning("OpenGL error #\(err)")
-      die("OpenGL error! Number \(err)")
+      let message : String = "OpenGL error #\(dHex(err) )"
+      warning(message)
+      die(message)
+    }
+  }
+  
+  public class func verifyFrameBufferStatus() {
+  	var status:GLenum
+  	status = glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER))
+    
+    if (status != GLenum(GL_FRAMEBUFFER_COMPLETE)) {
+      var message = "glCheckFrameBufferStatus is \(dHex(Int(status)))"
+      var cause = ""
+      switch(status) {
+      case GLenum(GL_FRAMEBUFFER_UNSUPPORTED):
+       	cause = "FBO unsupported"
+      case GLenum(GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT):
+        cause = "Not all framebuffer attachment points are framebuffer attachment complete"
+      case GLenum(GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS):
+        cause = "incomplete dimensions"
+      case GLenum(GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT):
+        cause = "No images are attached to the framebuffer"
+      default:
+        cause = "unknown"
+      }
+      message += " : " + cause
+    	die(message)
     }
   }
   
@@ -113,6 +143,45 @@ extension GLTools {
   	let alphaInfo = textureInfo.alphaState
     let hasAlpha = (alphaInfo != GLKTextureInfoAlphaState.None)
     return (textureInfo.name,CGPoint(CGFloat(textureInfo.width),CGFloat(textureInfo.height)),hasAlpha)
+  }
+
+  public class func pushNewFrameBuffer() -> GLuint {
+   	verifyNoError()
+  	var fboHandleOld : GLint = 0
+  	glGetIntegerv(GLenum(GL_FRAMEBUFFER_BINDING), &fboHandleOld)
+    verifyNoError()
+		S.fboStack.append(GLuint(fboHandleOld))
+  
+    var fboHandleNew : GLuint = 0
+  	glGenFramebuffers(1, &fboHandleNew)
+    verifyNoError()
+  	glBindFramebuffer(GLenum(GL_FRAMEBUFFER),fboHandleNew)
+   	verifyNoError()
+    return fboHandleNew
+  }
+  
+  public class func popFrameBuffer() {
+    ASSERT(S.fboStack.count > 0,"frame buffer stack is empty")
+    let fboHandle : GLuint = S.fboStack.removeLast()
+    glBindFramebuffer(GLenum(GL_FRAMEBUFFER),fboHandle)
+   	verifyNoError()
+    verifyFrameBufferStatus()
+    unimp("Do I need to delete the framebuffer? glDeleteFramebuffers(...)?")
+  }
+  
+  // Round an integer up, if necessary, so it's a power of two
+  public class func smallestPowerOfTwoScalar(value : Int) -> Int {
+    ASSERT(value >= 1)
+    var ret = 1
+    while (ret < value) {
+      ret *= 2
+    }
+		return ret
+  }
+  
+  // Round a size up, if necessary, so it's a power of two in each dimension
+  public class func smallestPowerOfTwo(size : CGPoint) -> CGPoint {
+  	return CGPoint(smallestPowerOfTwoScalar(size.ix),smallestPowerOfTwoScalar(size.iy))
   }
 
 }

@@ -82,6 +82,10 @@ extension CGRect :  Printable {
     return CGPoint(x+width/2,y+height/2)
   }
   
+  public var ptSize:CGPoint {
+  	return CGPoint(size.width,size.height)
+  }
+  
   public mutating func setTo(x:CGFloat, _ y:CGFloat, _ width:CGFloat, _ height:CGFloat) {
     self.origin = CGPoint(x,y)
     self.size = CGSize(width:width, height:height)

@@ -33,6 +33,10 @@ public func d(image:UIImage) -> String {
   return DebugTools.dImage(image)
 }
 
+public func dHex(value:Int) -> String {
+  return NSString(format:"%x ",value)
+}
+
 public func dBits(value:Int) -> String {
   return DebugTools.dBits(value)
 }

@@ -5,4 +5,6 @@
 #define dDouble(value) [DebugTools dDouble:value format:nil]
 #define dBool(value) [DebugTools dBoolean:value]
 #define dBits(value) [DebugTools dBits:value]
+#define dFloats(floats,len) [DebugTools dFloats:floats length:len]
+
 #endif
