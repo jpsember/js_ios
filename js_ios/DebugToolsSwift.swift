@@ -21,6 +21,10 @@ public func d(value:CGFloat,_ format:String? = nil) -> String {
   return DebugTools.dDouble(Double(value))
 }
 
+public func d(value:Int,_ format:String? = nil) -> String {
+  return DebugTools.dInt(value)
+}
+
 public func d(value:Float,_ format:String? = nil) -> String {
   return DebugTools.dDouble(Double(value))
 }
@@ -67,11 +71,16 @@ public class DebugTools : NSObject {
     return NSString(format:f,value)
   }
   
+  public class func dInt(value:Int,format:String? = nil) -> String {
+    let f = format ?? "%5d "
+    return NSString(format:f,value)
+  }
+
   public class func dBoolean(value:Bool) -> String {
     return value ? "T" : "F"
   }
 
-  public class func dFloats(floats:[Float], length:Int) -> String {
+  public class func dFloats(floats:UnsafePointer<Float>, length:Int) -> String {
     var s = ""
     for i in 0..<length {
       s += d(floats[i])
@@ -85,7 +94,7 @@ public class DebugTools : NSObject {
   public class func dInts(ints:UnsafePointer<Int>, length:Int) -> String {
     var s = ""
     for i in 0..<length {
-      s += "\(ints[i])"
+      s += d(ints[i])
       if ((i+1) % 4 == 0) {
         s += "\n"
       }

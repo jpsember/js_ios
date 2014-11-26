@@ -98,35 +98,43 @@
     XCTAssertEqualObjects(@"Gamma",buffer3);
 }
 
+#define ENDMARKER -99
+
+static int sampleInts[] = {
+  0,1,2,3,4,5,6,7,8,9,
+  15,16,
+  31,32,
+  -4,-50,-600,-7000,-80000,
+  63,64,
+  0x100,
+  0x1000,
+  0x10000,
+  0x100000,
+  0x1000000,
+  0x10000000,
+  0xfffffffe,
+  0xffffffff,
+  ENDMARKER,
+};
+
+static int nInts() {
+  static int len;
+  if (len == 0) {
+ 	int i = 0;
+    while (sampleInts[i] != ENDMARKER) i++;
+    len = i;
+  }
+  return len;
+}
+
 - (void)testDumpBits
 {
-    if (FALSE) { // Verifying that following lines compile correctly for test target
-      dBits(42);
-//      Renderer *r = [[Renderer alloc] init];
-//      dp(r);
-    }
-  
-    int v[] = {
-        0,1,2,3,4,5,6,7,8,9,
-        15,16,
-        31,32,
-        63,64,
-        0x100,
-        0x1000,
-        0x10000,
-        0x100000,
-        0x1000000,
-        0x10000000,
-        0xfffffffe,
-        0xffffffff,
-    -99,
-    };
-    DBG
-    [JSIORecorder start];
-    for (int i = 0; v[i] != -99; i++) {
-        pr(@"%10d = %@\n",v[i], dBits(v[i]) );
-    }
-    [JSIORecorder stop];
+  DBG
+  [JSIORecorder start];
+  for (int i = 0; i < nInts(); i++) {
+    pr(@"%10d = %@\n",sampleInts[i], dBits(sampleInts[i]) );
+  }
+  [JSIORecorder stop];
 }
 
 - (id)_alpha {
@@ -151,6 +159,27 @@
   [JSIORecorder stop];
   
 }
+
+- (void)testDumpInts
+{
+  DBG
+  [JSIORecorder start];
+  pr(@"%@\n",dInts(sampleInts,nInts()));
+  [JSIORecorder stop];
+}
+
+- (void)testDumpFloats
+{
+  int size = nInts();
+  CGFloat f[size];
+  for (int i = 0; i < size; i++)
+    f[i] = sampleInts[i] + 0.5f;
+  DBG
+  [JSIORecorder start];
+  pr(@"%@\n",dFloats(f,size));
+  [JSIORecorder stop];
+}
+
 #endif
 
 @end
