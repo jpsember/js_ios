@@ -103,27 +103,27 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
     }
     
     if (EXAMPLE_GLBUFFER) {
-    // If the 'built' texture doesn't exist yet, build it IF the other textures & sprites are available
-    if (builtTexture == nil && blobSprite != nil) {
-
-      let b = GLBuffer(size:CGPoint(256,256),hasAlpha:true)
-
-      b.openRender()
-      // Set the alpha value to 0 to make the background completely transparent
-      glClearColor(0.0,0.0,0.2, 0.2)
-      glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-
-      // Render the blob sprite several times within this texture
-      let s = blobSprite!
-      s.render(CGPoint(16,16))
-      s.render(CGPoint(80,100))
-      s.render(CGPoint(32,150))
-
-      b.closeRender()
-      
-      builtTexture = b.texture;
-      builtSprite = GLSprite(texture:builtTexture, window:builtTexture!.bounds, program:nil)
-    }
+      // If the 'built' texture doesn't exist yet, build it IF the other textures & sprites are available
+      if (builtTexture == nil && blobSprite != nil) {
+        
+        let b = GLBuffer(size:CGPoint(256,256),hasAlpha:true)
+        
+        b.openRender()
+        // Set the alpha value to 0 to make the background completely transparent
+        glClearColor(0.0,0.0,0.2, 0.2)
+        glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+        
+        // Render the blob sprite several times within this texture
+        let s = blobSprite!
+        s.render(CGPoint(16,16))
+        s.render(CGPoint(80,100))
+        s.render(CGPoint(32,150))
+        
+        b.closeRender()
+        
+        builtTexture = b.texture;
+        builtSprite = GLSprite(texture:builtTexture, window:builtTexture!.bounds, program:nil)
+      }
     }
     
     // A nice green color

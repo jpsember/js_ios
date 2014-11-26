@@ -5,10 +5,6 @@ public class AppDelegate : UIResponder, UIApplicationDelegate {
   
   public var window : UIWindow?
   
-  public func getMainViewColor() -> UIColor {
-    return UIColor.blueColor()
-  }
-  
   public func application(application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
       constructWindow()
