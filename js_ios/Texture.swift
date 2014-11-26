@@ -1,7 +1,7 @@
 import Foundation
 import GLKit
 
-public let DB_TEXTURE = cond(true)
+public let DB_TEXTURE = cond(false)
 
 public class Texture : NSObject {
  

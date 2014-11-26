@@ -1,6 +1,6 @@
+#import "JSBase.h"
 #if DEBUG
 
-#import "JSBase.h"
 #import "JSRandom.h"
 #import "JSSymbolicNames.h"
 

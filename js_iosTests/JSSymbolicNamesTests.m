@@ -1,3 +1,5 @@
+#include "JSBase.h"
+
 #if DEBUG
 
 #import "JSTestUtil.h"

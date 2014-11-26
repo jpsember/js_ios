@@ -173,10 +173,17 @@ public class GLAppDelegate : AppDelegate, GLKViewDelegate {
         if (val == 10) {
           puts("changing view size, frame \(frame)")
           warning("something is screwing up the coordinates here... transform?")
-          v.bounds = CGRect(320,350,128+2,64+(CGFloat(frame/3)))
+//          v.bounds = CGRect(0,45,128,64)
+          
+          v.bounds = CGRect(25,20,128+2,64+(CGFloat(frame/3)))
+          
+          warning("we need to deal gracefully with different transform matrices for different views (main vs subviews)")
+          prepareGraphics(v.bounds.size)
+          
           v.plotHandler = {(view) in
-            	view.defaultPlotHandler()
-              if (cond(true)) {
+            glClearColor(0.8,0,0.2,0.7)
+            glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+            if (cond(true)) {
                 let tex = self.getTexture("blob")
                 let sprite = GLSprite(texture:tex,window:tex.bounds,program:nil)
                 sprite.render(CGPoint(0,0))

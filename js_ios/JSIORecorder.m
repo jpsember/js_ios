@@ -1,11 +1,38 @@
-#if DEBUG
-
 #import "JSBase.h"
 #import "JSLog.h"
 #import "JSIORecorder.h"
 #import "JSStackTrace.h"
 #import "JSSimulator.h"
 
+#if !DEBUG
+@implementation JSIORecorder
+
++ (JSIORecorder *)start:(BOOL)replaceIfChanged {
+  return nil;
+}
+
++ (JSIORecorder *)start:(BOOL)replaceIfChanged className:(NSString *)className methodName:(NSString *)methodName {
+  return nil;
+}
+
++ (JSIORecorder *)start {
+  return nil;
+}
+
++ (JSIORecorder *)startWithClassName:(NSString *)c methodName:(NSString *)m replaceIfChanged:(BOOL)r {
+  return nil;
+}
+
++ (void)stop {
+}
+
++ (NSString *)exceptionName {
+  return nil;
+}
+
+@end
+
+#else
 
 @interface JSIORecorder ()
 

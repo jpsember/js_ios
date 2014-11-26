@@ -14,11 +14,6 @@
 @implementation JSQueue
 
 + (JSQueue *)queue {
-  if (FALSE) { // Verifying that following lines compile correctly for normal target
-    dBits(42);
-    Renderer *r = [[Renderer alloc] init];
-    dp(r);
-  }
   return [JSQueue queueWithCapacity:16];
 }
 

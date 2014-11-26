@@ -11,19 +11,19 @@ typedef unsigned char byte;
 @interface JSBase : NSObject
 
 + (void)dieWithMessage:(NSString *)message;
-+ (void)dieWithFilename:(const char *)filename line:(int)line;
++ (void)dieWithFilename:(const char *)filename line:(int)line format:(NSString *)format,...;
 + (BOOL)testModeActive;
-#if DEBUG
-+ (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber;
 + (void)logString:(NSString *)string;
++ (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber;
++ (void)oneTimeReport:(NSString *)fileAndLine message:(NSString *)message reportType:(NSString *)reportType;
++ (void)exitApp;
+#if DEBUG
 + (void)log:(NSString *)format, ...;
 + (void)breakpoint;
-+ (void)oneTimeReport:(NSString *)fileAndLine message:(NSString *)message reportType:(NSString *)reportType;
 + (NSString *)symbolicNameForId:(id)object;
 + (NSString *)symbolicNameForPtr:(const void *) ptr;
 + (void)sleepFor:(float)timeInSeconds;
 + (void)showTimeStamp:(NSString *)format,...;
-+ (void)exitApp;
 // Exposed for testing
 + (void)resetSymbolicPtrNames;
 #endif
@@ -34,6 +34,8 @@ typedef unsigned char byte;
     static dispatch_once_t onceToken; \
     dispatch_once(&onceToken, __a__ ); \
 }
+
+#define die(__a__,...) do {[JSBase dieWithFilename:__FILE__ line:__LINE__ format:__a__,##__VA_ARGS__];} while (false)
 
 #if DEBUG
 
@@ -59,16 +61,7 @@ extern bool _DEBUG_PRINTING_;
 #define unimp(__a__,...)  { NSString *__s__ = [NSString stringWithFormat:__a__,##__VA_ARGS__]; \
 [JSBase oneTimeReport:__FILE_AND_LINE__ message:__s__ reportType:@"unimplemented"]; }
 
-#define die(__a__,...) { \
-NSString *__s__ = @"(no reason given)"; \
-if (__a__) __s__ = [NSString stringWithFormat:__a__,##__VA_ARGS__]; \
-NSString *__m__ = [NSString stringWithFormat:@"*** fatal error %@: %@",__FILE_AND_LINE__,__s__]; \
-[JSBase dieWithMessage:__m__]; \
-}
-
-#define ASSERT(__flag__,__a__,...) { \
-    if (!(__flag__)) die(__a__,##__VA_ARGS__); \
-}
+#define ASSERT(__flag__,__a__,...) do { if (!(__flag__)) die(__a__,##__VA_ARGS__); } while (false)
 
 #define NO_DEFAULT_INITIALIZER -(id)init { die(@"Please call the designated initializer"); return nil; }
 #define USED_DEBUG_ONLY
@@ -76,8 +69,7 @@ NSString *__m__ = [NSString stringWithFormat:@"*** fatal error %@: %@",__FILE_AN
 #else // !DEBUG follows:
 
 #define NO_DEFAULT_INITIALIZER
-#define die(__a__,...) [JSBase dieWithFilename:__FILE__ line:__LINE__]
-#define pr(...) {}
+#define pr(...) do {} while (false)
 #define ASSERT(__flag__,__a__,...)
 #define warning(__a__,...)
 #define unimp(__a__,...)

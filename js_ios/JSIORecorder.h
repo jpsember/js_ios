@@ -1,5 +1,3 @@
-#if DEBUG
-
 @interface JSIORecorder : NSObject
 
 + (JSIORecorder *)start;
@@ -13,6 +11,3 @@
 + (NSString *)exceptionName;
 
 @end
-
-#endif
-

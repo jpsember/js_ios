@@ -14,6 +14,19 @@
   @throw e;
 }
 
++ (void)dieWithFilename:(const char *)filename line:(int)line format:(NSString *)format,... {
+  if (!format) {
+    format = @"(no reason given)";
+  }
+  va_list vl;
+  va_start(vl, format);
+  NSString* reasonPortion = [[NSString alloc] initWithFormat:format arguments:vl];
+  va_end(vl);
+  
+  NSString *locationPortion = [JSBase descriptionForPath:[NSString stringWithUTF8String:filename] lineNumber:line];
+  [JSBase dieWithMessage:[NSString stringWithFormat:@"*** fatal error %@: %@",locationPortion,reasonPortion]];
+}
+
 + (BOOL)testModeActive {
   static BOOL active;
   ONCE_ONLY(^{
@@ -21,6 +34,37 @@
     active = objc_lookUpClass("JSBaseTests") != nil;
   });
   return active;
+}
+
++ (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber {
+  return [NSString stringWithFormat:@"(%@:%d)",[path lastPathComponent],lineNumber];
+}
+
++ (void)logString:(NSString *)string {
+#if DEBUG
+  [JSLog logString:string];
+#endif
+}
+
++ (void)oneTimeReport:(NSString *)fileAndLine message:(NSString *)message reportType:(NSString *)reportType {
+#if DEBUG
+  static NSMutableSet *reportsMade;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    reportsMade = [NSMutableSet set];
+  });
+  NSString *reportText = [NSString stringWithFormat:@"*** %@ %@: %@\n",reportType,fileAndLine,message];
+  if (![reportsMade containsObject:reportText]) {
+    [reportsMade addObject:reportText];
+    [JSBase logString:reportText];
+  }
+#endif
+}
+
++ (void)exitApp {
+#if DEBUG
+  exit(0);
+#endif
 }
 
 #if DEBUG
@@ -56,14 +100,6 @@
   pr(@"%@ %5.2f : %@\n",work,t-startTime,s);
 }
 
-+ (NSString *)descriptionForPath:(NSString *)path lineNumber:(int)lineNumber {
-  return [NSString stringWithFormat:@"(%@:%d)",[path lastPathComponent],lineNumber];
-}
-
-+ (void)logString:(NSString *)string {
-  [JSLog logString:string];
-}
-
 + (void)log:(NSString *)format, ... {
   va_list vl;
   va_start(vl, format);
@@ -78,23 +114,6 @@
   pr(@"(Breakpoint...)\n");
   [self sleepFor:.2];
   pr(@"\n");
-}
-
-+ (void)oneTimeReport:(NSString *)fileAndLine message:(NSString *)message reportType:(NSString *)reportType {
-  static NSMutableSet *reportsMade;
-  static dispatch_once_t onceToken;
-  dispatch_once(&onceToken, ^{
-    reportsMade = [NSMutableSet set];
-  });
-  NSString *reportText = [NSString stringWithFormat:@"*** %@ %@: %@\n",reportType,fileAndLine,message];
-  if (![reportsMade containsObject:reportText]) {
-    [reportsMade addObject:reportText];
-    [JSBase logString:reportText];
-  }
-}
-
-+ (void)exitApp {
-  exit(0);
 }
 
 static JSSymbolicNames *names;
@@ -126,12 +145,6 @@ static JSSymbolicNames *names;
 }
 
 #endif // DEBUG
-
-+ (void)dieWithFilename:(const char *)filename line:(int)line
-{
-  NSString *message = [NSString stringWithFormat:@"*** fatal error: (%s:%d)",filename,line];
-  [JSBase dieWithMessage:message];
-}
 
 @end
 

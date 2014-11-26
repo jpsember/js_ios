@@ -21,9 +21,11 @@
 }
 
 + (void)printPath {
+#if DEBUG
   NSString *path = [[JSSimulator sharedInstance] filesDumpPath];
   DBG
   pr(@"\n\nSimulator directory is:\n\n   %@\n\n",path);
+#endif
 }
 
 - (instancetype)init {
