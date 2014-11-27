@@ -31,7 +31,7 @@ public class View : NSObject {
   // set to CLAMP; not sure about the min/mag settings, or whether mipmapping supported.
   private var ENFORCE_TEX_POWER_2 = cond(false)
   
-  public init(_ size:CGPoint, _ opaque:Bool = true, _ cacheable:Bool = true) {
+  public init(_ size:CGPoint, opaque:Bool = true, cacheable:Bool = true) {
     self.bounds = CGRect(0,0,size.x,size.y)
     self.opaque = opaque
     self.cacheable = cacheable
@@ -57,7 +57,8 @@ public class View : NSObject {
       constructCachedContent()
       plotCachedTexture()
     } else {
-      die("unsupported, plot of noncacheable view")
+      unimp("set up transformation(s) to plot to the view in its position relative to its parent")
+      plotHandler(self)
     }
   }
   

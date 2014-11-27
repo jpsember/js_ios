@@ -7,7 +7,7 @@ public class GLAppDelegate : AppDelegate {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
     // Construct a root View
-    let view = View(viewManager.baseUIView.bounds.ptSize)
+    let view = View(viewManager.baseUIView.bounds.ptSize, opaque:true, cacheable:false)
     viewManager.rootView = view
     view.plotHandler = { (view) in
       self.updateOurView()

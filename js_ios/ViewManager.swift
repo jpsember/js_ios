@@ -21,7 +21,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
   public var rootView : View!
   
   private func buildBaseView() {
-    let view = GLView(frame:bounds)
+    let view = OurGLKView(frame:bounds)
     view.delegate = self
     baseUIView = view
   }
@@ -63,6 +63,21 @@ public class ViewManager : NSObject, GLKViewDelegate {
       renderer = Renderer()
     }
     renderer.surfaceCreated(CGPoint(preparedViewSize))
+  }
+
+  // Our subclass of GLKView
+  
+  private class OurGLKView: GLKView  {
+    
+    private override init(frame:CGRect) {
+      let c = EAGLContext(API:EAGLRenderingAPI.OpenGLES2)
+      super.init(frame:frame, context:c)
+    }
+    
+    private required init(coder decoder: NSCoder) {
+      super.init(coder: decoder)
+    }
+    
   }
 
 }
