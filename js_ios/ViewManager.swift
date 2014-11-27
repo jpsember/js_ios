@@ -67,7 +67,6 @@ public class ViewManager : NSObject, GLKViewDelegate {
       return
     }
     preparedViewSize = viewSize
-    Renderer.sharedInstance().surfaceCreated(CGPoint(preparedViewSize))
  		invalidateAllViews()
   }
 

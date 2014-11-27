@@ -9,8 +9,24 @@ public class GLAppDelegate : AppDelegate {
     // Construct a root View
     let view = View(viewManager.baseUIView.bounds.ptSize, opaque:true, cacheable:false)
     viewManager.rootView = view
-    view.plotHandler = { (view) in
-      self.updateOurView()
+    view.plotHandler = { (view) in self.updateOurView() }
+    
+    var subviewY = 120
+    
+    // Construct a child view that is translucent and (for the moment) non-cacheable;
+    // it will have a static sprite as a background, and a smaller sprite moving in a small circle
+    var subview = View(CGPoint(256,256), opaque:false, cacheable:false)
+    subview.position = CGPoint(150,subviewY)
+    subviewY += 256 + 10
+    view.add(subview)
+    subview.plotHandler = { (view) in self.updateSubview(view) }
+    
+    if (false) { // crashes at the moment; fix later
+    // Construct a second child view, like the first but cacheable
+    subview = View(CGPoint(256,256), opaque:false, cacheable:true)
+    subview.position = CGPoint(150,subviewY)
+    view.add(subview)
+    subview.plotHandler = { (view) in self.updateSubview(view) }
     }
     
     // Start a timer to update the root view several times a second
@@ -65,6 +81,12 @@ public class GLAppDelegate : AppDelegate {
     blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
   }
   
+  private func updateSubview(subview : View) {
+    prepareGraphics()
+    ballSprite.render(CGPoint.zero)
+    blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*3.2))
+  }
+  
   // Prepare the graphics, if they haven't already been
   //
   private func prepareGraphics() {
@@ -77,11 +99,16 @@ public class GLAppDelegate : AppDelegate {
     let bgndTexture = getTexture("tile")
     bgndTexture.setRepeat(true)
     bgndSprite = GLSprite(texture:bgndTexture, window:CGRect(0,0,2000,2000), program:nil)
+    
+    let ballTexture = getTexture("AlphaBall")
+    ballSprite = GLSprite(texture:ballTexture, window:ballTexture.bounds, program:nil)
+    
   }
   
   private var textureMap = Dictionary<String,Texture>()
   private var blobSprite : GLSprite!
   private var bgndSprite : GLSprite!
+  private var ballSprite : GLSprite!
   
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]

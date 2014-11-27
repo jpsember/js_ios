@@ -15,14 +15,8 @@ static GLTintedSpriteProgram *program;
 
 @implementation GLTintedSpriteProgram
 
-+ (GLTintedSpriteProgram *)programWithTransformName:(NSString *)transformName {
-	return [[GLTintedSpriteProgram alloc] initWithTransformName:transformName];
-}
-
-- (id)initWithTransformName:(NSString *)transformName {
-  if (self = [super initWithTransformName:transformName]) {
-  }
-  return self;
++ (GLTintedSpriteProgram *)program {
+	return [[GLTintedSpriteProgram alloc] init];
 }
 
 - (void)setTintColor:(UIColor *)color {
@@ -38,7 +32,7 @@ static GLTintedSpriteProgram *program;
 
 + (GLTintedSpriteProgram *)getProgram {
    if (!program) {
-      program = [GLTintedSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
+      program = [GLTintedSpriteProgram program];
    }
    return program;
 }

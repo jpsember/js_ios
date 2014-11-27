@@ -8,6 +8,15 @@ public class View : NSObject {
   // The bounds of the view, relative to the parent view's origin
   public var bounds: CGRect
   
+  public var position : CGPoint {
+    get {
+      return bounds.origin
+    }
+    set {
+      bounds = CGRect(origin:newValue, size:bounds.size)
+    }
+  }
+  
   // The handler for plotting view content; default clears it and that's all
   //
   public var plotHandler : PlotHandler = View.defaultPlotHandlerFunction
@@ -63,11 +72,9 @@ public class View : NSObject {
       constructCachedContent()
       plotCachedTexture()
     } else {
-      unimp("set up transformation(s) to plot to the view in its position relative to its parent")
       let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
       let transform = calcOpenGLTransform(containerSize,ourOrigin)
-      puts("transform=\n\(transform)")
-      
+      Renderer.sharedInstance().setTransform(transform)
       plotHandler(self)
     }
   }

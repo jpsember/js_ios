@@ -3,7 +3,6 @@
 #import "GLSpriteProgram.h"
 #import "GLTools.h"
 
-static Renderer *renderer;
 static GLSpriteProgram *program;
 
 @interface GLSpriteProgram ()
@@ -11,7 +10,6 @@ static GLSpriteProgram *program;
   GLfloat _tintColor[4];
 }
 
-@property (nonatomic, strong) NSString *transformName;
 @property (nonatomic, assign) BOOL tintMode;
 
 @property (nonatomic, assign) int preparedProjectionMatrixId;
@@ -31,18 +29,11 @@ static GLSpriteProgram *program;
 @implementation GLSpriteProgram
 
 - (int)projectionMatrixId {
-  return [renderer projectionMatrixId];
+  return [[Renderer sharedInstance] projectionMatrixId];
 }
 
-+ (GLSpriteProgram *)programWithTransformName:(NSString *)transformName{
-  return [[GLSpriteProgram alloc] initWithTransformName:transformName];
-}
-
-- (id)initWithTransformName:(NSString *)transformName {
-  if (self = [super init]) {
-    _transformName = transformName;
-  }
-  return self;
++ (GLSpriteProgram *)program {
+  return [[GLSpriteProgram alloc] init];
 }
 
 - (NSString *)fragmentShaderName {
@@ -54,13 +45,9 @@ static GLSpriteProgram *program;
   self.fragmentShader = [Shader readFragmentShader:[self fragmentShaderName]];
 }
 
-+ (void)prepare:(Renderer *)r {
-  renderer = r;
-}
-
 + (GLSpriteProgram *)getProgram {
   if (!program) {
-    program = [GLSpriteProgram programWithTransformName:[Renderer transformNameDeviceToNDC]];
+    program = [GLSpriteProgram program];
   }
   return program;
 }
@@ -137,7 +124,7 @@ static GLSpriteProgram *program;
   _preparedProjectionMatrixId = currentProjectionMatrixId;
   
   // Transform 2D screen->NDC matrix to a 3D version
-  CGAffineTransform matrix = [renderer getTransform:self.transformName];
+  CGAffineTransform matrix = [[Renderer sharedInstance] getTransform];
   GLfloat matrix44[] = {
     matrix.a, matrix.b,0,0,//
     matrix.c,matrix.d,0,0,//

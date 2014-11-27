@@ -13,9 +13,6 @@
 
 @interface GLSpriteProgram : NSObject
 
-// Prepare the program instances for use with a renderer
-+ (void)prepare:(Renderer *)renderer;
-
 // Get the singleton program instance (at present, there's only one)
 // Note we add the prefix 'get' to satisfy the compiler (otherwise it thinks it's a constructor)
 + (GLSpriteProgram *)getProgram;
@@ -23,7 +20,6 @@
 - (void)renderSprite:(Texture *)texture vertexData:(GLfloat *)vertexData dataLength:(NSInteger)length position:(CGPoint)position;
 
 // Exposed for subclass use only
-- (id)initWithTransformName:(NSString *)transformName;
 - (NSString *)fragmentShaderName;
 - (void)renderAux;
 - (void)prepareAttributes;
