@@ -40,10 +40,21 @@ public class ViewManager : NSObject, GLKViewDelegate {
     prepareGraphics(view.bounds.ptSize)
     
     // If a root view is defined, plot it
-    if rootView != nil {
-      rootView.plot()
-    } else {
+    if rootView == nil {
     	warning("no root view has been defined for ViewManager")
+      return
+    }
+    
+    let containerSize = self.bounds.ptSize
+		let containerOrigin = CGPoint.zero
+  	plotAux(containerSize,containerOrigin,rootView)
+  }
+  
+  private func plotAux(containerSize:CGPoint, _ parentOrigin:CGPoint, _ view:View) {
+  	view.plot(containerSize,parentOrigin)
+    let thisOrigin = CGPoint.sum(parentOrigin,view.bounds.origin)
+    for v in view.children {
+    	plotAux(containerSize,thisOrigin,v)
     }
   }
   
@@ -60,8 +71,22 @@ public class ViewManager : NSObject, GLKViewDelegate {
       renderer = Renderer()
     }
     renderer.surfaceCreated(CGPoint(preparedViewSize))
+ 		invalidateAllViews()
   }
 
+  private func invalidateAllViews() {
+    if (rootView != nil) {
+    	invalidateSubtree(rootView)
+    }
+  }
+  
+  private func invalidateSubtree(rootView : View) {
+    rootView.invalidate()
+    for v in rootView.children {
+      invalidateSubtree(v)
+    }
+  }
+  
   // Our subclass of GLKView
   
   private class OurGLKView: GLKView  {

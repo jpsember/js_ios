@@ -5,6 +5,7 @@ public class View : NSObject {
   
   public typealias PlotHandler = (View) -> Void
   
+  // The bounds of the view, relative to the parent view's origin
   public var bounds: CGRect
   
   // The handler for plotting view content; default clears it and that's all
@@ -46,20 +47,46 @@ public class View : NSObject {
   	children.append(childView)
   }
   
-  // Mark any existing cached view content as invalid, so content is redrawn when view is next plotted
-  //
+  // Mark view as invalid, so it will be redrawn (perhaps after a short delay).  If view is cached,
+  // its cached texture is considered invalid, and will be redrawn
+	//
   public func invalidate() {
     cachedTextureValid = false
   }
   
-  public func plot() {
+  // Plot view. If cacheable, renders to texture (if cached version doesn't exist or is invalid), 
+  // then plots from texture to OpenGL view.  If not cacheable, renders directly to OpenGL view
+	//
+  public func plot(containerSize:CGPoint, _ parentOrigin:CGPoint) {
     if (self.cacheable) {
+      unimp("set up transformations for cached content")
       constructCachedContent()
       plotCachedTexture()
     } else {
       unimp("set up transformation(s) to plot to the view in its position relative to its parent")
+      let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
+      let transform = calcOpenGLTransform(containerSize,ourOrigin)
+      puts("transform=\n\(transform)")
+      
       plotHandler(self)
     }
+  }
+  
+  /**
+  * Construct matrix to transform from view manager bounds to OpenGL's
+  * normalized device coordinates (-1,-1 ... 1,1)
+  */
+  private func calcOpenGLTransform(containerSize:CGPoint, _ ourOrigin:CGPoint) -> CGAffineTransform {
+    let w = containerSize.x
+    let h = containerSize.y
+    let sx = 2 / w
+    let sy = 2 / h
+    
+    let scale = CGAffineTransformMakeScale(sx, sy)
+    let translate = CGAffineTransformMakeTranslation(-w/2 + ourOrigin.x,-h/2 + ourOrigin.y)
+    let result = CGAffineTransformConcat(translate,scale)
+    
+    return result
   }
   
   private func constructCachedContent() {

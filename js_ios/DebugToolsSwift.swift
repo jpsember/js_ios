@@ -18,7 +18,7 @@ public func d(value:Double,_ format:String? = nil) -> String {
 }
 
 public func d(value:CGFloat,_ format:String? = nil) -> String {
-  return DebugTools.dDouble(Double(value))
+  return DebugTools.dDouble(Double(value), format:format)
 }
 
 public func d(value:Int,_ format:String? = nil) -> String {

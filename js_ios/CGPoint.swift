@@ -64,4 +64,8 @@ extension CGPoint :  Printable {
     setTo(tx,ty)
   }
   
+  public static func sum(first:CGPoint,_ second:CGPoint) -> CGPoint {
+    return CGPoint(first.x+second.x,first.y+second.y)
+  }
+  
 }

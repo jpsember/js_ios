@@ -73,28 +73,21 @@ extension CGAffineTransform:  Printable {
   var isIdentity : Bool { get { return CGAffineTransformIsIdentity(self) } }
   
   public var description : String {
-    
-    let f = "8.4f"
+    let f = "%8.4f  "
     var s = "[ "
     // We need to add 'js_ios.' since d is actually a property name as well
     s += js_ios.d(a,f)
-    s += "   "
     s += js_ios.d(b,f)
-    s += "   "
     s += js_ios.d(0.0,f)
-    s += " ]\n[ "
+    s += "]\n[ "
     s += js_ios.d(c,f)
-    s += "   "
     s += js_ios.d(d,f)
-    s += "   "
     s += js_ios.d(0.0,f)
-    s += " ]\n[ "
+    s += "]\n[ "
     s += js_ios.d(tx,f)
-    s += "   "
     s += js_ios.d(ty,f)
-    s += "   "
     s += js_ios.d(1.0,f)
-    s += " ]\n"
+    s += "]\n"
    	return s
   }
  
