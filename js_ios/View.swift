@@ -1,7 +1,6 @@
 import Foundation
 import GLKit
 
-
 public class View : NSObject {
   
   public typealias PlotHandler = (View) -> Void
@@ -58,6 +57,7 @@ public class View : NSObject {
       constructCachedContent()
       plotCachedTexture()
     } else {
+      die("unsupported, plot of noncacheable view")
     }
   }
   
@@ -69,7 +69,6 @@ public class View : NSObject {
     // Dispose of old texture cache if it exists and its size differs from required
     if (cachedTexture != nil) {
       if (calcRequiredTextureSize() != cachedTexture!.bounds.ptSize) {
-        puts("disposing of old texture cache, size \(cachedTexture!.bounds.ptSize) differs from \(calcRequiredTextureSize())")
       	disposeTextureCache()
       }
     }
