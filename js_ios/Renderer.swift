@@ -5,6 +5,21 @@ public typealias Matrix = CGAffineTransform
 
 public class Renderer : NSObject {
 
+  private struct S {
+    static var renderer : Renderer!
+  }
+
+  public class func sharedInstance() -> Renderer {
+    if (S.renderer == nil) {
+      S.renderer = Renderer()
+    }
+    return S.renderer
+  }
+  
+  private override init() {
+  	super.init()
+  }
+  
   private var transformMap = [String:CGAffineTransform]()
   private var deviceSize = CGPoint.zero
   private var matrixId = 10
