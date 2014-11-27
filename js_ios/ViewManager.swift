@@ -10,33 +10,20 @@ public class ViewManager : NSObject, GLKViewDelegate {
     buildBaseView()
   }
   
+  private var bounds : CGRect
+
   // The UIView that contains the manager's views
   //
-  public var baseUIView : UIView {
-    get {
-      return _baseView!
-    }
-  }
+  private(set) var baseUIView : UIView!
   
   // The root view in the manager hierarchy
   //
-  public var rootView : View {
-    set {
-      _rootView = newValue
-    }
-    get {
-      return _rootView!
-    }
-  }
-  
-  private var bounds : CGRect
-  private var _baseView : GLKView?
-  private var _rootView : View?
+  public var rootView : View!
   
   private func buildBaseView() {
     let view = GLView(frame:bounds)
     view.delegate = self
-    _baseView = view
+    baseUIView = view
   }
   
   // Manager's GLKViewDelegate; ideally would be private
@@ -56,15 +43,15 @@ public class ViewManager : NSObject, GLKViewDelegate {
     prepareGraphics(view!.bounds.size)
     
     // If a root view is defined, plot it
-    if let rv = _rootView {
-      rv.plot()
+    if rootView != nil {
+      rootView.plot()
     } else {
     	warning("no root view has been defined for ViewManager")
     }
   }
   
-  private var renderer : Renderer?
-  private var preparedViewSize  = CGSizeMake(0,0)
+  private var renderer : Renderer!
+  private var preparedViewSize = CGSizeMake(0,0)
 
   private func prepareGraphics(viewSize : CGSize) {
     // If previous size undefined, or different than new, invalidate old graphic elements
@@ -75,7 +62,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
     if (renderer == nil) {
       renderer = Renderer()
     }
-    renderer!.surfaceCreated(CGPoint(preparedViewSize))
+    renderer.surfaceCreated(CGPoint(preparedViewSize))
   }
 
 }

@@ -13,7 +13,6 @@ public class GLAppDelegate : AppDelegate {
       self.updateOurView()
     }
     
-    
     // Start a timer to update the root view several times a second
     NSTimer.scheduledTimerWithTimeInterval(Double(1/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
     
@@ -61,8 +60,8 @@ public class GLAppDelegate : AppDelegate {
     prepareGraphics()
 		glClearColor(0.0,0,0.7,1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
-    blobSprite!.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
-    blobSprite!.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
+    blobSprite.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
+    blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
   }
   
   // Prepare the graphics, if they haven't already been
@@ -76,7 +75,7 @@ public class GLAppDelegate : AppDelegate {
   }
   
   private var textureMap = Dictionary<String,Texture>()
-  private var blobSprite : GLSprite?
+  private var blobSprite : GLSprite!
   
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]
