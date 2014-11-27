@@ -7,8 +7,8 @@ public class GLAppDelegate : AppDelegate {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
     // Construct a root View
-    let view = View(viewManager!.baseUIView.bounds.ptSize)
-    viewManager!.rootView = view
+    let view = View(viewManager.baseUIView.bounds.ptSize)
+    viewManager.rootView = view
     view.plotHandler = { (view) in
       self.updateOurView()
     }
@@ -17,7 +17,7 @@ public class GLAppDelegate : AppDelegate {
     // Start a timer to update the root view several times a second
     NSTimer.scheduledTimerWithTimeInterval(Double(1/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
     
-    return viewManager!.baseUIView
+    return viewManager.baseUIView
   }
   
   // Called by the NSTimer; ideally would be private
@@ -25,16 +25,16 @@ public class GLAppDelegate : AppDelegate {
   public func updateTimer() {
     updateLogic()
     unimp("have a View method that requests refresh, which ultimately calls setNeedsDisplay")
-    viewManager!.baseUIView.setNeedsDisplay()
+    viewManager.baseUIView.setNeedsDisplay()
   }
   
   private var ourView : View {
     get {
-      return viewManager!.rootView
+      return viewManager.rootView
     }
   }
   
-  private var viewManager : ViewManager?
+  private var viewManager : ViewManager!
   
   // ------------------------------------
   // Logic-related : state and behaviour
