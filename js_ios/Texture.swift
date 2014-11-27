@@ -54,10 +54,8 @@ public class Texture : NSObject {
     // Set up parameters for this particular texture
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR);
-        
-    let wrapType = withRepeat ? GLint(GL_REPEAT) : GLint(GL_CLAMP_TO_EDGE)
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), wrapType);
-    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), wrapType);
+    
+    setRepeat(withRepeat)
         
     // Unbind existing texture... we're done with it
     glBindTexture(GLenum(GL_TEXTURE_2D), 0);
@@ -66,6 +64,19 @@ public class Texture : NSObject {
     self.width = size.ix
     self.height = size.iy
     self.hasAlpha = hasAlpha
+  }
+  
+  private func _setRepeat(repeat:Bool) {
+    let wrapType = repeat ? GLint(GL_REPEAT) : GLint(GL_CLAMP_TO_EDGE)
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), wrapType);
+    glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), wrapType);
+  }
+  
+  public func setRepeat(_ repeat:Bool = true) {
+    select()
+    _setRepeat(repeat)
+    // Unbind existing texture... we're done with it
+    glBindTexture(GLenum(GL_TEXTURE_2D), 0);
   }
   
   // Load UImage from resource "<name>.png"

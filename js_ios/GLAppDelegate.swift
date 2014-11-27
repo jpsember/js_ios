@@ -58,8 +58,9 @@ public class GLAppDelegate : AppDelegate {
   
   private func updateOurView() {
     prepareGraphics()
-		glClearColor(0.0,0,0.7,1.0)
-    glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+   
+    bgndSprite.render(CGPoint.zero)
+    
     blobSprite.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
     blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
   }
@@ -72,10 +73,15 @@ public class GLAppDelegate : AppDelegate {
     }
     let blobTexture = getTexture("blob")
     blobSprite = GLSprite(texture:blobTexture, window:blobTexture.bounds, program:nil)
+    
+    let bgndTexture = getTexture("tile")
+    bgndTexture.setRepeat(true)
+    bgndSprite = GLSprite(texture:bgndTexture, window:CGRect(0,0,2000,2000), program:nil)
   }
   
   private var textureMap = Dictionary<String,Texture>()
   private var blobSprite : GLSprite!
+  private var bgndSprite : GLSprite!
   
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]

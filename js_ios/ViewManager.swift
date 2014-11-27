@@ -29,7 +29,6 @@ public class ViewManager : NSObject, GLKViewDelegate {
   // Manager's GLKViewDelegate; ideally would be private
   //
   public func glkView(view : GLKView!, drawInRect : CGRect) {
-    GLTools.verifyNoError()
     Texture.processDeleteList()
     
     // Clear the GLKView 
@@ -38,9 +37,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
     GLTools.verifyNoError()
     GLTools.initializeOpenGLState()
     
-    // TODO: allow root view to be non-cachable and perform the above clear & initialization steps
-    
-    prepareGraphics(view!.bounds.size)
+    prepareGraphics(view.bounds.ptSize)
     
     // If a root view is defined, plot it
     if rootView != nil {
@@ -51,9 +48,9 @@ public class ViewManager : NSObject, GLKViewDelegate {
   }
   
   private var renderer : Renderer!
-  private var preparedViewSize = CGSizeMake(0,0)
+  private var preparedViewSize = CGPoint.zero
 
-  private func prepareGraphics(viewSize : CGSize) {
+  private func prepareGraphics(viewSize : CGPoint) {
     // If previous size undefined, or different than new, invalidate old graphic elements
     if (preparedViewSize == viewSize) {
       return
