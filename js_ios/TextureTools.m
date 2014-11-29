@@ -1,10 +1,10 @@
 #import "js_ios-Swift.h"
 #import "JSBase.h"
-#import "GLTools.h"
+#import "TextureTools.h"
 
-@implementation GLTools
+@implementation TextureTools
 
-+ (NSMutableArray *)deleteTextureIdList {
++ (NSMutableArray *)deleteIdList {
   static NSMutableArray *sDeleteTextureIds;
   if (sDeleteTextureIds == nil) {
     sDeleteTextureIds = [NSMutableArray array];
@@ -12,12 +12,12 @@
   return sDeleteTextureIds;
 }
 
-+ (void)addIdToTextureDeleteList:(GLuint)textureId {
-  [[GLTools deleteTextureIdList] addObject:@(textureId)];
++ (void)addIdToDeleteList:(GLuint)textureId {
+  [[TextureTools deleteIdList] addObject:@(textureId)];
 }
 
-+ (void)flushTextureDeleteList {
-  NSMutableArray *a = [GLTools deleteTextureIdList];
++ (void)flushDeleteList {
+  NSMutableArray *a = [TextureTools deleteIdList];
   if ([a isEmpty]) {
     return;
 	}

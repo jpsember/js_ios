@@ -1,7 +1,7 @@
 #import "js_ios-Swift.h"
 #import "JSBase.h"
 #import "GLSpriteProgram.h"
-#import "GLTools.h"
+#import "TextureTools.h"
 
 static GLSpriteProgram *program;
 

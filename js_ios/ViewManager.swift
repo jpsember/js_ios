@@ -37,7 +37,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
   public func glkView(view : GLKView!, drawInRect : CGRect) {
     let renderer = Renderer.sharedInstance()
     
-    Texture.processDeleteList()
+    TextureTools.flushDeleteList()
     
     // Clear the GLKView 
     glClearColor(0.0, 0.5, 0.1, 1.0)

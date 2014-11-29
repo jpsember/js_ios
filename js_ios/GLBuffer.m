@@ -1,5 +1,5 @@
 #import "JSBase.h"
-#import "GLTools.h"
+#import "TextureTools.h"
 #import "GLBuffer.h"
 #import "js_ios-Swift.h"
 

@@ -7,7 +7,7 @@ public func dHex(value:GLenum) -> String {
   return dHex(Int(value))
 }
 
-extension GLTools {
+public class GLTools : NSObject {
 
   private struct S {
     static var programId: GLuint = 0

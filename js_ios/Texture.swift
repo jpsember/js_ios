@@ -124,17 +124,13 @@ public class Texture : NSObject {
   
   deinit {
     Texture.dbMessage("adding \(textureId) to delete list")
-    GLTools.addIdToTextureDeleteList(textureId)
+    TextureTools.addIdToDeleteList(textureId)
   }
   
   public class func dbMessage(message : String) {
     if (DB_TEXTURE) {
     	puts("=== \(message)")
     }
-  }
-  
-  public class func processDeleteList() {
-    GLTools.flushTextureDeleteList()
   }
   
 }

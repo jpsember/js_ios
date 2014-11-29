@@ -95,9 +95,10 @@ public class GLAppDelegate : AppDelegate {
     var p = GLTintedSpriteProgram.getProgram()
     p.tintColor = UIColor.greenColor()
     tintedSprite.render(CGPoint(20,20))
-    
     p.tintColor = UIColor.redColor()
     tintedSprite.render(CGPoint(60,50))
+    p.tintColor = UIColor.blueColor()
+    tintedSprite.render(CGPoint(220,80))
   }
 
   private func updateSubview2(subview : View) {
