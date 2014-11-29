@@ -20,6 +20,13 @@ public class Renderer : NSObject {
   	super.init()
   }
   
+  public var containerSize : CGPoint!
+  
+  // The size of the default viewport (to restore to if it gets changed)
+  public var defaultViewportSize : CGPoint!
+  
+  public var verticalFlipFlag = false
+  
   private var matrixId = 10
   private var transform : CGAffineTransform!
   

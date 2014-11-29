@@ -12,22 +12,29 @@ public class GLAppDelegate : AppDelegate {
     view.plotHandler = { (view) in self.updateOurView() }
     
     var subviewY = 120
+    var subview : View
     
     // Construct a child view that is translucent and (for the moment) non-cacheable;
     // it will have a static sprite as a background, and a smaller sprite moving in a small circle
-    var subview = View(CGPoint(256,256), opaque:false, cacheable:false)
+    subview = View(CGPoint(256,256), opaque:false, cacheable:false)
     subview.position = CGPoint(150,subviewY)
     subviewY += 256 + 10
     view.add(subview)
-    subview.plotHandler = { (view) in self.updateSubview(view) }
+    subview.plotHandler = { (view) in self.updateSubview1(view) }
     
-    if (false) { // crashes at the moment; fix later
-    // Construct a second child view, like the first but cacheable
-    subview = View(CGPoint(256,256), opaque:false, cacheable:true)
-    subview.position = CGPoint(150,subviewY)
-    view.add(subview)
-    subview.plotHandler = { (view) in self.updateSubview(view) }
+    // Construct a second child view, like the first but cacheable; this one is actually opaque
+    if (cond(true)) {
+      subview = View(CGPoint(256,256), opaque:true, cacheable:true)
+      subview.position = CGPoint(150,subviewY)
+		} else {
+      warning("using funky bounds")
+      let pad = 10
+      subview = View(CGPoint(768,1024), opaque:true, cacheable:true)
+      subview.position = CGPoint(pad,pad)
     }
+    view.add(subview)
+    subview.plotHandler = { (view) in self.updateSubview2(view) }
+    cachedView = subview
     
     // Start a timer to update the root view several times a second
     NSTimer.scheduledTimerWithTimeInterval(Double(1/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
@@ -50,6 +57,7 @@ public class GLAppDelegate : AppDelegate {
   }
   
   private var viewManager : ViewManager!
+  private var cachedView : View!
   
   // ------------------------------------
   // Logic-related : state and behaviour
@@ -65,8 +73,13 @@ public class GLAppDelegate : AppDelegate {
       exitApp()
     }
     
-    // Invalidate our view, so it's redrawn
+    // Invalidate our root view, so it's redrawn
     ourView.invalidate()
+    
+    // Invalidate the second child view (which is cached) every once in a while
+    if (frame % 8 == 0) {
+    	cachedView.invalidate()
+    }
   }
   
   // -------------------------------------------
@@ -81,10 +94,16 @@ public class GLAppDelegate : AppDelegate {
     blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
   }
   
-  private func updateSubview(subview : View) {
+  private func updateSubview1(subview : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
     blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*3.2))
+  }
+
+  private func updateSubview2(subview : View) {
+    prepareGraphics()
+		superSprite.render(CGPoint.zero)
+		blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*3.2))
   }
   
   // Prepare the graphics, if they haven't already been
@@ -101,19 +120,22 @@ public class GLAppDelegate : AppDelegate {
     bgndSprite = GLSprite(texture:bgndTexture, window:CGRect(0,0,2000,2000), program:nil)
     
     let ballTexture = getTexture("AlphaBall")
-    ballSprite = GLSprite(texture:ballTexture, window:ballTexture.bounds, program:nil)
+		ballSprite = GLSprite(texture:ballTexture, window:ballTexture.bounds, program:nil)
     
+    let superTexture = getTexture("super")
+    superSprite = GLSprite(texture:superTexture, window:superTexture.bounds, program:nil)
   }
   
   private var textureMap = Dictionary<String,Texture>()
   private var blobSprite : GLSprite!
   private var bgndSprite : GLSprite!
   private var ballSprite : GLSprite!
+  private var superSprite : GLSprite!
   
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]
     if tex == nil {
-      tex = Texture(pngName:name)
+			tex = Texture(pngName:name)
       textureMap[name] = tex
     }
     return tex!

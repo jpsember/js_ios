@@ -14,7 +14,7 @@ public func d(point:CGPoint) -> String {
 }
 
 public func d(value:Double,_ format:String? = nil) -> String {
-  return DebugTools.dDouble(value)
+  return DebugTools.dDouble(value, format:format)
 }
 
 public func d(value:CGFloat,_ format:String? = nil) -> String {
@@ -22,11 +22,11 @@ public func d(value:CGFloat,_ format:String? = nil) -> String {
 }
 
 public func d(value:Int,_ format:String? = nil) -> String {
-  return DebugTools.dInt(value)
+  return DebugTools.dInt(value,format:format)
 }
 
 public func d(value:Float,_ format:String? = nil) -> String {
-  return DebugTools.dDouble(Double(value))
+  return DebugTools.dDouble(Double(value),format:format)
 }
 
 public func d(value:Bool) -> String {
@@ -68,7 +68,8 @@ public class DebugTools : NSObject {
 
   public class func dDouble(value:Double,format:String? = nil) -> String {
     let f = format ?? "%8.2f "
-    return NSString(format:f,value)
+    
+    return trimTrailingZeroes(String(format:f,value))
   }
   
   public class func dInt(value:Int,format:String? = nil) -> String {
@@ -83,7 +84,7 @@ public class DebugTools : NSObject {
   public class func dFloats(floats:UnsafePointer<Float>, length:Int) -> String {
     var s = ""
     for i in 0..<length {
-      s += d(floats[i])
+      s += d(floats[i],"%8.4f ")
       if ((i+1) % 4 == 0) {
       	s += "\n"
       }
@@ -146,4 +147,50 @@ public class DebugTools : NSObject {
     return s
   }
 
+  public class func dTransform(t:CGAffineTransform) -> String {
+    return t.description
+  }
+  
+  public class func stringToBytes(str : String) -> [byte] {
+    return [byte](str.utf8)
+  }
+  
+  public class func trimTrailingZeroes(str : String) -> String {
+    var s = stringToBytes(str)
+    
+    let DECIMALPOINT : byte = 46
+    let ZERO : byte = 48
+    let NINE : byte = 57
+    let SPACE : byte = 32
+    
+    var decFound = false
+    var trimPos = 0
+    for var i = 0; i < s.count; i++ {
+      let c = s[i]
+      if (c == DECIMALPOINT) {
+        decFound = true
+        trimPos = i
+      } else if (c == ZERO) {
+      } else if (c > ZERO && c <= NINE) {
+        if (decFound) {
+          trimPos = i + 1
+        }
+      }
+    }
+    
+    var ret : String = str
+    if (decFound && trimPos < s.count) {
+        while (trimPos < s.count) {
+          s[trimPos++] = SPACE
+        }
+        
+        var s3 = ""
+        for q in s {
+          s3.append(Character(UnicodeScalar(q)))
+        }
+        ret = s3
+    }
+    return ret
+  }
+  
 }

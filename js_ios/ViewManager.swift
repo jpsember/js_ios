@@ -47,18 +47,22 @@ public class ViewManager : NSObject, GLKViewDelegate {
     
     let containerSize = self.bounds.ptSize
 		let containerOrigin = CGPoint.zero
-  	plotAux(containerSize,containerOrigin,rootView)
+    
+    let renderer = Renderer.sharedInstance()
+    renderer.containerSize = containerSize
+    renderer.defaultViewportSize = view.bounds.ptSize
+    
+  	plotAux(containerOrigin,rootView)
   }
   
-  private func plotAux(containerSize:CGPoint, _ parentOrigin:CGPoint, _ view:View) {
-  	view.plot(containerSize,parentOrigin)
+  private func plotAux(parentOrigin:CGPoint, _ view:View) {
+  	view.plot(parentOrigin)
     let thisOrigin = CGPoint.sum(parentOrigin,view.bounds.origin)
     for v in view.children {
-    	plotAux(containerSize,thisOrigin,v)
+    	plotAux(thisOrigin,v)
     }
   }
   
-  private var renderer : Renderer!
   private var preparedViewSize = CGPoint.zero
 
   private func prepareGraphics(viewSize : CGPoint) {

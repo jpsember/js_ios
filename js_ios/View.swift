@@ -30,7 +30,7 @@ public class View : NSObject {
   public var children: Array<View> = []
   
   // Texture holding cached rendered view
-  private var cachedTexture:Texture? = nil
+  private var cachedTexture:Texture!
   // True iff the cached view contents (if they exist) are valid, vs need to be redrawn
   private var cachedTextureValid = false
   
@@ -66,15 +66,18 @@ public class View : NSObject {
   // Plot view. If cacheable, renders to texture (if cached version doesn't exist or is invalid), 
   // then plots from texture to OpenGL view.  If not cacheable, renders directly to OpenGL view
 	//
-  public func plot(containerSize:CGPoint, _ parentOrigin:CGPoint) {
+  public func plot(parentOrigin:CGPoint) {
+    let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
+    let renderer = Renderer.sharedInstance()
+    let transform = calcOpenGLTransform(renderer.containerSize,ourOrigin,false)
     if (self.cacheable) {
-      unimp("set up transformations for cached content")
       constructCachedContent()
+      renderer.verticalFlipFlag = true
+      renderer.setTransform(transform)
       plotCachedTexture()
     } else {
-      let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
-      let transform = calcOpenGLTransform(containerSize,ourOrigin)
-      Renderer.sharedInstance().setTransform(transform)
+      renderer.setTransform(transform)
+      renderer.verticalFlipFlag = false
       plotHandler(self)
     }
   }
@@ -83,7 +86,7 @@ public class View : NSObject {
   * Construct matrix to transform from view manager bounds to OpenGL's
   * normalized device coordinates (-1,-1 ... 1,1)
   */
-  private func calcOpenGLTransform(containerSize:CGPoint, _ ourOrigin:CGPoint) -> CGAffineTransform {
+  private func calcOpenGLTransform(containerSize:CGPoint, _ ourOrigin:CGPoint, _ offscreen:Bool) -> CGAffineTransform {
     let w = containerSize.x
     let h = containerSize.y
     let sx = 2 / w
@@ -103,7 +106,7 @@ public class View : NSObject {
     
     // Dispose of old texture cache if it exists and its size differs from required
     if (cachedTexture != nil) {
-      if (calcRequiredTextureSize() != cachedTexture!.bounds.ptSize) {
+      if (calcRequiredTextureSize() != cachedTexture.bounds.ptSize) {
       	disposeTextureCache()
       }
     }
@@ -132,29 +135,44 @@ public class View : NSObject {
   }
   
   private func plotIntoCache() {
+    let renderer = Renderer.sharedInstance()
+    
     GLTools.pushNewFrameBuffer()
     
-    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), self.cachedTexture!.textureId, 0)
-    GLTools.verifyNoError()
-    GLTools.verifyFrameBufferStatus()
+    glViewport(0,0,GLsizei(cachedTexture.width),GLsizei(cachedTexture.height))
     
-    plotHandler(self)
+    glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), cachedTexture.textureId, 0)
     
-    GLTools.popFrameBuffer()
-  }
-  
-  private func plotCachedTexture() {
-    let sprite = GLSprite(texture:self.cachedTexture,window:self.bounds,program:nil)
-    sprite.render(bounds.origin)
-  }
-  
-  public func defaultPlotHandler() {
+    // Clear the framebuffer
     if (opaque) {
-      glClearColor(0,0,0,1)
+      glClearColor(0.5,0,0,1)
     } else {
       glClearColor(0,0,0,0)
     }
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
+
+    GLTools.verifyNoError()
+    GLTools.verifyFrameBufferStatus()
+    
+    let texSize = cachedTexture.size
+    let transform = calcOpenGLTransform(texSize,CGPoint.zero,true)
+    renderer.setTransform(transform)
+    plotHandler(self)
+    
+    GLTools.popFrameBuffer()
+    
+    // Restore viewport to root view's bounds
+		glViewport(0,0,GLsizei(renderer.defaultViewportSize.x),GLsizei(renderer.defaultViewportSize.y))
+    
+  }
+  
+  private func plotCachedTexture() {
+    let texWindow = CGRect(0,0,self.bounds.width,self.bounds.height)
+    let sprite = GLSprite(texture:self.cachedTexture,window:texWindow,program:nil)
+    sprite.render(CGPoint.zero)
+  }
+  
+  public func defaultPlotHandler() {
   }
   
   private class func defaultPlotHandlerFunction(view : View) {

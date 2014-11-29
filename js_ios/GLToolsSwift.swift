@@ -163,11 +163,17 @@ extension GLTools {
   
   public class func popFrameBuffer() {
     ASSERT(S.fboStack.count > 0,"frame buffer stack is empty")
+    
+    var fboHandleOld : GLint = 0
+    glGetIntegerv(GLenum(GL_FRAMEBUFFER_BINDING), &fboHandleOld)
+    
     let fboHandle : GLuint = S.fboStack.removeLast()
-    glBindFramebuffer(GLenum(GL_FRAMEBUFFER),fboHandle)
+   	glBindFramebuffer(GLenum(GL_FRAMEBUFFER),fboHandle)
    	verifyNoError()
     verifyFrameBufferStatus()
-    unimp("Do I need to delete the framebuffer? glDeleteFramebuffers(...)?")
+    var fboHandleOldAsUInt = GLuint(fboHandleOld)
+    glDeleteFramebuffers(1, &fboHandleOldAsUInt)
+    
   }
   
   // Round an integer up, if necessary, so it's a power of two
@@ -183,6 +189,23 @@ extension GLTools {
   // Round a size up, if necessary, so it's a power of two in each dimension
   public class func smallestPowerOfTwo(size : CGPoint) -> CGPoint {
   	return CGPoint(smallestPowerOfTwoScalar(size.ix),smallestPowerOfTwoScalar(size.iy))
+  }
+
+  // Dump an OpenGL transformation matrix, which is an array of 16 CGFloats
+  public class func dumpTransform(m:UnsafePointer<CGFloat>) -> String {
+    let f = "%8.4f  "
+    var s = ""
+    for var i = 0; i < 16; i++ {
+      if (i % 4 == 0) {
+        s += "[ "
+      }
+      let j = (i % 4) * 4 + (i / 4)
+      s += d(m[j],f)
+      if (i % 4 == 3) {
+        s += "]\n"
+      }
+    }
+   	return s
   }
 
 }

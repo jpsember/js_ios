@@ -30,7 +30,6 @@
 }
 
 - (void)constructVertexInfo {
-  
   CGPoint p0 = CGPointMake(0,0);
   CGPoint p2 = CGPointMake(_textureWindow.size.width,_textureWindow.size.height);
   CGPoint p1 = CGPointMake(p2.x,p0.y);
@@ -42,6 +41,19 @@
                             _textureWindow.origin.y /  [_texture height]);
   CGPoint  t1 = CGPointMake(t2.x, t0.y);
   CGPoint  t3 = CGPointMake(t0.x, t2.y);
+  
+  // If we are using a texture created by rendering to an FBO, we must flip it vertically;
+  // see  http://stackoverflow.com/questions/26726804/opengl-es-2-0-render-to-texture-coordinate-system
+  
+  Renderer *r = [Renderer sharedInstance];
+  if (r.verticalFlipFlag) {
+    CGPoint s0 = t0;
+    CGPoint s1 = t1;
+    t0 = t3;
+    t1 = t2;
+    t3 = s0;
+    t2 = s1;
+  }
   
   int cursor = 0;
 #undef M

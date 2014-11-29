@@ -77,15 +77,15 @@ extension CGAffineTransform:  Printable {
     var s = "[ "
     // We need to add 'js_ios.' since d is actually a property name as well
     s += js_ios.d(a,f)
-    s += js_ios.d(b,f)
-    s += js_ios.d(0.0,f)
-    s += "]\n[ "
     s += js_ios.d(c,f)
-    s += js_ios.d(d,f)
-    s += js_ios.d(0.0,f)
-    s += "]\n[ "
     s += js_ios.d(tx,f)
+    s += "]\n[ "
+    s += js_ios.d(b,f)
+    s += js_ios.d(d,f)
     s += js_ios.d(ty,f)
+    s += "]\n[ "
+    s += js_ios.d(0.0,f)
+    s += js_ios.d(0.0,f)
     s += js_ios.d(1.0,f)
     s += "]\n"
    	return s

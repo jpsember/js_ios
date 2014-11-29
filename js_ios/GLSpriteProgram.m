@@ -71,6 +71,9 @@ static GLSpriteProgram *program;
     glDisable(GL_BLEND);
   }
   
+//  DBG
+//  pr(@"renderSprite, vertexData=\n%@\n",dFloats(vertexData,length));
+  
   int stride = TOTAL_COMPONENTS * sizeof(GLfloat);
   
   glVertexAttribPointer(self.positionLocation, POSITION_COMPONENT_COUNT, GL_FLOAT, false, stride, vertexData);
@@ -126,12 +129,14 @@ static GLSpriteProgram *program;
   // Transform 2D screen->NDC matrix to a 3D version
   CGAffineTransform matrix = [[Renderer sharedInstance] getTransform];
   GLfloat matrix44[] = {
-    matrix.a, matrix.b,0,0,//
+    matrix.a,matrix.b,0,0,//
     matrix.c,matrix.d,0,0,//
     0,0,1,0,//
     matrix.tx,matrix.ty,0,1 //
   };
-  glUniformMatrix4fv(self.matrixLocation,1,NO, matrix44);
+//  DBG
+//  pr(@"OpenGL matrix=\n%@\n",dTransform4(matrix44));
+  glUniformMatrix4fv(self.matrixLocation,1,NO,matrix44);
 }
 
 @end

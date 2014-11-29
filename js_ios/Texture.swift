@@ -10,6 +10,12 @@ public class Texture : NSObject {
   public var height = 0
   public var hasAlpha = false
   
+  public var size : CGPoint {
+    get {
+			return CGPoint(width,height)
+		}
+	}
+
   public override var description : String {
     return "(Texture id:\(textureId) size:\(width) x \(height) hasAlpha:\(d(hasAlpha)))"
   }
@@ -35,12 +41,14 @@ public class Texture : NSObject {
     var textureId : GLuint = 0
       
     glGenTextures(1, &textureId)
-    
-    Texture.allocId(textureId,context:"Texture.init, context '\(context)'")
+    self.textureId = textureId
+    self.width = size.ix
+    self.height = size.iy
+    self.hasAlpha = hasAlpha
+
+    select()
     
     let format = hasAlpha ? GLint(GL_RGBA) : GLint(GL_RGB)
-        
-    glBindTexture(GLenum(GL_TEXTURE_2D), textureId)
     
     glTexImage2D( GLenum(GL_TEXTURE_2D),
         0,
@@ -55,15 +63,10 @@ public class Texture : NSObject {
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_LINEAR);
     glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_LINEAR);
     
-    setRepeat(withRepeat)
+    _setRepeat(withRepeat)
         
     // Unbind existing texture... we're done with it
-    glBindTexture(GLenum(GL_TEXTURE_2D), 0);
-    
-    self.textureId = textureId
-    self.width = size.ix
-    self.height = size.iy
-    self.hasAlpha = hasAlpha
+    unselect()
   }
   
   private func _setRepeat(repeat:Bool) {
@@ -76,7 +79,7 @@ public class Texture : NSObject {
     select()
     _setRepeat(repeat)
     // Unbind existing texture... we're done with it
-    glBindTexture(GLenum(GL_TEXTURE_2D), 0);
+    unselect()
   }
   
   // Load UImage from resource "<name>.png"
@@ -105,9 +108,13 @@ public class Texture : NSObject {
   // Make this the active OpenGL texture
   public func select() {
     ASSERT(textureId  != 0,"tex id is zero")
-		glBindTexture(GLenum(GL_TEXTURE_2D), textureId);
+		glBindTexture(GLenum(GL_TEXTURE_2D), textureId)
   }
 
+  public func unselect() {
+    glBindTexture(GLenum(GL_TEXTURE_2D), 0)
+  }
+  
   public class func allocId(textureId : GLuint,  context : String = "(unknown context)") {
     if (textureId == 0) {
       return
