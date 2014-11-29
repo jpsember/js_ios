@@ -67,19 +67,20 @@ public class View : NSObject {
   // then plots from texture to OpenGL view.  If not cacheable, renders directly to OpenGL view
 	//
   public func plot(parentOrigin:CGPoint) {
+    let renderer = Renderer.sharedInstance()
     let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
-    let transform = calcOpenGLTransform(Renderer.getContainerSize(),ourOrigin,false)
-    Renderer.resetOpenGLState()
+    let transform = calcOpenGLTransform(renderer.containerSize,ourOrigin,false)
+    renderer.resetOpenGLState()
     if (self.cacheable) {
       if (constructCachedContent()) {
-        Renderer.resetOpenGLState()
+        renderer.resetOpenGLState()
       }
-      Renderer.setVerticalFlipFlag(true)
-      Renderer.setTransform(transform)
+      renderer.verticalFlipFlag = true
+      renderer.transform = transform
       plotCachedTexture()
+      renderer.verticalFlipFlag = false
     } else {
-      Renderer.setTransform(transform)
-      Renderer.setVerticalFlipFlag(false)
+      renderer.transform = transform
       plotHandler(self)
     }
   }
@@ -142,7 +143,8 @@ public class View : NSObject {
   
   private func plotIntoCache() {
     
-    GLTools.pushNewFrameBuffer()
+    let renderer = Renderer.sharedInstance()
+		GLTools.pushNewFrameBuffer()
     
     glViewport(0,0,GLsizei(cachedTexture.width),GLsizei(cachedTexture.height))
     
@@ -160,14 +162,13 @@ public class View : NSObject {
     GLTools.verifyFrameBufferStatus()
     
     let texSize = cachedTexture.size
-    let transform = calcOpenGLTransform(texSize,CGPoint.zero,true)
-    Renderer.setTransform(transform)
+    renderer.transform = calcOpenGLTransform(texSize,CGPoint.zero,true)
     plotHandler(self)
     
     GLTools.popFrameBuffer()
     
     // Restore viewport to root view's bounds
-    let size = Renderer.getDefaultViewportSize()
+    let size = renderer.defaultViewportSize
 		glViewport(0,0,GLsizei(size.x),GLsizei(size.y))
     
   }

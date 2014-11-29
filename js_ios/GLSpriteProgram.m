@@ -29,7 +29,7 @@ static GLSpriteProgram *program;
 @implementation GLSpriteProgram
 
 - (int)projectionMatrixId {
-  return [Renderer getProjectionMatrixId];
+  return [[Renderer sharedInstance] projectionMatrixId];
 }
 
 + (GLSpriteProgram *)program {
@@ -127,7 +127,7 @@ static GLSpriteProgram *program;
   _preparedProjectionMatrixId = currentProjectionMatrixId;
   
   // Transform 2D screen->NDC matrix to a 3D version
-  CGAffineTransform matrix = [Renderer getTransform];
+  CGAffineTransform matrix = [[Renderer sharedInstance] transform];
   GLfloat matrix44[] = {
     matrix.a,matrix.b,0,0,//
     matrix.c,matrix.d,0,0,//

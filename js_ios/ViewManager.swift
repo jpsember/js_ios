@@ -29,6 +29,8 @@ public class ViewManager : NSObject, GLKViewDelegate {
   // Manager's GLKViewDelegate; ideally would be private
   //
   public func glkView(view : GLKView!, drawInRect : CGRect) {
+    let renderer = Renderer.sharedInstance()
+    
     Texture.processDeleteList()
     
     // Clear the GLKView 
@@ -47,8 +49,8 @@ public class ViewManager : NSObject, GLKViewDelegate {
     let containerSize = self.bounds.ptSize
 		let containerOrigin = CGPoint.zero
     
-    Renderer.setContainerSize(containerSize)
-    Renderer.setDefaultViewportSize(view.bounds.ptSize)
+    renderer.containerSize = containerSize
+    renderer.defaultViewportSize = view.bounds.ptSize
     
   	plotAux(containerOrigin,rootView)
   }
