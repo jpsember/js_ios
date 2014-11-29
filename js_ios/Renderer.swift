@@ -24,18 +24,20 @@ public class Renderer : NSObject {
     super.init()
   }
 
-	//
-	public var containerSize : CGPoint!
-  // The size of the default viewport (to restore to if it gets changed)
+  // The size of the default viewport (to restore to if it gets changed); this is
+  // the size of the ViewManager's GLKView
   public var defaultViewportSize : CGPoint!
-	// Projection matrix identifier; changes whenever it's determined a new matrix needs to be constructed
-  public var projectionMatrixId = 10
+  
   public var transform : CGAffineTransform = CGAffineTransformIdentity {
 		didSet {
 			invalidateMatrixId()
 		}
 	}
   
+  // Projection matrix identifier; changes whenever the transform property has changed
+  public var projectionMatrixId = 10
+  
+
   private func invalidateMatrixId() {
   	projectionMatrixId += 1
   }

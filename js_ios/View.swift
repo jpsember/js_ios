@@ -69,7 +69,7 @@ public class View : NSObject {
   public func plot(parentOrigin:CGPoint) {
     let renderer = Renderer.sharedInstance()
     let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
-    let transform = calcOpenGLTransform(renderer.containerSize,ourOrigin,false)
+    let transform = calcOpenGLTransform(renderer.defaultViewportSize,ourOrigin,false)
     renderer.resetOpenGLState()
     if (self.cacheable) {
       if (constructCachedContent()) {

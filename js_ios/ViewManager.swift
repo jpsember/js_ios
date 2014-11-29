@@ -1,6 +1,8 @@
 import GLKit
 import OpenGLES
 
+// TODO: can cached views contain other views (cached or no), and does this have any impact?
+
 public class ViewManager : NSObject, GLKViewDelegate {
   
   public init(bounds : CGRect) {
@@ -18,7 +20,11 @@ public class ViewManager : NSObject, GLKViewDelegate {
   
   // The root view in the manager hierarchy
   //
-  public var rootView : View!
+  public var rootView : View! {
+    didSet {
+   		ASSERT(rootView.bounds == self.bounds,"expected root view bounds to equal the GLKView's")
+    }
+  }
   
   private func buildBaseView() {
     let view = OurGLKView(frame:bounds)
@@ -46,10 +52,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
       return
     }
     
-    let containerSize = self.bounds.ptSize
 		let containerOrigin = CGPoint.zero
-    
-    renderer.containerSize = containerSize
     renderer.defaultViewportSize = view.bounds.ptSize
     
   	plotAux(containerOrigin,rootView)
