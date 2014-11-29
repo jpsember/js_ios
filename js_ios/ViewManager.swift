@@ -26,6 +26,25 @@ public class ViewManager : NSObject, GLKViewDelegate {
     }
   }
   
+  // If any views are invalid, request redraw of base UIView to redraw them
+  //
+  public func validate() {
+    if (allViewsValid(rootView)) {
+      return
+    }
+    baseUIView.setNeedsDisplay()
+  }
+  
+  private func allViewsValid(rootView : View) -> Bool {
+    var valid = rootView.renderedViewValid
+    if (valid) {
+	    for childView in rootView.children {
+      	valid &= allViewsValid(childView)
+      }
+    }
+    return valid
+  }
+  
   private func buildBaseView() {
     let view = OurGLKView(frame:bounds)
     view.delegate = self

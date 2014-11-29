@@ -38,14 +38,9 @@ public class GLAppDelegate : AppDelegate {
     let ticker = Ticker.sharedInstance()
     ticker.ticksPerSecond = fps
     ticker.logicCallback = updateLogic
-    ticker.renderCallback = updateRender
     ticker.exitTime = CGFloat(15)
+    ticker.viewManager = viewManager
     ticker.start()
-  }
-  
-  public func updateRender() {
-    unimp("have a View method that requests refresh, which ultimately calls setNeedsDisplay")
-    viewManager.baseUIView.setNeedsDisplay()
   }
   
   private var ourView : View {
@@ -67,6 +62,11 @@ public class GLAppDelegate : AppDelegate {
   private func updateLogic() {
     frame += 1
     angle += degrees(60 / fps)
+    
+    // Verify that if we don't invalidate anything, no updating occurs
+    if (frame >= 20 && frame <= 32) {
+      return
+    }
     
     // Invalidate our root view, so it's redrawn
     ourView.invalidate()
@@ -92,7 +92,7 @@ public class GLAppDelegate : AppDelegate {
   private func updateSubview1(subview : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
-    blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*3.2))
+    blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
     
     var p = GLTintedSpriteProgram.getProgram()
     p.tintColor = UIColor.greenColor()
@@ -106,7 +106,7 @@ public class GLAppDelegate : AppDelegate {
   private func updateSubview2(subview : View) {
     prepareGraphics()
 		superSprite.render(CGPoint.zero)
-		blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*3.2))
+		blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
   }
   
   // Prepare the graphics, if they haven't already been

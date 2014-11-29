@@ -11,9 +11,10 @@ public class Ticker : NSObject {
     }
   }
   public var logicCallback : Callback!
-  public var renderCallback : Callback!
   // For development purposes only; if > 0, exits app after this amount of time
   public var exitTime = CGFloat(0)
+  // View manager to observe; if any views are invalid, redraws them
+  public var viewManager : ViewManager?
   
   public class func sharedInstance() -> Ticker {
     if (S.singleton == nil) {
@@ -24,8 +25,6 @@ public class Ticker : NSObject {
   
   public func start() {
     ASSERT(logicCallback != nil,"no logic callback defined")
-    ASSERT(renderCallback != nil,"no render callback defined")
-    
     var timer = NSTimer.scheduledTimerWithTimeInterval(NSTimeInterval(1.0 /  ticksPerSecond ), target:self, selector: Selector("tickerTimerCallback"), userInfo: nil, repeats: true)
   }
 
@@ -39,7 +38,12 @@ public class Ticker : NSObject {
     }
     
     logicCallback()
-    renderCallback()
+    
+    if let m = viewManager {
+      m.validate()
+    } else {
+    	warning("no view manager defined")
+    }
   }
 
   private struct S {

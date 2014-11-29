@@ -31,8 +31,8 @@ public class View : NSObject {
   
   // Texture holding cached rendered view
   private var cachedTexture:Texture!
-  // True iff the cached view contents (if they exist) are valid, vs need to be redrawn
-  private var cachedTextureValid = false
+  // True iff the rendered view contents (if they exist) are valid, vs need to be redrawn
+	private(set) var renderedViewValid = false
   
   // If true, texture constructed for caching view's content will have dimensions padded 
   // if necessary to be a power of 2.  According to ES 2.0 specificiation
@@ -60,7 +60,7 @@ public class View : NSObject {
   // its cached texture is considered invalid, and will be redrawn
 	//
   public func invalidate() {
-    cachedTextureValid = false
+   	renderedViewValid = false
   }
   
   // Plot view. If cacheable, renders to texture (if cached version doesn't exist or is invalid), 
@@ -86,6 +86,7 @@ public class View : NSObject {
       plotHandler(self)
       glDisable(GLenum(GL_SCISSOR_TEST))
     }
+    renderedViewValid = true
   }
   
   /**
@@ -109,7 +110,7 @@ public class View : NSObject {
   // Returns true if rendering may have occurred (and state modified)
   //
   private func constructCachedContent() -> Bool {
-    if (cachedTextureValid && cachedTexture != nil) {
+    if (renderedViewValid && cachedTexture != nil) {
       return false
     }
     
@@ -123,7 +124,6 @@ public class View : NSObject {
     	createTextureCache()
     }
     plotIntoCache()
-    cachedTextureValid = true
     return true
   }
   
