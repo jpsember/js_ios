@@ -79,7 +79,12 @@ public class View : NSObject {
       plotCachedTexture()
     } else {
       renderer.transform = transform
+      
+      // Clip rendering to this view's bounds
+      glEnable(GLenum(GL_SCISSOR_TEST))
+      glScissor(GLint(bounds.origin.x),GLint(bounds.origin.y),GLint(bounds.size.width),GLint(bounds.size.height));
       plotHandler(self)
+      glDisable(GLenum(GL_SCISSOR_TEST))
     }
   }
   
