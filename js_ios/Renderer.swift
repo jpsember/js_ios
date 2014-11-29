@@ -1,37 +1,46 @@
 import Foundation
 import UIKit
 
-public typealias Matrix = CGAffineTransform
-
 public class Renderer : NSObject {
 
   private struct S {
-    static var renderer : Renderer!
+    static var containerSize : CGPoint!
+    
+    // The size of the default viewport (to restore to if it gets changed)
+    static var defaultViewportSize : CGPoint!
+    
+    static var verticalFlipFlag = false
+    
+    static var projectionMatrixId = 10
+    static var transform : CGAffineTransform!
+  }
+  
+  private class func invalidateMatrixId() {
+  	S.projectionMatrixId += 1
   }
 
-  public class func sharedInstance() -> Renderer {
-    if (S.renderer == nil) {
-      S.renderer = Renderer()
-    }
-    return S.renderer
+  public class func setContainerSize(size:CGPoint) {
+    S.containerSize = size
   }
   
-  private override init() {
-  	super.init()
+  public class func getContainerSize() -> CGPoint {
+    return S.containerSize
+  }
+
+  public class func setDefaultViewportSize(size:CGPoint) {
+    S.defaultViewportSize = size
+  }
+
+  public class func getDefaultViewportSize() -> CGPoint {
+    return S.defaultViewportSize
+  }
+
+  public class func setVerticalFlipFlag(flag : Bool) {
+    S.verticalFlipFlag = flag
   }
   
-  public var containerSize : CGPoint!
-  
-  // The size of the default viewport (to restore to if it gets changed)
-  public var defaultViewportSize : CGPoint!
-  
-  public var verticalFlipFlag = false
-  
-  private var matrixId = 10
-  private var transform : CGAffineTransform!
-  
-  private func invalidateMatrixId() {
-  	matrixId += 1
+  public class func getVerticalFlipFlag() -> Bool {
+    return S.verticalFlipFlag
   }
 
   /**
@@ -41,23 +50,18 @@ public class Renderer : NSObject {
 	 *
 	 * @return id, a positive integer (if surface has been created)
 	 */
-  public func projectionMatrixId() -> Int {
-		// TODO: consider renaming this to 'Surface Id' or something, since in
-		// addition to projection matrices,
-		// OpenGL programs and shaders are also no longer valid.. or are they
-		// only no longer valid when a surface is created as opposed to changed?
-		return matrixId
+  public class func getProjectionMatrixId() -> Int {
+		return S.projectionMatrixId
   }
   
-  public func setTransform(transform:CGAffineTransform) {
+  public class func setTransform(transform:CGAffineTransform) {
   	invalidateMatrixId()
-  	self.transform = transform
+  	S.transform = transform
   }
   
-  public func getTransform() -> CGAffineTransform {
-    return transform
+  public class func getTransform() -> CGAffineTransform {
+    return S.transform
   }
-  
 
   // Reset OpenGL state to our default values
   //

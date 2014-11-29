@@ -45,8 +45,7 @@
   // If we are using a texture created by rendering to an FBO, we must flip it vertically;
   // see  http://stackoverflow.com/questions/26726804/opengl-es-2-0-render-to-texture-coordinate-system
   
-  Renderer *r = [Renderer sharedInstance];
-  if (r.verticalFlipFlag) {
+  if ([Renderer getVerticalFlipFlag]) {
     CGPoint s0 = t0;
     CGPoint s1 = t1;
     t0 = t3;

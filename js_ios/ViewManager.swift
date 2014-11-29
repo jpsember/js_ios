@@ -47,9 +47,8 @@ public class ViewManager : NSObject, GLKViewDelegate {
     let containerSize = self.bounds.ptSize
 		let containerOrigin = CGPoint.zero
     
-    let renderer = Renderer.sharedInstance()
-    renderer.containerSize = containerSize
-    renderer.defaultViewportSize = view.bounds.ptSize
+    Renderer.setContainerSize(containerSize)
+    Renderer.setDefaultViewportSize(view.bounds.ptSize)
     
   	plotAux(containerOrigin,rootView)
   }
