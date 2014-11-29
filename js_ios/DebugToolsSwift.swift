@@ -66,6 +66,10 @@ public class DebugTools : NSObject {
     return point.description
   }
 
+  public class func dSize(size:CGSize) -> String {
+    return CGPoint(size.width,size.height).description
+  }
+
   public class func dDouble(value:Double,format:String? = nil) -> String {
     let f = format ?? "%8.2f "
     

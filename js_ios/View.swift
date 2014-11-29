@@ -75,10 +75,8 @@ public class View : NSObject {
       if (constructCachedContent()) {
         renderer.resetOpenGLState()
       }
-      renderer.verticalFlipFlag = true
       renderer.transform = transform
       plotCachedTexture()
-      renderer.verticalFlipFlag = false
     } else {
       renderer.transform = transform
       plotHandler(self)
@@ -175,6 +173,7 @@ public class View : NSObject {
   
   private func plotCachedTexture() {
     let texWindow = CGRect(0,0,self.bounds.width,self.bounds.height)
+		let renderer = Renderer.sharedInstance()
     let sprite = GLSprite(texture:self.cachedTexture,window:texWindow,program:nil)
     sprite.render(CGPoint.zero)
   }

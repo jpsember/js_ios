@@ -28,7 +28,6 @@ public class Renderer : NSObject {
 	public var containerSize : CGPoint!
   // The size of the default viewport (to restore to if it gets changed)
   public var defaultViewportSize : CGPoint!
-	public var verticalFlipFlag = false
 	// Projection matrix identifier; changes whenever it's determined a new matrix needs to be constructed
   public var projectionMatrixId = 10
   public var transform : CGAffineTransform = CGAffineTransformIdentity {

@@ -35,24 +35,15 @@
   CGPoint p1 = CGPointMake(p2.x,p0.y);
   CGPoint p3 = CGPointMake(p0.x,p2.y);
   
-  CGPoint  t0 = CGPointMake(_textureWindow.origin.x /  [self.texture width],
+  // Textures loaded from xxx.png have been flipped vertically, and those generated
+  // by rendering to FBO have a similarly flipped orientation
+  
+  CGPoint  t3 = CGPointMake(_textureWindow.origin.x /  [self.texture width],
                             CGRectGetMaxY(_textureWindow) /  [_texture height] );
-  CGPoint  t2 = CGPointMake(CGRectGetMaxX(_textureWindow) /  [self.texture width],
+  CGPoint  t1 = CGPointMake(CGRectGetMaxX(_textureWindow) /  [self.texture width],
                             _textureWindow.origin.y /  [_texture height]);
-  CGPoint  t1 = CGPointMake(t2.x, t0.y);
-  CGPoint  t3 = CGPointMake(t0.x, t2.y);
-  
-  // If we are using a texture created by rendering to an FBO, we must flip it vertically;
-  // see  http://stackoverflow.com/questions/26726804/opengl-es-2-0-render-to-texture-coordinate-system
-  
-  if ([[Renderer sharedInstance] verticalFlipFlag]) {
-    CGPoint s0 = t0;
-    CGPoint s1 = t1;
-    t0 = t3;
-    t1 = t2;
-    t3 = s0;
-    t2 = s1;
-  }
+  CGPoint  t2 = CGPointMake(t1.x, t3.y);
+  CGPoint  t0 = CGPointMake(t3.x, t1.y);
   
   int cursor = 0;
 #undef M
