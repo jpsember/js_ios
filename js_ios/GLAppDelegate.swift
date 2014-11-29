@@ -91,6 +91,13 @@ public class GLAppDelegate : AppDelegate {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
     blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*3.2))
+    
+    var p = GLTintedSpriteProgram.getProgram()
+    p.tintColor = UIColor.greenColor()
+    tintedSprite.render(CGPoint(20,20))
+    
+    p.tintColor = UIColor.redColor()
+    tintedSprite.render(CGPoint(60,50))
   }
 
   private func updateSubview2(subview : View) {
@@ -105,18 +112,21 @@ public class GLAppDelegate : AppDelegate {
     if (blobSprite != nil) {
       return
     }
-    let blobTexture = getTexture("blob")
-    blobSprite = GLSprite(texture:blobTexture, window:blobTexture.bounds, program:nil)
+    var texture = getTexture("blob")
+    blobSprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
     
-    let bgndTexture = getTexture("tile")
-    bgndTexture.setRepeat(true)
-    bgndSprite = GLSprite(texture:bgndTexture, window:CGRect(0,0,2000,2000), program:nil)
+    texture = getTexture("tile")
+    texture.setRepeat(true)
+    bgndSprite = GLSprite(texture:texture, window:CGRect(0,0,2000,2000), program:nil)
     
-    let ballTexture = getTexture("AlphaBall")
-		ballSprite = GLSprite(texture:ballTexture, window:ballTexture.bounds, program:nil)
+    texture = getTexture("AlphaBall")
+		ballSprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
     
-    let superTexture = getTexture("super")
-    superSprite = GLSprite(texture:superTexture, window:superTexture.bounds, program:nil)
+    texture = getTexture("super")
+    superSprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
+    
+    texture = getTexture("tinted")
+    tintedSprite = GLSprite(texture:texture, window:texture.bounds, program:GLTintedSpriteProgram.getProgram())
   }
   
   private var textureMap = Dictionary<String,Texture>()
@@ -124,6 +134,7 @@ public class GLAppDelegate : AppDelegate {
   private var bgndSprite : GLSprite!
   private var ballSprite : GLSprite!
   private var superSprite : GLSprite!
+  private var tintedSprite : GLSprite!
   
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]

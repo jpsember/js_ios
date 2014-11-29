@@ -2,10 +2,9 @@
 
 @interface GLTintedSpriteProgram : GLSpriteProgram
 
+@property (nonatomic, strong) UIColor *tintColor;
+
 + (GLTintedSpriteProgram *)getProgram;
-
 + (void)prepare:(Renderer *)renderer;
-
-- (void)setTintColor:(UIColor *)color;
 
 @end

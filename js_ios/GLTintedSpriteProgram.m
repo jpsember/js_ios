@@ -5,22 +5,13 @@
 static GLTintedSpriteProgram *program;
 
 @interface GLTintedSpriteProgram ()
-{
-  GLfloat _tintColor[4];
-}
-
 @property (nonatomic, assign) int colorLocation;
-
 @end
 
 @implementation GLTintedSpriteProgram
 
 + (GLTintedSpriteProgram *)program {
 	return [[GLTintedSpriteProgram alloc] init];
-}
-
-- (void)setTintColor:(UIColor *)color {
-  [GLTools setGLColor:color destination:_tintColor];
 }
 
 - (NSString *)fragmentShaderName {
@@ -38,14 +29,17 @@ static GLTintedSpriteProgram *program;
 }
 
 - (void)renderAux {
-  glUniform4fv(self.colorLocation, 1, _tintColor);
+  if (_tintColor == nil) {
+    warning(@"no tint color defined");
+    return;
+  }
+  glUniform4fv(self.colorLocation, 1, CGColorGetComponents(self.tintColor.CGColor));
 }
 
 - (void)prepareAttributes {
   [super prepareAttributes];
   self.colorLocation = [GLTools getProgramLocation:@"u_InputColor"];
 }
-
 
 @end
 
