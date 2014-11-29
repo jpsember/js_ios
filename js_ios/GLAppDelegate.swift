@@ -23,15 +23,8 @@ public class GLAppDelegate : AppDelegate {
     subview.plotHandler = { (view) in self.updateSubview1(view) }
     
     // Construct a second child view, like the first but cacheable; this one is actually opaque
-    if (cond(true)) {
-      subview = View(CGPoint(256,256), opaque:true, cacheable:true)
-      subview.position = CGPoint(150,subviewY)
-		} else {
-      warning("using funky bounds")
-      let pad = 10
-      subview = View(CGPoint(768,1024), opaque:true, cacheable:true)
-      subview.position = CGPoint(pad,pad)
-    }
+    subview = View(CGPoint(256,256), opaque:true, cacheable:true)
+    subview.position = CGPoint(150,subviewY)
     view.add(subview)
     subview.plotHandler = { (view) in self.updateSubview2(view) }
     cachedView = subview

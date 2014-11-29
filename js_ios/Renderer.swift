@@ -59,5 +59,11 @@ public class Renderer : NSObject {
   }
   
 
+  // Reset OpenGL state to our default values
+  //
+  public class func resetOpenGLState() {
+    glBlendFunc(GLenum(GL_SRC_ALPHA),GLenum(GL_ONE_MINUS_SRC_ALPHA))
+  }
+
 }
 

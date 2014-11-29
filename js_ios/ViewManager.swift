@@ -35,7 +35,6 @@ public class ViewManager : NSObject, GLKViewDelegate {
     glClearColor(0.0, 0.5, 0.1, 1.0)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
     GLTools.verifyNoError()
-    GLTools.initializeOpenGLState()
     
     prepareGraphics(view.bounds.ptSize)
     

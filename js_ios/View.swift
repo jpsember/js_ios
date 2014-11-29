@@ -70,8 +70,11 @@ public class View : NSObject {
     let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
     let renderer = Renderer.sharedInstance()
     let transform = calcOpenGLTransform(renderer.containerSize,ourOrigin,false)
+    Renderer.resetOpenGLState()
     if (self.cacheable) {
-      constructCachedContent()
+      if (constructCachedContent()) {
+        Renderer.resetOpenGLState()
+      }
       renderer.verticalFlipFlag = true
       renderer.setTransform(transform)
       plotCachedTexture()
@@ -99,9 +102,12 @@ public class View : NSObject {
     return result
   }
   
-  private func constructCachedContent() {
+  // Construct cached texture (if it doesn't exist, or is invalid), and redraw if necessary
+  // Returns true if rendering may have occurred (and state modified)
+  //
+  private func constructCachedContent() -> Bool {
     if (cachedTextureValid && cachedTexture != nil) {
-      return
+      return false
     }
     
     // Dispose of old texture cache if it exists and its size differs from required
@@ -115,6 +121,7 @@ public class View : NSObject {
     }
     plotIntoCache()
     cachedTextureValid = true
+    return true
   }
   
   private func calcRequiredTextureSize() -> CGPoint {
