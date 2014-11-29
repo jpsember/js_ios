@@ -29,16 +29,21 @@ public class GLAppDelegate : AppDelegate {
     subview.plotHandler = { (view) in self.updateSubview2(view) }
     cachedView = subview
     
-    // Start a timer to update the root view several times a second
-    NSTimer.scheduledTimerWithTimeInterval(Double(1/fps), target: self, selector: Selector("updateTimer"), userInfo: nil, repeats: true)
+    startTicker()
     
     return viewManager.baseUIView
   }
   
-  // Called by the NSTimer; ideally would be private
-  //
-  public func updateTimer() {
-    updateLogic()
+  private func startTicker() {
+    let ticker = Ticker.sharedInstance()
+    ticker.ticksPerSecond = fps
+    ticker.logicCallback = updateLogic
+    ticker.renderCallback = updateRender
+    ticker.exitTime = CGFloat(15)
+    ticker.start()
+  }
+  
+  public func updateRender() {
     unimp("have a View method that requests refresh, which ultimately calls setNeedsDisplay")
     viewManager.baseUIView.setNeedsDisplay()
   }
@@ -62,9 +67,6 @@ public class GLAppDelegate : AppDelegate {
   private func updateLogic() {
     frame += 1
     angle += degrees(60 / fps)
-    if (angle > pi*6) {
-      exitApp()
-    }
     
     // Invalidate our root view, so it's redrawn
     ourView.invalidate()
