@@ -3,6 +3,9 @@ import GLKit
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate {
   
+  private let TILE_BGND = false
+  private let WITH_ANIMATION = false
+  
   override public func buildView() -> UIView {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
@@ -56,9 +59,9 @@ public class GLAppDelegate : AppDelegate {
     let ticker = Ticker.sharedInstance()
     ticker.ticksPerSecond = fps
     ticker.logicCallback = updateLogic
-    ticker.exitTime = CGFloat(15)
     ticker.viewManager = viewManager
     ticker.start()
+    ticker.exitTime = CGFloat(60)
   }
   
   private var ourView : View {
@@ -82,22 +85,24 @@ public class GLAppDelegate : AppDelegate {
     frame += 1
     angle += degrees(60 / fps)
     
-    if (frame % 4 == 0) {
-    	movingView!.bounds.origin = pointOnCircle(CGPoint(64,64),32,angle * 0.5)
-      movingView.invalidate()
-    }
-    
-    // Verify that if we don't invalidate anything, no updating occurs
-    if (frame >= 20 && frame <= 45) {
-      return
-    }
-
-    // Invalidate our root view, so it's redrawn
-    ourView.invalidate()
-    
-    // Invalidate the second child view (which is cached) every once in a while
-    if (frame % 8 == 0) {
-    	cachedView.invalidate()
+    if (WITH_ANIMATION) {
+      if (frame % 4 == 0) {
+        movingView!.bounds.origin = pointOnCircle(CGPoint(64,64),32,angle * 0.5)
+        movingView.invalidate()
+      }
+      
+      // Verify that if we don't invalidate anything, no updating occurs
+      if (frame >= 20 && frame <= 45) {
+        return
+      }
+      
+      // Invalidate our root view, so it's redrawn
+      ourView.invalidate()
+      
+      // Invalidate the second child view (which is cached) every once in a while
+      if (frame % 8 == 0) {
+        cachedView.invalidate()
+      }
     }
   }
   
@@ -109,14 +114,18 @@ public class GLAppDelegate : AppDelegate {
    
     bgndSprite.render(CGPoint.zero)
     
-    blobSprite.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
-    blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
+    if (cond(TILE_BGND)) {
+    	blobSprite.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
+    	blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
+    }
   }
   
   private func updateSubview1(subview : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
-    blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
+    if (cond(WITH_ANIMATION)) {
+      blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
+    }
     
     var p = GLTintedSpriteProgram.getProgram()
     p.tintColor = UIColor.greenColor()
@@ -130,7 +139,9 @@ public class GLAppDelegate : AppDelegate {
   private func updateSubview2(subview : View) {
     prepareGraphics()
 		superSprite.render(CGPoint.zero)
-		blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
+    if (cond(WITH_ANIMATION)) {
+      blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
+    }
   }
   
   // Prepare the graphics, if they haven't already been

@@ -66,6 +66,7 @@
 		F497C24B1A27DD9B00888187 /* super.png in Resources */ = {isa = PBXBuildFile; fileRef = F497C24A1A27DD9B00888187 /* super.png */; };
 		F497C24F1A2A570300888187 /* tinted.png in Resources */ = {isa = PBXBuildFile; fileRef = F497C24E1A2A570300888187 /* tinted.png */; };
 		F497C2541A2A61F500888187 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2531A2A61F500888187 /* Ticker.swift */; };
+		F497C2561A2AC02B00888187 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2551A2AC02B00888187 /* TouchEvent.swift */; };
 		F49902271A23C8B300EC4D16 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49902261A23C8B300EC4D16 /* View.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
 		F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */ = {isa = PBXBuildFile; fileRef = F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */; };
@@ -182,6 +183,7 @@
 		F497C24A1A27DD9B00888187 /* super.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = super.png; sourceTree = "<group>"; };
 		F497C24E1A2A570300888187 /* tinted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tinted.png; sourceTree = "<group>"; };
 		F497C2531A2A61F500888187 /* Ticker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ticker.swift; path = js_ios/Ticker.swift; sourceTree = SOURCE_ROOT; };
+		F497C2551A2AC02B00888187 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchEvent.swift; path = js_ios/TouchEvent.swift; sourceTree = SOURCE_ROOT; };
 		F49902261A23C8B300EC4D16 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = View.swift; path = js_ios/View.swift; sourceTree = SOURCE_ROOT; };
 		F4A3603C1A12C4B200F48E71 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
 		F4A360441A1421ED00F48E71 /* fragment_shader_texture.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fragment_shader_texture.glsl; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				F497C2531A2A61F500888187 /* Ticker.swift */,
 				F49902261A23C8B300EC4D16 /* View.swift */,
 				F497C2481A268FFB00888187 /* ViewManager.swift */,
+				F497C2551A2AC02B00888187 /* TouchEvent.swift */,
 				F4D8C1AC1A1BD2A00064A139 /* GLSprite.h */,
 				F4D8C1AD1A1BD2A00064A139 /* GLSprite.m */,
 				F4AA66D81A1701F30058452F /* GLTools.swift */,
@@ -560,6 +563,7 @@
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,
 				1FE492271896F04700CF2FCB /* JSBase.m in Sources */,
+				F497C2561A2AC02B00888187 /* TouchEvent.swift in Sources */,
 				F4AA66EB1A1701F30058452F /* Texture.swift in Sources */,
 				1FE492261896F04700CF2FCB /* JSIORecorder.m in Sources */,
 				F497C2491A268FFB00888187 /* ViewManager.swift in Sources */,

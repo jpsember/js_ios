@@ -10,6 +10,8 @@ public class Ticker : NSObject {
       return CGFloat(totalTicks) / ticksPerSecond
     }
   }
+  private var timeSinceLastActivity : CGFloat = 0
+  
   public var logicCallback : Callback!
   // For development purposes only; if > 0, exits app after this amount of time
   public var exitTime = CGFloat(0)
@@ -32,7 +34,7 @@ public class Ticker : NSObject {
     totalTicks++
     
     if (exitTime > 0) {
-      if (elapsedTime >= exitTime) {
+      if (elapsedTime - timeSinceLastActivity >= exitTime) {
         exitApp()
       }
     }
@@ -46,6 +48,10 @@ public class Ticker : NSObject {
     }
   }
 
+  public func resetInactivityCounter() {
+  	timeSinceLastActivity = elapsedTime
+  }
+  
   private struct S {
     static var singleton : Ticker!
   }
