@@ -7,6 +7,5 @@
 #import "GLSpriteProgram.h"
 #import "GLTintedSpriteProgram.h"
 #import "GLSprite.h"
-#import "GLBuffer.h"
 
 #endif
