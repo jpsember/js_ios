@@ -45,7 +45,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
   }
   
   private func buildBaseView() {
-    let view = OurGLKView(frame:bounds)
+    let view = ManagedGLKView(frame:bounds)
     view.delegate = self
     baseUIView = view
   }
@@ -108,45 +108,4 @@ public class ViewManager : NSObject, GLKViewDelegate {
     }
   }
   
-  // Our subclass of GLKView
-  private class OurGLKView: GLKView  {
-    
-    private override init(frame:CGRect) {
-      let c = EAGLContext(API:EAGLRenderingAPI.OpenGLES2)
-      super.init(frame:frame, context:c)
-    }
-    
-    private required init(coder decoder: NSCoder) {
-      super.init(coder: decoder)
-    }
-    
-    private override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
-      // For test purposes only, delay exiting app if user activity detected
-      Ticker.sharedInstance().resetInactivityCounter()
-      let event = TouchEvent(.Down,getTouchLocation(touches,event))
-      puts("\(event)")
-    }
-    
-    private override func touchesEnded(touches: NSSet, withEvent event: UIEvent) {
-      let event = TouchEvent(.Up,getTouchLocation(touches,event))
-      puts("\(event)")
-    }
-    
-    private override func touchesMoved(touches: NSSet, withEvent event: UIEvent) {
-      let event = TouchEvent(.Drag,getTouchLocation(touches,event))
-      puts("\(event)")
-    }
-    
-    private func getTouchLocation(touches:NSSet, _ event:UIEvent) -> CGPoint {
-      let touch : UITouch = event.allTouches()?.anyObject()! as UITouch
-      let touchLocation = touch.locationInView(self)
-      return touchLocation
-    }
-    
-    private override func touchesCancelled(touches: NSSet!, withEvent event: UIEvent!) {
-      unimp("touchesCancelled")
-    }
-    
-  }
-
 }
