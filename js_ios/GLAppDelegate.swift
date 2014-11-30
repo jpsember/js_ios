@@ -26,8 +26,26 @@ public class GLAppDelegate : AppDelegate {
     subview = View(CGPoint(256,256), opaque:true, cacheable:true)
     subview.position = CGPoint(150,subviewY)
     view.add(subview)
+    subviewY += 256 + 10
     subview.plotHandler = { (view) in self.updateSubview2(view) }
     cachedView = subview
+    
+    // Construct a third child view, that will contain other views within it
+    subview = View(CGPoint(256,256), opaque:false, cacheable:true)
+    subview.position = CGPoint(150,subviewY)
+    view.add(subview)
+    subview.plotHandler = { (view) in
+      self.superSprite.render(CGPoint.zero) }
+    
+    var subview2 = View(CGPoint(64,64), opaque:false, cacheable:true)
+    subview2.position = CGPoint(10,10)
+    subview2.plotHandler = {(view) in
+      self.bgndSprite.render(CGPoint.zero)
+      self.blobSprite.render(CGPoint.zero)
+    }
+    movingView = subview2
+    
+    subview.add(subview2)
     
     startTicker()
     
@@ -51,6 +69,7 @@ public class GLAppDelegate : AppDelegate {
   
   private var viewManager : ViewManager!
   private var cachedView : View!
+  private var movingView : View!
   
   // ------------------------------------
   // Logic-related : state and behaviour
@@ -63,11 +82,16 @@ public class GLAppDelegate : AppDelegate {
     frame += 1
     angle += degrees(60 / fps)
     
-    // Verify that if we don't invalidate anything, no updating occurs
-    if (frame >= 20 && frame <= 32) {
-      return
+    if (frame % 4 == 0) {
+    	movingView!.bounds.origin = pointOnCircle(CGPoint(64,64),32,angle * 0.5)
+      movingView.invalidate()
     }
     
+    // Verify that if we don't invalidate anything, no updating occurs
+    if (frame >= 20 && frame <= 45) {
+      return
+    }
+
     // Invalidate our root view, so it's redrawn
     ourView.invalidate()
     

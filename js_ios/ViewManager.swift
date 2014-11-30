@@ -29,10 +29,9 @@ public class ViewManager : NSObject, GLKViewDelegate {
   // If any views are invalid, request redraw of base UIView to redraw them
   //
   public func validate() {
-    if (allViewsValid(rootView)) {
-      return
+    if (!allViewsValid(rootView)) {
+    	baseUIView.setNeedsDisplay()
     }
-    baseUIView.setNeedsDisplay()
   }
   
   private func allViewsValid(rootView : View) -> Bool {
@@ -110,7 +109,6 @@ public class ViewManager : NSObject, GLKViewDelegate {
   }
   
   // Our subclass of GLKView
-  
   private class OurGLKView: GLKView  {
     
     private override init(frame:CGRect) {
