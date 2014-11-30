@@ -20,14 +20,14 @@ public class GLAppDelegate : AppDelegate {
     // Construct a child view that is translucent and (for the moment) non-cacheable;
     // it will have a static sprite as a background, and a smaller sprite moving in a small circle
     subview = View(CGPoint(256,256), opaque:false, cacheable:false)
-    subview.position = CGPoint(150,subviewY)
+    subview.position = CGPoint(20,subviewY)
     subviewY += 256 + 10
     view.add(subview)
     subview.plotHandler = { (view) in self.updateSubview1(view) }
     
     // Construct a second child view, like the first but cacheable; this one is actually opaque
     subview = View(CGPoint(256,256), opaque:true, cacheable:true)
-    subview.position = CGPoint(150,subviewY)
+    subview.position = CGPoint(20,subviewY)
     view.add(subview)
     subviewY += 256 + 10
     subview.plotHandler = { (view) in self.updateSubview2(view) }
@@ -35,7 +35,7 @@ public class GLAppDelegate : AppDelegate {
     
     // Construct a third child view, that will contain other views within it
     subview = View(CGPoint(256,256), opaque:false, cacheable:true)
-    subview.position = CGPoint(150,subviewY)
+    subview.position = CGPoint(20,subviewY)
     view.add(subview)
     subview.plotHandler = { (view) in
       self.superSprite.render(CGPoint.zero) }
@@ -77,9 +77,10 @@ public class GLAppDelegate : AppDelegate {
   // ------------------------------------
   // Logic-related : state and behaviour
   //
-  private let fps : CGFloat = 8.0
+  private let fps : CGFloat = 30.0
   private var angle : CGFloat = 0.0
   private var frame : Int = 0
+  private var pathLoc = CGPoint.zero
   
   private func updateLogic() {
     frame += 1
@@ -103,7 +104,38 @@ public class GLAppDelegate : AppDelegate {
       if (frame % 8 == 0) {
         cachedView.invalidate()
       }
+    } else {
+	    updatePathLoc()
+			ourView.invalidate()
     }
+  }
+  
+  private func updatePathLoc() {
+    
+    if (path1 == nil) {
+      let p1 = CGPoint(400,800)
+      let p2 = CGPoint(600,120)
+      let v1 = CGPoint(-300,0)
+      let v2 = CGPoint(768,120)
+      path1 = HermitePath(pt1:p1,pt2:p2,v1:v1,v2:v2)
+      path2 = HermitePath(pt1:p2,pt2:p1,v1:v2,v2:v1)
+    }
+    
+    let duration = fps * 2.2
+    let f = Int(duration)
+  	let q = frame % (f * 2)
+    
+    var t : CGFloat
+    var path : HermitePath
+    
+    if (q < f) {
+    	t = CGFloat(q) / duration
+    	path = path1
+    } else {
+      t = CGFloat(q-f) / duration
+      path = path2
+    }
+    pathLoc = path.positionAt(t)
   }
   
   // -------------------------------------------
@@ -118,6 +150,8 @@ public class GLAppDelegate : AppDelegate {
     	blobSprite.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
     	blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
     }
+    
+    blobSprite.render(pathLoc)
   }
   
   private func updateSubview1(subview : View) {
@@ -173,6 +207,8 @@ public class GLAppDelegate : AppDelegate {
   private var ballSprite : GLSprite!
   private var superSprite : GLSprite!
   private var tintedSprite : GLSprite!
+  private var path1 : HermitePath!
+  private var path2 : HermitePath!
   
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]
