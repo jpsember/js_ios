@@ -14,7 +14,7 @@ public class GLAppDelegate : AppDelegate {
     viewManager.rootView = view
     view.plotHandler = { (view) in self.updateOurView() }
     
-    var subviewY = 120
+    var subviewY = 20
     var subview : View
     
     // Construct a child view that is translucent and (for the moment) non-cacheable;
@@ -33,12 +33,13 @@ public class GLAppDelegate : AppDelegate {
     subview.plotHandler = { (view) in self.updateSubview2(view) }
     cachedView = subview
     subview.touchHandler = { (event: TouchEvent) in
-      puts("subview testing \(event)...")
-      if (event.location.y < subview.bounds.size.height/2) {
-        return false
+      if event.type == .Down {
+        if (event.location.y >= subview.bounds.size.height/2) {
+          puts("touched in upper half of subview: \(event.location)")
+          return true
+        }
       }
-      puts(" ...returning true")
-    	return true
+      return false
     }
     
     // Construct a third child view, that will contain other views within it
@@ -80,14 +81,22 @@ public class GLAppDelegate : AppDelegate {
     }
   }
   
+  // If user touches the sprite moving along the Hermite path, it will pause its motion until the touch ends
+  //
   private func mainViewTouchHandler(touchEvent : TouchEvent) -> Bool {
-    warning("coordinate system y increases downward for view bounds, but OpenGL is upward")
-    // consider making view 
-    let b = CGRect(x:pathLoc.x,y:pathLoc.y,width:64,height:64)
-    puts("mainViewTouchHandler \(touchEvent) b=\(b)")
-    if (b.contains(touchEvent.location)) {
-      pauseTime = 0.5
-      return true
+    switch touchEvent.type {
+    case .Down:
+      let b = CGRect(x:pathLoc.x,y:pathLoc.y,width:128,height:64)
+      if (b.contains(touchEvent.location)) {
+        paused = true
+        return true
+      }
+    case .Up:
+      if (paused) {
+        paused = false
+      }
+    default:
+      break
     }
   	return false
   }
@@ -103,7 +112,7 @@ public class GLAppDelegate : AppDelegate {
   private var angle : CGFloat = 0.0
   private var frame : Int = 0
   private var pathLoc = CGPoint.zero
-  private var pauseTime : CGFloat = 0
+  private var paused = false
   private var pathFrame : Int = 0
   
   private func updateLogic() {
@@ -129,8 +138,10 @@ public class GLAppDelegate : AppDelegate {
         cachedView.invalidate()
       }
     } else {
-	    updatePathLoc()
-			ourView.invalidate()
+      if (!paused) {
+	    	updatePathLoc()
+				ourView.invalidate()
+      }
     }
   }
   
@@ -145,10 +156,7 @@ public class GLAppDelegate : AppDelegate {
       path2 = HermitePath(pt1:p2,pt2:p1,v1:v2,v2:v1)
     }
     
-    pauseTime = max(0,pauseTime - 1.0 / fps)
-    if (pauseTime == 0) {
-    	pathFrame++
-    }
+		pathFrame++
     
     let duration = fps * 4.2
     let f = Int(duration)
@@ -190,6 +198,9 @@ public class GLAppDelegate : AppDelegate {
       blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
     }
     
+    // Draw some tinted sprites in this view, with some of them straddling
+    // the view boundary (to verify that clipping is being done correctly)
+    //
     var p = GLTintedSpriteProgram.getProgram()
     p.tintColor = UIColor.greenColor()
     tintedSprite.render(CGPoint(20,20))
@@ -216,7 +227,7 @@ public class GLAppDelegate : AppDelegate {
     var texture = getTexture("blob")
     blobSprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
     
-    texture = getTexture("tile")
+    texture = getTexture("sample")
     texture.setRepeat(true)
     bgndSprite = GLSprite(texture:texture, window:CGRect(0,0,2000,2000), program:nil)
     

@@ -35,9 +35,24 @@ public class ViewManager : NSObject, GLKViewDelegate {
   }
   
   public func handleTouchEvent(event : TouchEvent) {
-    if (event.type == TouchEventType.Down) {
+    switch event.type {
+    case .Down:
       // Find view that can respond to this event
-      findResponderForDownEvent(event, view:rootView)
+      let responder = findResponderForDownEvent(event, view:rootView)
+      if (responder != nil) {
+      	touchEventActive = true
+        touchEventView = responder
+      }
+    default:
+      if !touchEventActive {
+        break
+      }
+      let localEvent = constructTouchEventForChildView(event, childView: touchEventView)
+      if let handler = touchEventView.touchHandler {
+        handler(localEvent)
+      } else {
+        warning("no touch handler for \(localEvent)")
+      }
     }
   }
   
@@ -65,7 +80,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
     TextureTools.flushDeleteList()
     
     // Clear the GLKView 
-    glClearColor(0.0, 0.5, 0.1, 1.0)
+    glClearColor(0, 0, 0, 1)
     glClear(GLbitfield(GL_COLOR_BUFFER_BIT))
     GLTools.verifyNoError()
     
@@ -115,29 +130,40 @@ public class ViewManager : NSObject, GLKViewDelegate {
     }
   }
   
-  private func findResponderForDownEvent(event : TouchEvent, view:View) -> Bool {
+  private func findResponderForDownEvent(event : TouchEvent, view:View) -> View? {
     if (!view.bounds.contains(event.location)) {
-      return false
+      return nil
     }
 
     // Construct another event, one local to this view's coordinate system
-    let localEvent = TouchEvent(event.type,CGPoint.difference(event.location, view.bounds.origin))
+    let localEvent = constructTouchEventForChildView(event,childView:view)
     
     // First see if any child views will respond to this
     for child in view.children {
-      if (findResponderForDownEvent(localEvent,view:child)) {
-        return true
+      let responder = findResponderForDownEvent(localEvent,view:child)
+      if (responder != nil) {
+        return responder
       }
     }
     
     // Next, see if this view has a touch handler that can handle it
     if let handler = view.touchHandler {
       if (handler(localEvent)) {
-        puts("\(localEvent) handled by \(view)")
-      	return true
+        // TODO: clarify what it means to respond to an event; i.e. returning true or false
+      	return view
       }
     }
-    return false
+    return nil
   }
   
+  // Given a touch event relative to a view, construct equivalent event relative to one of the view's children
+  //
+  private func constructTouchEventForChildView(event : TouchEvent, childView:View) -> TouchEvent {
+    return TouchEvent(event.type,CGPoint.difference(event.location, childView.bounds.origin))
+  }
+  
+  // true if a touch event is being processed ('down' event has occurred, and no matching 'up' has yet occurred)
+  private var touchEventActive  = false
+  // View that responded to initial 'down' event (if touch event is active)
+  private var touchEventView : View!
 }
