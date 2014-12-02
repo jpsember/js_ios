@@ -12,8 +12,9 @@ public class GLAppDelegate : AppDelegate {
     // Construct a root View
     let view = View(viewManager.baseUIView.bounds.ptSize, opaque:true, cacheable:false)
     viewManager.rootView = view
-    view.plotHandler = { (view) in self.updateOurView() }
-    
+    view.plotHandler = mainViewPlotHandler
+    view.touchHandler = mainViewTouchHandler
+
     var subviewY = 20
     var subview : View
     
@@ -23,24 +24,16 @@ public class GLAppDelegate : AppDelegate {
     subview.position = CGPoint(20,subviewY)
     subviewY += 256 + 10
     view.add(subview)
-    subview.plotHandler = { (view) in self.updateSubview1(view) }
+    subview.plotHandler = updateSubview1
     
     // Construct a second child view, like the first but cacheable; this one is actually opaque
     subview = View(CGPoint(256,256), opaque:true, cacheable:true)
     subview.position = CGPoint(20,subviewY)
     view.add(subview)
     subviewY += 256 + 10
-    subview.plotHandler = { (view) in self.updateSubview2(view) }
+    subview.plotHandler = updateSubview2
     cachedView = subview
-    subview.touchHandler = { (event: TouchEvent) in
-      if event.type == .Down {
-        if (event.location.y >= subview.bounds.size.height/2) {
-          puts("touched in upper half of subview: \(event.location)")
-          return true
-        }
-      }
-      return false
-    }
+    subview.touchHandler = subviewTouchHandler
     
     // Construct a third child view, that will contain other views within it
     subview = View(CGPoint(256,256), opaque:false, cacheable:true)
@@ -58,8 +51,6 @@ public class GLAppDelegate : AppDelegate {
     movingView = subview2
     
     subview.add(subview2)
-    
-    view.touchHandler = mainViewTouchHandler
     
     startTicker()
     
@@ -120,10 +111,6 @@ public class GLAppDelegate : AppDelegate {
     angle += degrees(60 / fps)
     
     if (WITH_ANIMATION) {
-      if (frame % 4 == 0) {
-        movingView!.bounds.origin = pointOnCircle(CGPoint(64,64),32,angle * 0.5)
-        movingView.invalidate()
-      }
       
       // Verify that if we don't invalidate anything, no updating occurs
       if (frame >= 20 && frame <= 45) {
@@ -175,10 +162,27 @@ public class GLAppDelegate : AppDelegate {
     pathLoc = path.positionAt(t)
   }
   
+  private func subviewTouchHandler(event: TouchEvent) -> Bool {
+    if event.type == .Down {
+      // TODO: consider passing event handler view as argument
+      if (event.location.y >= cachedView.bounds.size.height/2) {
+        puts("touched in upper half of subview: \(event.location)")
+        let padding : CGFloat = 4
+        var x = clamp(event.location.x,0+padding,256-64-padding)
+        
+        movingView.bounds.origin.x = x
+        movingView.invalidate()
+        
+        return true
+      }
+    }
+    return false
+  }
+
   // -------------------------------------------
   // Draw-related : renders current logic state
   
-  private func updateOurView() {
+  private func mainViewPlotHandler(view : View) {
     prepareGraphics()
    
     bgndSprite.render(CGPoint.zero)
@@ -250,6 +254,8 @@ public class GLAppDelegate : AppDelegate {
   private var path1 : HermitePath!
   private var path2 : HermitePath!
   
+  // Get texture from map; if it doesn't exist, create it
+  //
   private func getTexture(name : String) -> Texture {
     var tex = textureMap[name]
     if tex == nil {

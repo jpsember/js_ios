@@ -30,6 +30,9 @@ public class View : NSObject {
   
   public var children: Array<View> = []
   
+  // The optional handler for touch events.  The event location is relative to this view's coordinate system.
+  // If it is a Down event, the handler should return true if the touch sequence (Down/Drag/Up) is to be handled
+  // by this view.  The return code is ignored for other event types.
   public var touchHandler: TouchHandler?
   
   // Texture holding cached rendered view
