@@ -16,6 +16,7 @@ public enum TouchEventType : String, Printable {
 public class TouchEvent : NSObject {
   
   private (set) var type : TouchEventType
+  // This should be the location in the current view's OpenGL coordinate system (origin is bottom right)
   private (set) var location : CGPoint
   
   public init(_ type : TouchEventType, _ location : CGPoint) {

@@ -68,4 +68,8 @@ extension CGPoint :  Printable {
     return CGPoint(first.x+second.x,first.y+second.y)
   }
   
+  public static func difference(first:CGPoint,_ second:CGPoint) -> CGPoint {
+	   return CGPoint(first.x-second.x,first.y-second.y)
+}
+
 }

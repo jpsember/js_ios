@@ -34,6 +34,13 @@ public class ViewManager : NSObject, GLKViewDelegate {
     }
   }
   
+  public func handleTouchEvent(event : TouchEvent) {
+    if (event.type == TouchEventType.Down) {
+      // Find view that can respond to this event
+      findResponderForDownEvent(event, view:rootView)
+    }
+  }
+  
   private func allViewsValid(rootView : View) -> Bool {
     var valid = rootView.renderedViewValid
     if (valid) {
@@ -45,7 +52,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
   }
   
   private func buildBaseView() {
-    let view = ManagedGLKView(frame:bounds)
+    let view = ManagedGLKView(frame:bounds,manager:self)
     view.delegate = self
     baseUIView = view
   }
@@ -106,6 +113,31 @@ public class ViewManager : NSObject, GLKViewDelegate {
     for v in rootView.children {
       invalidateSubtree(v)
     }
+  }
+  
+  private func findResponderForDownEvent(event : TouchEvent, view:View) -> Bool {
+    if (!view.bounds.contains(event.location)) {
+      return false
+    }
+
+    // Construct another event, one local to this view's coordinate system
+    let localEvent = TouchEvent(event.type,CGPoint.difference(event.location, view.bounds.origin))
+    
+    // First see if any child views will respond to this
+    for child in view.children {
+      if (findResponderForDownEvent(localEvent,view:child)) {
+        return true
+      }
+    }
+    
+    // Next, see if this view has a touch handler that can handle it
+    if let handler = view.touchHandler {
+      if (handler(localEvent)) {
+        puts("\(localEvent) handled by \(view)")
+      	return true
+      }
+    }
+    return false
   }
   
 }

@@ -4,6 +4,7 @@ import GLKit
 public class View : NSObject {
   
   public typealias PlotHandler = (View) -> Void
+  public typealias TouchHandler = (TouchEvent) -> Bool
   
   // The bounds of the view, relative to the parent view's origin
   public var bounds: CGRect
@@ -28,6 +29,8 @@ public class View : NSObject {
   private(set) var cacheable = true
   
   public var children: Array<View> = []
+  
+  public var touchHandler: TouchHandler?
   
   // Texture holding cached rendered view
   private var cachedTexture:Texture!

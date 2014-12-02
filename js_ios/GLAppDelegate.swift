@@ -32,6 +32,14 @@ public class GLAppDelegate : AppDelegate {
     subviewY += 256 + 10
     subview.plotHandler = { (view) in self.updateSubview2(view) }
     cachedView = subview
+    subview.touchHandler = { (event: TouchEvent) in
+      puts("subview testing \(event)...")
+      if (event.location.y < subview.bounds.size.height/2) {
+        return false
+      }
+      puts(" ...returning true")
+    	return true
+    }
     
     // Construct a third child view, that will contain other views within it
     subview = View(CGPoint(256,256), opaque:false, cacheable:true)
@@ -49,6 +57,8 @@ public class GLAppDelegate : AppDelegate {
     movingView = subview2
     
     subview.add(subview2)
+    
+    view.touchHandler = mainViewTouchHandler
     
     startTicker()
     
@@ -70,6 +80,18 @@ public class GLAppDelegate : AppDelegate {
     }
   }
   
+  private func mainViewTouchHandler(touchEvent : TouchEvent) -> Bool {
+    warning("coordinate system y increases downward for view bounds, but OpenGL is upward")
+    // consider making view 
+    let b = CGRect(x:pathLoc.x,y:pathLoc.y,width:64,height:64)
+    puts("mainViewTouchHandler \(touchEvent) b=\(b)")
+    if (b.contains(touchEvent.location)) {
+      pauseTime = 0.5
+      return true
+    }
+  	return false
+  }
+  
   private var viewManager : ViewManager!
   private var cachedView : View!
   private var movingView : View!
@@ -81,6 +103,8 @@ public class GLAppDelegate : AppDelegate {
   private var angle : CGFloat = 0.0
   private var frame : Int = 0
   private var pathLoc = CGPoint.zero
+  private var pauseTime : CGFloat = 0
+  private var pathFrame : Int = 0
   
   private func updateLogic() {
     frame += 1
@@ -121,9 +145,14 @@ public class GLAppDelegate : AppDelegate {
       path2 = HermitePath(pt1:p2,pt2:p1,v1:v2,v2:v1)
     }
     
-    let duration = fps * 2.2
+    pauseTime = max(0,pauseTime - 1.0 / fps)
+    if (pauseTime == 0) {
+    	pathFrame++
+    }
+    
+    let duration = fps * 4.2
     let f = Int(duration)
-  	let q = frame % (f * 2)
+  	let q = pathFrame % (f * 2)
     
     var t : CGFloat
     var path : HermitePath
