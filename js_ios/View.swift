@@ -4,7 +4,7 @@ import GLKit
 public class View : NSObject {
   
   public typealias PlotHandler = (View) -> Void
-  public typealias TouchHandler = (TouchEvent) -> Bool
+  public typealias TouchHandler = (TouchEvent,View) -> Bool
   
   // The bounds of the view, relative to the parent view's origin
   public var bounds: CGRect

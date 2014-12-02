@@ -74,7 +74,7 @@ public class GLAppDelegate : AppDelegate {
   
   // If user touches the sprite moving along the Hermite path, it will pause its motion until the touch ends
   //
-  private func mainViewTouchHandler(touchEvent : TouchEvent) -> Bool {
+  private func mainViewTouchHandler(touchEvent:TouchEvent, view:View) -> Bool {
     switch touchEvent.type {
     case .Down:
       let b = CGRect(x:pathLoc.x,y:pathLoc.y,width:128,height:64)
@@ -162,10 +162,9 @@ public class GLAppDelegate : AppDelegate {
     pathLoc = path.positionAt(t)
   }
   
-  private func subviewTouchHandler(event: TouchEvent) -> Bool {
+  private func subviewTouchHandler(event:TouchEvent, view:View) -> Bool {
     if event.type == .Down {
-      // TODO: consider passing event handler view as argument
-      if (event.location.y >= cachedView.bounds.size.height/2) {
+      if (event.location.y >= view.bounds.size.height/2) {
         puts("touched in upper half of subview: \(event.location)")
         let padding : CGFloat = 4
         var x = clamp(event.location.x,0+padding,256-64-padding)

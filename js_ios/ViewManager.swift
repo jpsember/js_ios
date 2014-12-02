@@ -49,7 +49,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
       }
       let localEvent = constructTouchEventForChildView(event, childView: touchEventView)
       if let handler = touchEventView.touchHandler {
-        handler(localEvent)
+        handler(localEvent,touchEventView)
       } else {
         warning("no touch handler for \(localEvent)")
       }
@@ -148,7 +148,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
     
     // Next, see if this view has a touch handler that can handle it
     if let handler = view.touchHandler {
-      if (handler(localEvent)) {
+      if (handler(localEvent,view)) {
         // TODO: clarify what it means to respond to an event; i.e. returning true or false
       	return view
       }
