@@ -157,6 +157,10 @@ extension CGRect :  Printable {
     return x <= r.x && y <= r.y && xMax >= r.xMax && yMax >= r.yMax
   }
   
+  public func clampPoint(point : CGPoint) -> CGPoint {
+  	return CGPoint(clamp(point.x, x, xMax), clamp(point.y, y, yMax))
+  }
+  
   public mutating func translate(amount : CGPoint) {
   	x += amount.x
     y += amount.y

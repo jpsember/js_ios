@@ -3,9 +3,6 @@ import GLKit
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate {
   
-  private let TILE_BGND = false
-  private let WITH_ANIMATION = false
-  
   override public func buildView() -> UIView {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
@@ -32,15 +29,13 @@ public class GLAppDelegate : AppDelegate {
     view.add(subview)
     subviewY += 256 + 10
     subview.plotHandler = updateSubview2
-    cachedView = subview
-    subview.touchHandler = subviewTouchHandler
     
     // Construct a third child view, that will contain other views within it
     subview = View(CGPoint(256,256), opaque:false, cacheable:true)
     subview.position = CGPoint(20,subviewY)
     view.add(subview)
-    subview.plotHandler = { (view) in
-      self.superSprite.render(CGPoint.zero) }
+    subview.plotHandler = updateSubview2
+    subview.touchHandler = subviewTouchHandler
     
     var subview2 = View(CGPoint(64,64), opaque:false, cacheable:true)
     subview2.position = CGPoint(10,10)
@@ -48,9 +43,8 @@ public class GLAppDelegate : AppDelegate {
       self.bgndSprite.render(CGPoint.zero)
       self.blobSprite.render(CGPoint.zero)
     }
-    movingView = subview2
-    
-    subview.add(subview2)
+    dragView = subview2
+    subview.add(dragView)
     
     startTicker()
     
@@ -93,14 +87,12 @@ public class GLAppDelegate : AppDelegate {
   }
   
   private var viewManager : ViewManager!
-  private var cachedView : View!
-  private var movingView : View!
+  private var dragView : View!
   
   // ------------------------------------
   // Logic-related : state and behaviour
   //
   private let fps : CGFloat = 30.0
-  private var angle : CGFloat = 0.0
   private var frame : Int = 0
   private var pathLoc = CGPoint.zero
   private var paused = false
@@ -108,27 +100,10 @@ public class GLAppDelegate : AppDelegate {
   
   private func updateLogic() {
     frame += 1
-    angle += degrees(60 / fps)
     
-    if (WITH_ANIMATION) {
-      
-      // Verify that if we don't invalidate anything, no updating occurs
-      if (frame >= 20 && frame <= 45) {
-        return
-      }
-      
-      // Invalidate our root view, so it's redrawn
-      ourView.invalidate()
-      
-      // Invalidate the second child view (which is cached) every once in a while
-      if (frame % 8 == 0) {
-        cachedView.invalidate()
-      }
-    } else {
-      if (!paused) {
+    if (!paused) {
 	    	updatePathLoc()
-				ourView.invalidate()
-      }
+      ourView.invalidate()
     }
   }
   
@@ -162,18 +137,23 @@ public class GLAppDelegate : AppDelegate {
     pathLoc = path.positionAt(t)
   }
   
+  private var initialDragOffset = CGPoint.zero
+  
+  // Touch handler for the view that contains a smaller subview.  If user touches within the bounds
+  // of the smaller subview, he can drag it around to a new location.
+  //
   private func subviewTouchHandler(event:TouchEvent, view:View) -> Bool {
     if event.type == .Down {
-      if (event.location.y >= view.bounds.size.height/2) {
-        puts("touched in upper half of subview: \(event.location)")
-        let padding : CGFloat = 4
-        var x = clamp(event.location.x,0+padding,256-64-padding)
-        
-        movingView.bounds.origin.x = x
-        movingView.invalidate()
-        
+      if (dragView.bounds.contains(event.location)) {
+        initialDragOffset = CGPoint.difference(dragView.bounds.origin,event.location)
         return true
       }
+    } else {
+      let padding : CGFloat = 4
+      let subviewPositionLimit = CGRect(padding,padding,256-64-padding*2,256-64-padding*2)
+      let adjustedDragLocation = CGPoint.sum(event.location,initialDragOffset)
+      dragView.bounds.origin = subviewPositionLimit.clampPoint(adjustedDragLocation)
+      dragView.invalidate()
     }
     return false
   }
@@ -183,23 +163,13 @@ public class GLAppDelegate : AppDelegate {
   
   private func mainViewPlotHandler(view : View) {
     prepareGraphics()
-   
     bgndSprite.render(CGPoint.zero)
-    
-    if (cond(TILE_BGND)) {
-    	blobSprite.render(pointOnCircle(CGPoint(220,400),317,angle * 0.5))
-    	blobSprite.render(pointOnCircle(CGPoint(260,320),117,angle * 1.2))
-    }
-    
     blobSprite.render(pathLoc)
   }
   
   private func updateSubview1(subview : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
-    if (cond(WITH_ANIMATION)) {
-      blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
-    }
     
     // Draw some tinted sprites in this view, with some of them straddling
     // the view boundary (to verify that clipping is being done correctly)
@@ -215,10 +185,7 @@ public class GLAppDelegate : AppDelegate {
 
   private func updateSubview2(subview : View) {
     prepareGraphics()
-		superSprite.render(CGPoint.zero)
-    if (cond(WITH_ANIMATION)) {
-      blobSprite.render(pointOnCircle(CGPoint(110,110),16,angle*0.4))
-    }
+		ballSprite.render(CGPoint.zero)
   }
   
   // Prepare the graphics, if they haven't already been
