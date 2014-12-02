@@ -161,7 +161,7 @@ public class View : NSObject {
     
     // Clear the framebuffer
     if (opaque) {
-      glClearColor(0.5,0,0,1)
+      glClearColor(0,0,0,1)
     } else {
       glClearColor(0,0,0,0)
     }
