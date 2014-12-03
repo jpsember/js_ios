@@ -11,6 +11,7 @@ public class IconRow : NSObject {
   private var gapPosition = -1
   
   public var bounds = CGRect(0,0,0,0)
+  public var container:View!
   
   public func addElement(element: IconElement) {
   	elements.append(element)
@@ -61,6 +62,7 @@ public class IconRow : NSObject {
         
         let pos = CGPoint(x,bounds.midY - e.size.y/2)
         elemPos.append(pos)
+        x += PADDING + e.size.x
       }
     }
     
@@ -76,6 +78,11 @@ public class IconRow : NSObject {
     return w
   }
   
+  public func render() {
+    for e in elements {
+      e.sprite.render(e.position)
+    }
+  }
   
 }
 

@@ -11,11 +11,16 @@ public class IconElement : NSObject {
     }
   }
   
-  private let sprite : GLSprite
+  public let sprite : GLSprite
   
-  public init(sprite : GLSprite) {
+  public init(_ sprite : GLSprite) {
   	self.sprite = sprite
     super.init()
   }
+
+  public override var description : String {
+    return "IconElement(pos:\(position) \(sprite.texture)"
+  }
+  
 
 }

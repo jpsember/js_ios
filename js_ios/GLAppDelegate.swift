@@ -51,6 +51,7 @@ public class GLAppDelegate : AppDelegate {
     
     if (WITH_ICONPANEL) {
     	subview = View(CGPoint(400,60))
+      iconContainer = subview
       subview.position = CGPoint(300,250)
       view.add(subview)
       subview.plotHandler = updateIconPanel
@@ -110,6 +111,8 @@ public class GLAppDelegate : AppDelegate {
   private var pathLoc = CGPoint.zero
   private var paused = false
   private var pathFrame : Int = 0
+  private var iconRow : IconRow!
+  private var iconContainer : View!
   
   private func updateLogic() {
     frame += 1
@@ -226,6 +229,21 @@ public class GLAppDelegate : AppDelegate {
     
     texture = getTexture("tinted")
     tintedSprite = GLSprite(texture:texture, window:texture.bounds, program:GLTintedSpriteProgram.getProgram())
+
+    if (WITH_ICONPANEL) {
+    	iconRow = IconRow()
+      iconRow.container = iconContainer
+      iconRow.bounds = CGRect(0,0,iconContainer.bounds.width,iconContainer.bounds.height)
+    	let names = ["icon_a","icon_b","icon_e","icon_d"]
+      for name in names {
+      	texture = getTexture(name)
+        let sprite = GLSprite(texture:texture,window:texture.bounds,program:nil)
+        let element = IconElement(sprite)
+       	iconRow.addElement(element)
+      }
+      iconRow.layout()
+    }
+
   }
   
   private var textureMap = Dictionary<String,Texture>()
@@ -251,6 +269,7 @@ public class GLAppDelegate : AppDelegate {
   private func updateIconPanel(subview : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
+    iconRow.render()
   }
   
 
