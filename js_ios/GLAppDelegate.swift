@@ -3,6 +3,9 @@ import GLKit
 @UIApplicationMain // Allows us to omit a main.m file
 public class GLAppDelegate : AppDelegate {
   
+  private let WITH_PATH = cond(false)
+  private let WITH_ICONPANEL = cond(true)
+  
   override public func buildView() -> UIView {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
@@ -46,6 +49,13 @@ public class GLAppDelegate : AppDelegate {
     dragView = subview2
     subview.add(dragView)
     
+    if (WITH_ICONPANEL) {
+    	subview = View(CGPoint(400,60))
+      subview.position = CGPoint(300,250)
+      view.add(subview)
+      subview.plotHandler = updateIconPanel
+    }
+    
     startTicker()
     
     return viewManager.baseUIView
@@ -71,6 +81,9 @@ public class GLAppDelegate : AppDelegate {
   private func mainViewTouchHandler(touchEvent:TouchEvent, view:View) -> Bool {
     switch touchEvent.type {
     case .Down:
+      if (!WITH_PATH) {
+        break
+      }
       let b = CGRect(x:pathLoc.x,y:pathLoc.y,width:128,height:64)
       if (b.contains(touchEvent.location)) {
         paused = true
@@ -101,9 +114,11 @@ public class GLAppDelegate : AppDelegate {
   private func updateLogic() {
     frame += 1
     
-    if (!paused) {
-	    	updatePathLoc()
-      ourView.invalidate()
+    if (WITH_PATH) {
+      if (!paused) {
+        updatePathLoc()
+        ourView.invalidate()
+      }
     }
   }
   
@@ -164,7 +179,9 @@ public class GLAppDelegate : AppDelegate {
   private func mainViewPlotHandler(view : View) {
     prepareGraphics()
     bgndSprite.render(CGPoint.zero)
-    blobSprite.render(pathLoc)
+    if (WITH_PATH) {
+	    blobSprite.render(pathLoc)
+    }
   }
   
   private func updateSubview1(subview : View) {
@@ -230,5 +247,11 @@ public class GLAppDelegate : AppDelegate {
     }
     return tex!
   }
+
+  private func updateIconPanel(subview : View) {
+    prepareGraphics()
+    ballSprite.render(CGPoint.zero)
+  }
+  
 
 }

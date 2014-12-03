@@ -60,6 +60,13 @@
 		F413CA961A22860D00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
 		F413CA9A1A2288F700089841 /* JSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F413CA991A2288F700089841 /* JSLog.m */; };
 		F413CA9B1A2308AA00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
+		F479DCEB1A2FADBC00868517 /* icon_a.png in Resources */ = {isa = PBXBuildFile; fileRef = F479DCE61A2FADBC00868517 /* icon_a.png */; };
+		F479DCEC1A2FADBC00868517 /* icon_b.png in Resources */ = {isa = PBXBuildFile; fileRef = F479DCE71A2FADBC00868517 /* icon_b.png */; };
+		F479DCED1A2FADBC00868517 /* icon_c.png in Resources */ = {isa = PBXBuildFile; fileRef = F479DCE81A2FADBC00868517 /* icon_c.png */; };
+		F479DCEE1A2FADBC00868517 /* icon_d.png in Resources */ = {isa = PBXBuildFile; fileRef = F479DCE91A2FADBC00868517 /* icon_d.png */; };
+		F479DCEF1A2FADBC00868517 /* icon_e.png in Resources */ = {isa = PBXBuildFile; fileRef = F479DCEA1A2FADBC00868517 /* icon_e.png */; };
+		F479DCF11A2FAE0100868517 /* IconElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F479DCF01A2FAE0100868517 /* IconElement.swift */; };
+		F479DCF41A2FAE9C00868517 /* IconRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F479DCF31A2FAE9C00868517 /* IconRow.swift */; };
 		F48E46C51A2040800092E7C0 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C31A2040800092E7C0 /* Base.swift */; };
 		F48E46C61A2040800092E7C0 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C41A2040800092E7C0 /* Math.swift */; };
 		F497C2491A268FFB00888187 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2481A268FFB00888187 /* ViewManager.swift */; };
@@ -178,6 +185,13 @@
 		F413CA981A2288F700089841 /* JSLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSLog.h; path = js_ios/JSLog.h; sourceTree = SOURCE_ROOT; };
 		F413CA991A2288F700089841 /* JSLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSLog.m; path = js_ios/JSLog.m; sourceTree = SOURCE_ROOT; };
 		F446EE8A1A129B400091791B /* js_iosTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "js_iosTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		F479DCE61A2FADBC00868517 /* icon_a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_a.png; sourceTree = "<group>"; };
+		F479DCE71A2FADBC00868517 /* icon_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_b.png; sourceTree = "<group>"; };
+		F479DCE81A2FADBC00868517 /* icon_c.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_c.png; sourceTree = "<group>"; };
+		F479DCE91A2FADBC00868517 /* icon_d.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_d.png; sourceTree = "<group>"; };
+		F479DCEA1A2FADBC00868517 /* icon_e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_e.png; sourceTree = "<group>"; };
+		F479DCF01A2FAE0100868517 /* IconElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconElement.swift; path = js_ios/IconElement.swift; sourceTree = "<group>"; };
+		F479DCF31A2FAE9C00868517 /* IconRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconRow.swift; path = js_ios/IconRow.swift; sourceTree = "<group>"; };
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F48E46C31A2040800092E7C0 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = js_ios/Base.swift; sourceTree = SOURCE_ROOT; };
 		F48E46C41A2040800092E7C0 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = js_ios/Math.swift; sourceTree = SOURCE_ROOT; };
@@ -302,6 +316,7 @@
 			children = (
 				F4A3603B1A12C4B200F48E71 /* resources */,
 				F458860D1A10819700A887CF /* gl */,
+				F479DCF21A2FAE6300868517 /* icon_panel */,
 				1F36427B185D0ABC008B7883 /* js_ios */,
 				1F855A0B185CF61F009667DE /* js_iosTests */,
 				1F8559F2185CF61F009667DE /* boilerplate */,
@@ -420,9 +435,23 @@
 			path = gl;
 			sourceTree = "<group>";
 		};
+		F479DCF21A2FAE6300868517 /* icon_panel */ = {
+			isa = PBXGroup;
+			children = (
+				F479DCF31A2FAE9C00868517 /* IconRow.swift */,
+				F479DCF01A2FAE0100868517 /* IconElement.swift */,
+			);
+			name = icon_panel;
+			sourceTree = "<group>";
+		};
 		F4A3603B1A12C4B200F48E71 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				F479DCE61A2FADBC00868517 /* icon_a.png */,
+				F479DCE71A2FADBC00868517 /* icon_b.png */,
+				F479DCE81A2FADBC00868517 /* icon_c.png */,
+				F479DCE91A2FADBC00868517 /* icon_d.png */,
+				F479DCEA1A2FADBC00868517 /* icon_e.png */,
 				F497C24E1A2A570300888187 /* tinted.png */,
 				F497C24A1A27DD9B00888187 /* super.png */,
 				F41351921A1C52BA00D65EA3 /* tile.png */,
@@ -516,13 +545,18 @@
 				F41351931A1C52BA00D65EA3 /* tile.png in Resources */,
 				F4A360461A1421ED00F48E71 /* fragment_shader_texture.glsl in Resources */,
 				F4A360471A1421ED00F48E71 /* vertex_shader_texture.glsl in Resources */,
+				F479DCEB1A2FADBC00868517 /* icon_a.png in Resources */,
 				1F8559FF185CF61F009667DE /* Images.xcassets in Resources */,
+				F479DCEC1A2FADBC00868517 /* icon_b.png in Resources */,
 				F497C24B1A27DD9B00888187 /* super.png in Resources */,
+				F479DCEF1A2FADBC00868517 /* icon_e.png in Resources */,
+				F479DCEE1A2FADBC00868517 /* icon_d.png in Resources */,
 				F4AA66F91A1950FA0058452F /* AlphaBall.png in Resources */,
 				1FE4922E1896F04700CF2FCB /* en.lproj in Resources */,
 				F4F8DD111A1C43BE00DB19EB /* blob.png in Resources */,
 				F4A3603D1A12C4B200F48E71 /* sample.png in Resources */,
 				F4B092C51A1994780043108E /* fragment_shader_mask.glsl in Resources */,
+				F479DCED1A2FADBC00868517 /* icon_c.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +591,7 @@
 				F48E46C61A2040800092E7C0 /* Math.swift in Sources */,
 				F4F8DD091A1BE60900DB19EB /* AppDelegate.swift in Sources */,
 				F48E46C51A2040800092E7C0 /* Base.swift in Sources */,
+				F479DCF11A2FAE0100868517 /* IconElement.swift in Sources */,
 				F497C25A1A2AD21800888187 /* Hermite.swift in Sources */,
 				F4AA66E91A1701F30058452F /* Shader.swift in Sources */,
 				F4AA66E21A1701F30058452F /* CGAffineTransform.swift in Sources */,
@@ -566,6 +601,7 @@
 				F497C2541A2A61F500888187 /* Ticker.swift in Sources */,
 				F4AA66E71A1701F30058452F /* CGRect.swift in Sources */,
 				F413CA961A22860D00089841 /* DebugToolsSwift.swift in Sources */,
+				F479DCF41A2FAE9C00868517 /* IconRow.swift in Sources */,
 				F4AA66E41A1701F30058452F /* GLTools.swift in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTrace.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
