@@ -3,15 +3,12 @@ import Foundation
 // TODO: Figure out how to have class-level constants
 let PADDING = CGFloat(10)
 
-public class IconRow : NSObject {
-
+public class IconRow : View {
 
   private var elements = Array<IconElement> ()
   
-  private var gapPosition = -1
-  
-  public var bounds = CGRect(0,0,0,0)
-  public var container:View!
+  // Temporarily made public
+  public var gapPosition = -1
   
   public func addElement(element: IconElement) {
   	elements.append(element)
@@ -43,31 +40,28 @@ public class IconRow : NSObject {
   // Determine element positions given current elements, gap position
   //
   private func calcTargetElementPositions() -> Array<CGPoint> {
-  	ASSERT(bounds.width > 0)
-    
     var elemPos = Array<CGPoint>()
     
     if elements.count > 0 {
-      
 	    var totalWidth = totalElementWidth()
       totalWidth += PADDING * CGFloat(elements.count-1)
+      if (gapPosition >= 0) {
+        totalWidth += gapWidth() + PADDING
+      }
     
       var x = (bounds.width - totalWidth) / 2
-      
       for var i = 0; i < elements.count; i++ {
 				let e = elements[i]
         if i == gapPosition {
-          x += gapWidth()
+          x += gapWidth() + PADDING
         }
-        
-        let pos = CGPoint(x,bounds.midY - e.size.y/2)
+        let pos = CGPoint(x,(bounds.height - e.size.y)/2)
         elemPos.append(pos)
         x += PADDING + e.size.x
       }
     }
     
     return elemPos
-  
   }
   
   private func totalElementWidth() -> CGFloat {
@@ -78,11 +72,14 @@ public class IconRow : NSObject {
     return w
   }
   
-  public func render() {
+  // Default plot handler; just plots the elements in their current positions
+  //
+  public override func defaultPlotHandler() {
+    super.defaultPlotHandler()
     for e in elements {
       e.sprite.render(e.position)
     }
   }
-  
+
 }
 

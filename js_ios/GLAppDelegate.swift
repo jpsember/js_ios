@@ -50,11 +50,10 @@ public class GLAppDelegate : AppDelegate {
     subview.add(dragView)
     
     if (WITH_ICONPANEL) {
-    	subview = View(CGPoint(400,60))
-      iconContainer = subview
-      subview.position = CGPoint(300,250)
-      view.add(subview)
-      subview.plotHandler = updateIconPanel
+      iconRow = IconRow(CGPoint(280,60))
+      iconRow.position = CGPoint(300,250)
+      iconRow.plotHandler = iconRowPlotHandler
+      view.add(iconRow)
     }
     
     startTicker()
@@ -112,7 +111,6 @@ public class GLAppDelegate : AppDelegate {
   private var paused = false
   private var pathFrame : Int = 0
   private var iconRow : IconRow!
-  private var iconContainer : View!
   
   private func updateLogic() {
     frame += 1
@@ -231,10 +229,7 @@ public class GLAppDelegate : AppDelegate {
     tintedSprite = GLSprite(texture:texture, window:texture.bounds, program:GLTintedSpriteProgram.getProgram())
 
     if (WITH_ICONPANEL) {
-    	iconRow = IconRow()
-      iconRow.container = iconContainer
-      iconRow.bounds = CGRect(0,0,iconContainer.bounds.width,iconContainer.bounds.height)
-    	let names = ["icon_a","icon_b","icon_e","icon_d"]
+      let names = ["icon_a","icon_b","icon_e","icon_d"]
       for name in names {
       	texture = getTexture(name)
         let sprite = GLSprite(texture:texture,window:texture.bounds,program:nil)
@@ -246,6 +241,14 @@ public class GLAppDelegate : AppDelegate {
 
   }
   
+  // Plot handler for our IconRow.  Plot a background sprite, then call the default plot handler
+  //
+  private func iconRowPlotHandler(view : View) {
+    prepareGraphics()
+    ballSprite.render(CGPoint.zero)
+    view.defaultPlotHandler()
+  }
+
   private var textureMap = Dictionary<String,Texture>()
   private var blobSprite : GLSprite!
   private var bgndSprite : GLSprite!
@@ -265,12 +268,5 @@ public class GLAppDelegate : AppDelegate {
     }
     return tex!
   }
-
-  private func updateIconPanel(subview : View) {
-    prepareGraphics()
-    ballSprite.render(CGPoint.zero)
-    iconRow.render()
-  }
-  
 
 }
