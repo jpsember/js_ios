@@ -22,6 +22,10 @@ public class IconRow : View {
   	elements.append(element)
   }
   
+  public func removeElement(index:Int) -> IconElement {
+    return elements.removeAtIndex(index)
+  }
+  
   // Determine which element, if any, is at a location;
   // returns index of element, or -1
   public func elementAt(location:CGPoint) -> Int {

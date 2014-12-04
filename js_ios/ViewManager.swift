@@ -53,6 +53,10 @@ public class ViewManager : NSObject, GLKViewDelegate {
       } else {
         warning("no touch handler for \(localEvent)")
       }
+      // If there's a current operation, update it with this event
+      if let oper = UserOperation.currentOperation() {
+      	oper.update(event)
+      }
     }
   }
   

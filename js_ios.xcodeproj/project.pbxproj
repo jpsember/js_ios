@@ -56,6 +56,7 @@
 		1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */; };
 		1FE4922E1896F04700CF2FCB /* en.lproj in Resources */ = {isa = PBXBuildFile; fileRef = 1FE4921F1896F04700CF2FCB /* en.lproj */; };
 		30F4DAAA315200088D6CCF0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30F4DE9333CD7DF247010E8C /* GLKit.framework */; };
+		F41205041A3104F8008A9756 /* UserOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41205031A3104F8008A9756 /* UserOperation.swift */; };
 		F41351931A1C52BA00D65EA3 /* tile.png in Resources */ = {isa = PBXBuildFile; fileRef = F41351921A1C52BA00D65EA3 /* tile.png */; };
 		F413CA961A22860D00089841 /* DebugToolsSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = F413CA911A22860D00089841 /* DebugToolsSwift.swift */; };
 		F413CA9A1A2288F700089841 /* JSLog.m in Sources */ = {isa = PBXBuildFile; fileRef = F413CA991A2288F700089841 /* JSLog.m */; };
@@ -180,6 +181,7 @@
 		1FE4921E1896F04700CF2FCB /* JSDictionaryUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSDictionaryUtil.m; path = js_ios/JSDictionaryUtil.m; sourceTree = SOURCE_ROOT; };
 		1FE4921F1896F04700CF2FCB /* en.lproj */ = {isa = PBXFileReference; lastKnownFileType = folder; name = en.lproj; path = js_ios/en.lproj; sourceTree = SOURCE_ROOT; };
 		30F4DE9333CD7DF247010E8C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		F41205031A3104F8008A9756 /* UserOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserOperation.swift; path = js_ios/UserOperation.swift; sourceTree = "<group>"; };
 		F41351921A1C52BA00D65EA3 /* tile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tile.png; sourceTree = "<group>"; };
 		F413CA8A1A22860D00089841 /* DebugTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugTools.h; path = js_ios/DebugTools.h; sourceTree = SOURCE_ROOT; };
 		F413CA911A22860D00089841 /* DebugToolsSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DebugToolsSwift.swift; path = js_ios/DebugToolsSwift.swift; sourceTree = SOURCE_ROOT; };
@@ -440,8 +442,9 @@
 		F479DCF21A2FAE6300868517 /* icon_panel */ = {
 			isa = PBXGroup;
 			children = (
-				F479DCF31A2FAE9C00868517 /* IconRow.swift */,
 				F479DCF51A2FF4B800868517 /* IconPanel.swift */,
+				F479DCF31A2FAE9C00868517 /* IconRow.swift */,
+				F41205031A3104F8008A9756 /* UserOperation.swift */,
 				F479DCF01A2FAE0100868517 /* IconElement.swift */,
 			);
 			name = icon_panel;
@@ -587,6 +590,7 @@
 				1F33523518DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m in Sources */,
 				F413CA9A1A2288F700089841 /* JSLog.m in Sources */,
 				F479DCF61A2FF4B800868517 /* IconPanel.swift in Sources */,
+				F41205041A3104F8008A9756 /* UserOperation.swift in Sources */,
 				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,
 				F4AA66E31A1701F30058452F /* GLAppDelegate.swift in Sources */,
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,

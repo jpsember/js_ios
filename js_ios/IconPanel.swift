@@ -65,22 +65,9 @@ public class IconPanel : View {
       if elementIndex < 0 {
         return false
       }
-      startMoveIconOperation(row,elementIndex: elementIndex, touchOffset: touchOffset)
+      UserOperation.start(MoveIconOperation(row,elementIndex,touchOffset),touchEvent:event)
       return true
-      
-    } else {
-      if (dragIndex < 0) {
-        return false
-      }
-      if (event.type == .Up) {
-        dragIndex = -1
-      } else {
-        dragLocation = event.location
-      }
-      // TODO: ideally we could render just the icon and not have to redraw the entire panel
-      self.invalidate()
     }
-    
     return false
   }
   
@@ -95,24 +82,56 @@ public class IconPanel : View {
   
   private func ourPlotHandler(view : View) {
     defaultPlotHandler(view)
-    if (dragIndex >= 0) {
-      let element = dragElement
-      let sprite = element.sprite
-      let loc = CGPoint.difference(dragLocation,touchOffset)
-      sprite.render(loc)
+    if let oper = UserOperation.currentOperation() as? MoveIconOperation {
+      oper.localRender()
     }
   }
   
-  private func startMoveIconOperation(row:IconRow, elementIndex:Int, touchOffset:CGPoint) {
-    dragIndex = elementIndex
-    dragRow = row
-    dragElement = row.getElement(elementIndex)
-    self.touchOffset = touchOffset
+  // Operation for moving an icon
+  //
+  public class MoveIconOperation : UserOperation {
+    
+    public init(_ iconRow:IconRow, _ elementIndex:Int, _ touchOffset:CGPoint) {
+      self.sourceRow = iconRow
+      self.elementIndex = elementIndex
+      self.touchOffset = touchOffset
+      self.dragElement = iconRow.getElement(elementIndex)
+      super.init()
+    }
+
+    public override func start(touchEvent: TouchEvent) {
+    	sourceRow.removeElement(elementIndex)
+    }
+    
+		public override func update(event: TouchEvent) {
+        if (event.type == .Up) {
+          complete()
+        } else {
+          unimp("convert root view touch location to local (panel) location")
+          let localLoc = CGPoint.difference(event.location,sourceRow.panel.position)
+          dragLocation = localLoc
+        }
+        // TODO: ideally we could render just the icon and not have to redraw the entire panel
+      	// TODO: have ViewManager update the root view after processing ANY touch-related event
+				sourceRow.panel.invalidate()
+    }
+    
+    public func localRender() {
+      ASSERT(state == STATE_RUNNING)
+      let sprite = dragElement.sprite
+      let loc = CGPoint.difference(dragLocation,touchOffset)
+      sprite.render(loc)
+    }
+    
+    public override func render() {
+      super.render()
+    }
+    
+    private var elementIndex : Int
+    private var sourceRow : IconRow
+    private var touchOffset = CGPoint.zero
+    private var dragLocation = CGPoint.zero
+    private var dragElement : IconElement
   }
   
-  private var dragIndex = -1
-  private var dragRow : IconRow!
-  private var touchOffset = CGPoint.zero
-  private var dragLocation = CGPoint.zero
-  private var dragElement : IconElement!
 }

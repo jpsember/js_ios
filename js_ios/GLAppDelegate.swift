@@ -9,6 +9,7 @@ public class GLAppDelegate : AppDelegate {
 
   override public func buildView() -> UIView {
     viewManager = ViewManager(bounds:self.window!.bounds)
+    UserOperation.setViewManager(viewManager)
     
     // Construct a root View
     let view = View()
