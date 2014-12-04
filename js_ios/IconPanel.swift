@@ -26,13 +26,12 @@ public class IconPanel : View {
   public func addRow() -> IconRow {
     ASSERT(rowHeight > 0,"must define rowheight")
     
-    var iconRow = IconRow()
+    var iconRow = IconRow(self)
     iconRow.size = CGPoint(self.bounds.width,rowHeight)
     iconRow.position = CGPoint(0,CGFloat(rowCount) * rowHeight)
     if (rowPlotHandler != nil) {
       iconRow.plotHandler = rowPlotHandler
     }
-    iconRow.textureProvider = textureProvider
     rows.append(iconRow)
     add(iconRow)
     return iconRow

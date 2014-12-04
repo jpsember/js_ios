@@ -7,12 +7,16 @@ public typealias TextureProvider = (String, CGPoint) -> Texture
 
 public class IconRow : View {
 
-  public var textureProvider : TextureProvider!
-  
   private var elements = Array<IconElement> ()
+  
+  private(set) var panel : IconPanel
   
   // Temporarily made public
   public var gapPosition = -1
+
+  public init(_ panel:IconPanel) {
+    self.panel = panel
+  }
   
   public func addElement(element: IconElement) {
   	elements.append(element)
@@ -45,7 +49,6 @@ public class IconRow : View {
     }
     return PADDING*3
   }
-  
   
   // Layout elements according to their target positions (without any animation)
   //
@@ -99,7 +102,7 @@ public class IconRow : View {
   public override func defaultPlotHandler(view : View) {
     super.defaultPlotHandler(view)
     for e in elements {
-      e.render(self)
+      e.render(panel.textureProvider)
     }
   }
 

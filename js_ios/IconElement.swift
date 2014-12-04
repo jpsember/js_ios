@@ -19,9 +19,9 @@ public class IconElement : NSObject {
     return "IconElement(\(name) pos:\(position))"
   }
 
-  public func render(iconRow : IconRow) {
+  public func render(textureProvider : TextureProvider) {
     if (sprite == nil) {
-      let texture = iconRow.textureProvider(name,size)
+      let texture = textureProvider(name,size)
       sprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
     }
     sprite.render(position)
