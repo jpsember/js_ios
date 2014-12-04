@@ -11,7 +11,8 @@ public class GLAppDelegate : AppDelegate {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
     // Construct a root View
-    let view = View(viewManager.baseUIView.bounds.ptSize, opaque:true, cacheable:false)
+    let view = View()
+    view.bounds.size = viewManager.baseUIView.bounds.size
     viewManager.rootView = view
     view.plotHandler = mainViewPlotHandler
     view.touchHandler = mainViewTouchHandler
@@ -21,27 +22,37 @@ public class GLAppDelegate : AppDelegate {
     
     // Construct a child view that is translucent and (for the moment) non-cacheable;
     // it will have a static sprite as a background, and a smaller sprite moving in a small circle
-    subview = View(CGPoint(256,256), opaque:false, cacheable:false)
+    subview = View()
+    subview.opaque = false
+    subview.size = CGPoint(256,256)
     subview.position = CGPoint(20,subviewY)
     subviewY += 256 + 10
     view.add(subview)
     subview.plotHandler = updateSubview1
     
     // Construct a second child view, like the first but cacheable; this one is actually opaque
-    subview = View(CGPoint(256,256), opaque:true, cacheable:true)
+    subview = View()
+    subview.cacheable = true
+    subview.size = CGPoint(256,256)
     subview.position = CGPoint(20,subviewY)
     view.add(subview)
     subviewY += 256 + 10
     subview.plotHandler = updateSubview2
     
     // Construct a third child view, that will contain other views within it
-    subview = View(CGPoint(256,256), opaque:false, cacheable:true)
+    subview = View()
+    subview.cacheable = true
+    subview.opaque = false
+    subview.size = CGPoint(256,256)
     subview.position = CGPoint(20,subviewY)
     view.add(subview)
     subview.plotHandler = updateSubview2
     subview.touchHandler = subviewTouchHandler
     
-    var subview2 = View(CGPoint(64,64), opaque:false, cacheable:true)
+    var subview2 = View()
+    subview2.opaque = false
+    subview2.cacheable = true
+    subview2.size = CGPoint(64,64)
     subview2.position = CGPoint(10,10)
     subview2.plotHandler = {(view) in
       self.bgndSprite.render(CGPoint.zero)
@@ -53,7 +64,8 @@ public class GLAppDelegate : AppDelegate {
     if (WITH_ICONPANEL) {
       let rowHeight : CGFloat = 36
       
-      iconPanel = IconPanel(CGPoint(280,rowHeight*CGFloat(ICON_PANEL_TOTAL_ROWS)))
+      iconPanel = IconPanel()
+      iconPanel.size = CGPoint(280,rowHeight*CGFloat(ICON_PANEL_TOTAL_ROWS))
       iconPanel.rowHeight = rowHeight
       iconPanel.rowPlotHandler = iconRowPlotHandler
       iconPanel.textureProvider = iconViewTextureProvider

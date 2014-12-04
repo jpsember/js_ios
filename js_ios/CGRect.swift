@@ -8,6 +8,8 @@ public func == (lhs: CGRect, rhs: CGRect) -> Bool {
 
 extension CGRect :  Printable {
   
+  public static let undefined = CGRect(x:0,y:0,width:0,height:0)
+
   public init(_ x:CGFloat, _ y:CGFloat, _ width:CGFloat, _ height:CGFloat) {
     self.origin = CGPoint(x,y)
     self.size = CGSize(width:width,height:height)

@@ -14,19 +14,27 @@ public class View : NSObject {
       return bounds.origin
     }
     set {
-      bounds = CGRect(origin:newValue, size:bounds.size)
+      bounds.origin = newValue
     }
   }
-  
+  public var size : CGPoint {
+    get {
+      return bounds.ptSize
+    }
+    set {
+      bounds.size = CGSize(width:newValue.x,height:newValue.y)
+    }
+  }
+
   // The handler for plotting view content; default does nothing
   //
   public var plotHandler : PlotHandler!
   
   // If opaque, completely obscures any view behind it
-  private(set) var opaque = true
+  public var opaque = true
   
   // If cacheable, view is rendered to an offscreen buffer and plotted from there
-  private(set) var cacheable = true
+  public var cacheable = false
   
   public var children: Array<View> = []
   
@@ -47,11 +55,8 @@ public class View : NSObject {
   // set to CLAMP; not sure about the min/mag settings, or whether mipmapping supported.
   private var ENFORCE_TEX_POWER_2 = cond(false)
   
-  public init(_ size:CGPoint, opaque:Bool = true, cacheable:Bool = true) {
-    // TODO: simplify the default initializer so attributes are set after construction
-    self.bounds = CGRect(0,0,size.x,size.y)
-    self.opaque = opaque
-    self.cacheable = cacheable
+  public override init() {
+    self.bounds = CGRect.undefined
     super.init()
     self.plotHandler = defaultPlotHandler
   }
@@ -90,7 +95,7 @@ public class View : NSObject {
       
       // Clip rendering to this view's bounds
       glEnable(GLenum(GL_SCISSOR_TEST))
-      glScissor(GLint(bounds.origin.x),GLint(bounds.origin.y),GLint(bounds.size.width),GLint(bounds.size.height));
+      glScissor(GLint(parentOrigin.x + bounds.origin.x),GLint(parentOrigin.y + bounds.origin.y),GLint(bounds.size.width),GLint(bounds.size.height));
       plotHandler(self)
       glDisable(GLenum(GL_SCISSOR_TEST))
     }

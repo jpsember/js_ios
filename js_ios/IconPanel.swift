@@ -13,8 +13,8 @@ public class IconPanel : View {
     }
   }
   
-  public override init(_ size:CGPoint, opaque:Bool = true, cacheable:Bool = true) {
-    super.init(size,opaque:opaque,cacheable:cacheable)
+  public override init() {
+    super.init()
     self.touchHandler = ourTouchHandler
     self.plotHandler = ourPlotHandler
   }
@@ -26,8 +26,9 @@ public class IconPanel : View {
   public func addRow() -> IconRow {
     ASSERT(rowHeight > 0,"must define rowheight")
     
-    var iconRow = IconRow(CGPoint(self.bounds.width,rowHeight))
-    iconRow.position = CGPoint(0, CGFloat(rowCount) * rowHeight)
+    var iconRow = IconRow()
+    iconRow.size = CGPoint(self.bounds.width,rowHeight)
+    iconRow.position = CGPoint(0,CGFloat(rowCount) * rowHeight)
     if (rowPlotHandler != nil) {
       iconRow.plotHandler = rowPlotHandler
     }
@@ -90,8 +91,6 @@ public class IconPanel : View {
   }
   
   private func ourPlotHandler(view : View) {
-    puts("IconPanel ourPlotHandler")
-    
     defaultPlotHandler(view)
     if (dragIndex >= 0) {
       let element = dragRow.getElement(dragIndex)
