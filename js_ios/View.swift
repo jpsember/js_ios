@@ -18,9 +18,9 @@ public class View : NSObject {
     }
   }
   
-  // The handler for plotting view content; default clears it and that's all
+  // The handler for plotting view content; default does nothing
   //
-  public var plotHandler : PlotHandler = View.defaultPlotHandlerFunction
+  public var plotHandler : PlotHandler!
   
   // If opaque, completely obscures any view behind it
   private(set) var opaque = true
@@ -48,10 +48,12 @@ public class View : NSObject {
   private var ENFORCE_TEX_POWER_2 = cond(false)
   
   public init(_ size:CGPoint, opaque:Bool = true, cacheable:Bool = true) {
+    // TODO: simplify the default initializer so attributes are set after construction
     self.bounds = CGRect(0,0,size.x,size.y)
     self.opaque = opaque
     self.cacheable = cacheable
     super.init()
+    self.plotHandler = defaultPlotHandler
   }
   
   public override var description : String {
@@ -189,11 +191,7 @@ public class View : NSObject {
     sprite.render(CGPoint.zero)
   }
   
-  public func defaultPlotHandler() {
-  }
-  
-  private class func defaultPlotHandlerFunction(view : View) {
-    view.defaultPlotHandler()
+  public func defaultPlotHandler(view : View) {
   }
 
 }

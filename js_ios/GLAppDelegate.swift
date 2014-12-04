@@ -264,7 +264,7 @@ public class GLAppDelegate : AppDelegate {
   private func iconRowPlotHandler(view : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
-    view.defaultPlotHandler()
+    view.defaultPlotHandler(view)
   }
 
   private var textureMap = Dictionary<String,Texture>()

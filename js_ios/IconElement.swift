@@ -7,7 +7,7 @@ public class IconElement : NSObject {
 
   private(set) var name : String
   private(set) var size : CGPoint
-  private var sprite : GLSprite!
+  public var sprite : GLSprite!
   
   public init(_ name : String, _ size: CGPoint) {
     self.name = name

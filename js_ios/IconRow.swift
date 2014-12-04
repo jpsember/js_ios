@@ -18,6 +18,23 @@ public class IconRow : View {
   	elements.append(element)
   }
   
+  // Determine which element, if any, is at a location;
+  // returns index of element, or -1
+  public func elementAt(location:CGPoint) -> Int {
+    for var i = 0; i < elements.count; i++ {
+      let e = elements[i]
+      let r = CGRect(origin:e.position,size:e.size)
+      if r.contains(location) {
+        return i
+      }
+    }
+    return -1
+  }
+  
+  public func getElement(index : Int) -> IconElement {
+    return elements[index]
+  }
+  
   private func hasGap() -> Bool {
     return gapPosition >= 0
   }
@@ -77,10 +94,10 @@ public class IconRow : View {
     return w
   }
   
-  // Default plot handler; just plots the elements in their current positions
+  // Default plot handler; plots the elements in their current positions
   //
-  public override func defaultPlotHandler() {
-    super.defaultPlotHandler()
+  public override func defaultPlotHandler(view : View) {
+    super.defaultPlotHandler(view)
     for e in elements {
       e.render(self)
     }

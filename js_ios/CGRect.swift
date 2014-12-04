@@ -13,11 +13,17 @@ extension CGRect :  Printable {
     self.size = CGSize(width:width,height:height)
   }
   
-  public init(_ pt1:CGPoint, _ pt2:CGPoint) {
+  public init(pt1:CGPoint,pt2:CGPoint) {
     self.origin = CGPoint(min(pt1.x,pt2.x),min(pt1.y,pt2.y))
     self.size = CGSize(width:max(pt1.x,pt2.x) - self.origin.x, height:max(pt1.y,pt2.y) - self.origin.y)
   }
   
+  public init(origin:CGPoint,size:CGPoint) {
+    self.origin = origin
+    self.size = CGSize(width:size.x,height:size.y)
+  }
+  
+
   public var x: CGFloat {
     get {
       return self.origin.x
