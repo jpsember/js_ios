@@ -67,6 +67,7 @@
 		F479DCEF1A2FADBC00868517 /* icon_e.png in Resources */ = {isa = PBXBuildFile; fileRef = F479DCEA1A2FADBC00868517 /* icon_e.png */; };
 		F479DCF11A2FAE0100868517 /* IconElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = F479DCF01A2FAE0100868517 /* IconElement.swift */; };
 		F479DCF41A2FAE9C00868517 /* IconRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F479DCF31A2FAE9C00868517 /* IconRow.swift */; };
+		F479DCF61A2FF4B800868517 /* IconPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F479DCF51A2FF4B800868517 /* IconPanel.swift */; };
 		F48E46C51A2040800092E7C0 /* Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C31A2040800092E7C0 /* Base.swift */; };
 		F48E46C61A2040800092E7C0 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48E46C41A2040800092E7C0 /* Math.swift */; };
 		F497C2491A268FFB00888187 /* ViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2481A268FFB00888187 /* ViewManager.swift */; };
@@ -192,6 +193,7 @@
 		F479DCEA1A2FADBC00868517 /* icon_e.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_e.png; sourceTree = "<group>"; };
 		F479DCF01A2FAE0100868517 /* IconElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconElement.swift; path = js_ios/IconElement.swift; sourceTree = "<group>"; };
 		F479DCF31A2FAE9C00868517 /* IconRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconRow.swift; path = js_ios/IconRow.swift; sourceTree = "<group>"; };
+		F479DCF51A2FF4B800868517 /* IconPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IconPanel.swift; path = js_ios/IconPanel.swift; sourceTree = "<group>"; };
 		F47D5B0D1A11E750003F91CD /* js_ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "js_ios-Bridging-Header.h"; path = "js_ios/js_ios-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		F48E46C31A2040800092E7C0 /* Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Base.swift; path = js_ios/Base.swift; sourceTree = SOURCE_ROOT; };
 		F48E46C41A2040800092E7C0 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Math.swift; path = js_ios/Math.swift; sourceTree = SOURCE_ROOT; };
@@ -439,6 +441,7 @@
 			isa = PBXGroup;
 			children = (
 				F479DCF31A2FAE9C00868517 /* IconRow.swift */,
+				F479DCF51A2FF4B800868517 /* IconPanel.swift */,
 				F479DCF01A2FAE0100868517 /* IconElement.swift */,
 			);
 			name = icon_panel;
@@ -583,6 +586,7 @@
 				1FE492201896F04700CF2FCB /* JSRandom.m in Sources */,
 				1F33523518DA3C45005A943C /* NSMutableArray+JSMutableArrayCategory.m in Sources */,
 				F413CA9A1A2288F700089841 /* JSLog.m in Sources */,
+				F479DCF61A2FF4B800868517 /* IconPanel.swift in Sources */,
 				1F41447B18FB259F009C4EBB /* JSFreezable.m in Sources */,
 				F4AA66E31A1701F30058452F /* GLAppDelegate.swift in Sources */,
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,

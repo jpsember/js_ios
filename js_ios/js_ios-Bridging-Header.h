@@ -7,5 +7,6 @@
 #import "GLSpriteProgram.h"
 #import "GLTintedSpriteProgram.h"
 #import "GLSprite.h"
+#import "JSRandom.h"
 
 #endif

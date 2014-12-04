@@ -58,7 +58,7 @@ NO_DEFAULT_INITIALIZER
     return ret;
 }
 
-- (int)randomInt:(NSUInteger)range {
+- (int)randomInt:(int)range {
     return [self randomInt] % range;
 }
 

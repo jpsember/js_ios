@@ -14,7 +14,7 @@
 // Get random integer [0..RAND_MAX]
 - (int)randomInt;
 // Get random integer [0..range)
-- (int)randomInt:(NSUInteger)range;
+- (int)randomInt:(int)range;
 // Get random floating point value [0..range]
 - (float)randomFloat:(float)range;
 - (BOOL)randomBoolean;

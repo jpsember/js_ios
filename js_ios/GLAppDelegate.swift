@@ -5,7 +5,8 @@ public class GLAppDelegate : AppDelegate {
   
   private let WITH_PATH = cond(false)
   private let WITH_ICONPANEL = cond(true)
-  
+  private let ICON_PANEL_TOTAL_ROWS = 5
+
   override public func buildView() -> UIView {
     viewManager = ViewManager(bounds:self.window!.bounds)
     
@@ -50,12 +51,14 @@ public class GLAppDelegate : AppDelegate {
     subview.add(dragView)
     
     if (WITH_ICONPANEL) {
-      iconRow = IconRow(CGPoint(280,60))
-      iconRow.position = CGPoint(300,250)
-      iconRow.plotHandler = iconRowPlotHandler
-      iconRow.textureProvider = iconViewTextureProvider
+      let rowHeight : CGFloat = 36
       
-      view.add(iconRow)
+      iconPanel = IconPanel(CGPoint(280,rowHeight*CGFloat(ICON_PANEL_TOTAL_ROWS)))
+      iconPanel.rowHeight = rowHeight
+      iconPanel.rowPlotHandler = iconRowPlotHandler
+      iconPanel.textureProvider = iconViewTextureProvider
+      iconPanel.position = CGPoint(300,250)
+      view.add(iconPanel)
     }
     
     startTicker()
@@ -112,7 +115,7 @@ public class GLAppDelegate : AppDelegate {
   private var pathLoc = CGPoint.zero
   private var paused = false
   private var pathFrame : Int = 0
-  private var iconRow : IconRow!
+  private var iconPanel : IconPanel!
   
   private func updateLogic() {
     frame += 1
@@ -231,14 +234,27 @@ public class GLAppDelegate : AppDelegate {
     tintedSprite = GLSprite(texture:texture, window:texture.bounds, program:GLTintedSpriteProgram.getProgram())
 
     if (WITH_ICONPANEL) {
-      let names = ["icon_a","icon_b","icon_e","icon_d"]
-      for name in names {
-      	texture = getTexture(name)
-        let sprite = GLSprite(texture:texture,window:texture.bounds,program:nil)
-        let element = IconElement(name,texture.bounds.ptSize)
-       	iconRow.addElement(element)
+      
+      var i = 0
+      let names = ["icon_a","icon_b","icon_d","icon_e"]
+      var row : IconRow!
+      
+      // Generate
+      var random = JSRandom(seed:12)
+      for rowNumber in 0..<ICON_PANEL_TOTAL_ROWS {
+        let count = random.randomInt(3) + 2
+        row = iconPanel.addRow()
+        for i in 0..<count {
+          let q = random.randomInt(CInt(names.count))
+          let name = names[Int(q)]
+          
+          let texture = getTexture(name)
+          let sprite = GLSprite(texture:texture,window:texture.bounds,program:nil)
+          let element = IconElement(name,texture.bounds.ptSize)
+          row.addElement(element)
+        }
       }
-      iconRow.layout()
+      iconPanel.layoutRows()
     }
 
   }
