@@ -50,6 +50,7 @@ public class IconRow : View {
     return PADDING*3
   }
   
+  
   // Layout elements according to their target positions (without any animation)
   //
   public func layout() {

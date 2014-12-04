@@ -1,4 +1,3 @@
-
 public class IconPanel : View {
   
   public var textureProvider : TextureProvider!
@@ -45,36 +44,41 @@ public class IconPanel : View {
     }
   }
 
+  // Find which icon, if any, is at a point (in the panel's coordinate system);
+  // if found, returns (row, elementIndex, icon location - touch location); else (nil,-1,nil)
+  //
+  private func findIconAtPoint(location:CGPoint) -> (IconRow!, Int, CGPoint!) {
+    let (row,position) = rowContainingPoint(location)
+    if (row != nil) {
+	    let elementIndex = row.elementAt(position)
+      if elementIndex >= 0 {
+        let element = row.getElement(elementIndex)
+        return (row,elementIndex,CGPoint.difference(position,element.position))
+      }
+    }
+    return (nil,-1,nil)
+  }
+  
   private func ourTouchHandler(event:TouchEvent, view:View) -> Bool {
     if (event.type == .Down) {
-      puts("touchHandler \(event)")
-      let (row,position) = rowContainingPoint(event.location)
-      puts("row containing point = \(row), position \(position)")
-      if (row == nil) {
-        return false
-      }
-      
-      let elementIndex = row.elementAt(position)
-      puts("element index \(elementIndex)")
+      let (row,elementIndex,touchOffset) = findIconAtPoint(event.location)
       if elementIndex < 0 {
         return false
       }
-      
-      dragIndex = elementIndex
-      dragRow = row
+      startMoveIconOperation(row,elementIndex: elementIndex, touchOffset: touchOffset)
       return true
       
     } else {
       if (dragIndex < 0) {
         return false
       }
-      puts("touchHandler \(event)")
-      
       if (event.type == .Up) {
         dragIndex = -1
       } else {
         dragLocation = event.location
       }
+      // TODO: ideally we could render just the icon and not have to redraw the entire panel
+      self.invalidate()
     }
     
     return false
@@ -92,15 +96,23 @@ public class IconPanel : View {
   private func ourPlotHandler(view : View) {
     defaultPlotHandler(view)
     if (dragIndex >= 0) {
-      let element = dragRow.getElement(dragIndex)
+      let element = dragElement
       let sprite = element.sprite
-      ASSERT(sprite != nil,"sprite is nil")
-      sprite.render(dragLocation)
+      let loc = CGPoint.difference(dragLocation,touchOffset)
+      sprite.render(loc)
     }
+  }
+  
+  private func startMoveIconOperation(row:IconRow, elementIndex:Int, touchOffset:CGPoint) {
+    dragIndex = elementIndex
+    dragRow = row
+    dragElement = row.getElement(elementIndex)
+    self.touchOffset = touchOffset
   }
   
   private var dragIndex = -1
   private var dragRow : IconRow!
+  private var touchOffset = CGPoint.zero
   private var dragLocation = CGPoint.zero
+  private var dragElement : IconElement!
 }
-
