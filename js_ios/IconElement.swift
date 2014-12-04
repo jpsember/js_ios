@@ -4,23 +4,27 @@ public class IconElement : NSObject {
 
   public var position = CGPoint.zero
   public var velocity = CGPoint.zero
+
+  private(set) var name : String
+  private(set) var size : CGPoint
+  private var sprite : GLSprite!
   
-  public var size : CGPoint {
-    get {
-  		return sprite.texture.bounds.ptSize
-    }
-  }
-  
-  public let sprite : GLSprite
-  
-  public init(_ sprite : GLSprite) {
-  	self.sprite = sprite
+  public init(_ name : String, _ size: CGPoint) {
+    self.name = name
+    self.size = size
     super.init()
   }
 
   public override var description : String {
-    return "IconElement(pos:\(position) \(sprite.texture)"
+    return "IconElement(\(name) pos:\(position))"
+  }
+
+  public func render(iconRow : IconRow) {
+    if (sprite == nil) {
+      let texture = iconRow.textureProvider(name,size)
+      sprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
+    }
+    sprite.render(position)
   }
   
-
 }

@@ -53,6 +53,8 @@ public class GLAppDelegate : AppDelegate {
       iconRow = IconRow(CGPoint(280,60))
       iconRow.position = CGPoint(300,250)
       iconRow.plotHandler = iconRowPlotHandler
+      iconRow.textureProvider = iconViewTextureProvider
+      
       view.add(iconRow)
     }
     
@@ -233,7 +235,7 @@ public class GLAppDelegate : AppDelegate {
       for name in names {
       	texture = getTexture(name)
         let sprite = GLSprite(texture:texture,window:texture.bounds,program:nil)
-        let element = IconElement(sprite)
+        let element = IconElement(name,texture.bounds.ptSize)
        	iconRow.addElement(element)
       }
       iconRow.layout()
@@ -269,4 +271,8 @@ public class GLAppDelegate : AppDelegate {
     return tex!
   }
 
+  private func iconViewTextureProvider(name:String, size:CGPoint) -> Texture {
+    return getTexture(name)
+  }
+  
 }

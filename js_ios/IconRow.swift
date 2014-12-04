@@ -3,8 +3,12 @@ import Foundation
 // TODO: Figure out how to have class-level constants
 let PADDING = CGFloat(10)
 
+public typealias TextureProvider = (String, CGPoint) -> Texture
+
 public class IconRow : View {
 
+  public var textureProvider : TextureProvider!
+  
   private var elements = Array<IconElement> ()
   
   // Temporarily made public
@@ -24,6 +28,7 @@ public class IconRow : View {
     }
     return PADDING*3
   }
+  
   
   // Layout elements according to their target positions (without any animation)
   //
@@ -77,7 +82,7 @@ public class IconRow : View {
   public override func defaultPlotHandler() {
     super.defaultPlotHandler()
     for e in elements {
-      e.sprite.render(e.position)
+      e.render(self)
     }
   }
 
