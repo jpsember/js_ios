@@ -96,17 +96,22 @@ public class ViewManager : NSObject, GLKViewDelegate {
       return
     }
     
-		let containerOrigin = CGPoint.zero
     renderer.defaultViewportSize = view.bounds.ptSize
     
-  	plotAux(containerOrigin,rootView)
+  	plotAux(nil,rootView)
   }
   
-  private func plotAux(parentOrigin:CGPoint, _ view:View) {
-  	view.plot(parentOrigin)
-    let thisOrigin = CGPoint.sum(parentOrigin,view.bounds.origin)
+  private func plotAux(parentView:View?, _ view:View) {
+    // Update the origin relative to the root view
+    var parentOrigin = CGPoint.zero
+    if let parent = parentView {
+      parentOrigin = parent.absolutePosition
+    }
+    view.absolutePosition = CGPoint.sum(parentOrigin,view.position)
+    
+  	view.plot()
     for v in view.children {
-    	plotAux(thisOrigin,v)
+    	plotAux(view,v)
     }
   }
   

@@ -38,10 +38,10 @@ public class UserOperation : NSObject {
 
   public func start(touchEvent:TouchEvent) {
   }
-  
+
   public func complete() {
     ASSERT(self == S.currentOperation)
-    
+
     if (self.state == STATE_RUNNING) {
   		self.state = STATE_COMPLETED
     }

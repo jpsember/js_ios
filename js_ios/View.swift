@@ -25,7 +25,11 @@ public class View : NSObject {
       bounds.size = CGSize(width:newValue.x,height:newValue.y)
     }
   }
-
+	
+  // This is the position of the view relative to the root view.
+  // It is updated by the view manager each time the view hierarchy is plotted
+  public var absolutePosition = CGPoint.zero
+  
   // The handler for plotting view content; default does nothing
   //
   public var plotHandler : PlotHandler!
@@ -79,10 +83,9 @@ public class View : NSObject {
   // Plot view. If cacheable, renders to texture (if cached version doesn't exist or is invalid), 
   // then plots from texture to OpenGL view.  If not cacheable, renders directly to OpenGL view
 	//
-  public func plot(parentOrigin:CGPoint) {
+  public func plot() {
     let renderer = Renderer.sharedInstance()
-    let ourOrigin = CGPoint.sum(parentOrigin,bounds.origin)
-    let transform = calcOpenGLTransform(renderer.defaultViewportSize,ourOrigin,false)
+    let transform = calcOpenGLTransform(renderer.defaultViewportSize,absolutePosition,false)
     renderer.resetOpenGLState()
     if (self.cacheable) {
       if (constructCachedContent()) {
@@ -95,7 +98,7 @@ public class View : NSObject {
       
       // Clip rendering to this view's bounds
       glEnable(GLenum(GL_SCISSOR_TEST))
-      glScissor(GLint(parentOrigin.x + bounds.origin.x),GLint(parentOrigin.y + bounds.origin.y),GLint(bounds.size.width),GLint(bounds.size.height));
+      glScissor(GLint(absolutePosition.x),GLint(absolutePosition.y),GLint(bounds.size.width),GLint(bounds.size.height));
       plotHandler(self)
       glDisable(GLenum(GL_SCISSOR_TEST))
     }
