@@ -106,9 +106,6 @@ public class IconPanel : View {
     }
     
     public override func updateCursor(location: CGPoint) {
-      if state != STATE_RUNNING {
-        return
-      }
       let sprite = dragElement.sprite
       let loc = CGPoint.difference(dragLocation,touchOffset)
       sprite.render(loc)

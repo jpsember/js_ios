@@ -1,11 +1,12 @@
-
-let STATE_RUNNING = 0
-let STATE_COMPLETED = 1
-let STATE_CANCELLED = 2
-
 public class TouchOperation : NSObject {
   
-  public var state = STATE_RUNNING
+  public enum State {
+  	case Running
+    case Completed
+    case Cancelled
+  }
+  
+  public var state = State.Cancelled
   
   // Get the current operation; will always be defined, by using a default 'do-nothing'
   // operation if no other operation is active
@@ -22,7 +23,6 @@ public class TouchOperation : NSObject {
   //
   public func start(event : TouchEvent) {
     TouchOperation.setCurrent(self)
-    state = STATE_RUNNING
     processEvent(event)
   }
   
@@ -34,8 +34,8 @@ public class TouchOperation : NSObject {
   // If operation is currently running, set its state to COMPLETED, and set the default operation
   //
   public func complete() {
-    if (self.state == STATE_RUNNING) {
-      self.state = STATE_COMPLETED
+    if (state == .Running) {
+      state = .Completed
       TouchOperation.setCurrent(nil)
     }
   }
@@ -43,8 +43,8 @@ public class TouchOperation : NSObject {
   // If operation is currently running, set its state to CANCELLED, and set the default operation
   //
   public func cancel() {
-    if (self.state == STATE_RUNNING) {
-      self.state = STATE_CANCELLED
+    if (state == .Running) {
+      state = .Cancelled
       TouchOperation.setCurrent(nil)
     }
   }
@@ -55,16 +55,14 @@ public class TouchOperation : NSObject {
   public func updateCursor(location:CGPoint) {
   }
   
-  private class func setCurrent(operation:TouchOperation?) {
+  private class func setCurrent(operation:TouchOperation!) {
     var oper = operation
     if (oper == nil) {
       oper = DefaultOperation.sharedInstance()
     }
-    let curr = currentOperation()
-    if curr != oper {
-      curr.cancel()
-      S.currentOperation = oper
-    }
+    currentOperation().cancel()
+    S.currentOperation = oper
+    oper.state = .Running
   }
   
   private struct S {
