@@ -8,8 +8,7 @@ public class GLAppDelegate : AppDelegate {
   private let ICON_PANEL_TOTAL_ROWS = 5
 
   override public func buildView() -> UIView {
-    viewManager = ViewManager(bounds:self.window!.bounds)
-    UserOperation.setViewManager(viewManager)
+    let viewManager = ViewManager.construct(window!.bounds)
     
     // Construct a root View
     let view = View()
@@ -83,14 +82,13 @@ public class GLAppDelegate : AppDelegate {
     let ticker = Ticker.sharedInstance()
     ticker.ticksPerSecond = fps
     ticker.logicCallback = updateLogic
-    ticker.viewManager = viewManager
     ticker.start()
     ticker.exitTime = CGFloat(60)
   }
   
   private var ourView : View {
     get {
-      return viewManager.rootView
+      return ViewManager.sharedInstance().rootView
     }
   }
   
@@ -117,7 +115,6 @@ public class GLAppDelegate : AppDelegate {
   	return false
   }
   
-  private var viewManager : ViewManager!
   private var dragView : View!
   
   // ------------------------------------

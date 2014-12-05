@@ -5,19 +5,8 @@ let STATE_CANCELLED = 2
 
 public class UserOperation : NSObject {
   
-  public class func setViewManager(manager : ViewManager) {
-    S.viewManager = manager
-  }
-  
-  public class func tempUpdateRootView() {
-    if (S.viewManager != nil) {
-      S.viewManager!.rootView.invalidate()
-    }
-  }
-  
   private struct S {
     static var currentOperation : UserOperation?
-    static var viewManager : ViewManager?
   }
 
   public var state = STATE_RUNNING

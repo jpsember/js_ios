@@ -15,8 +15,6 @@ public class Ticker : NSObject {
   public var logicCallback : Callback!
   // For development purposes only; if > 0, exits app after this amount of time
   public var exitTime = CGFloat(0)
-  // View manager to observe; if any views are invalid, redraws them
-  public var viewManager : ViewManager?
   
   public class func sharedInstance() -> Ticker {
     if (S.singleton == nil) {
@@ -41,11 +39,8 @@ public class Ticker : NSObject {
     
     logicCallback()
     
-    if let m = viewManager {
-      m.validate()
-    } else {
-    	warning("no view manager defined")
-    }
+    let m = ViewManager.sharedInstance()
+    m.validate()
   }
 
   public func resetInactivityCounter() {

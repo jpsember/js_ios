@@ -5,7 +5,22 @@ import OpenGLES
 
 public class ViewManager : NSObject, GLKViewDelegate {
   
-  public init(bounds : CGRect) {
+  public class func construct(bounds:CGRect) -> ViewManager {
+  	ASSERT(S.singleton == nil,"ViewManager already constructed")
+    S.singleton = ViewManager(bounds:bounds)
+    return sharedInstance()
+  }
+  
+  public class func sharedInstance() -> ViewManager {
+    ASSERT(S.singleton != nil, "no ViewManager constructed")
+    return S.singleton
+  }
+  
+  private struct S {
+    static var singleton : ViewManager!
+  }
+  
+  private init(bounds : CGRect) {
     self.bounds = bounds
     super.init()
     
