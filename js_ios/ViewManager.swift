@@ -27,11 +27,15 @@ public class ViewManager : NSObject, GLKViewDelegate {
     buildBaseView()
   }
   
+  private var touchCursorLocation = CGPoint.zero
+  
   private var bounds : CGRect
 
   // The UIView that contains the manager's views
   //
   private(set) var baseUIView : UIView!
+  
+  private var needsDisplayFlag = false
   
   // The root view in the manager hierarchy
   //
@@ -41,15 +45,28 @@ public class ViewManager : NSObject, GLKViewDelegate {
     }
   }
   
+  // Request that the base UIView gets redrawn
+  //
+  private func setNeedsDisplay() {
+    needsDisplayFlag = true
+  }
+  
   // If any views are invalid, request redraw of base UIView to redraw them
   //
   public func validate() {
     if (!allViewsValid(rootView)) {
+    	needsDisplayFlag = true
+    }
+    if (needsDisplayFlag) {
+      needsDisplayFlag = false
+//      puts("baseUIView setNeedsDisplay.... \(Ticker.sharedInstance().elapsedTime)")
     	baseUIView.setNeedsDisplay()
     }
   }
   
   public func handleTouchEvent(event : TouchEvent) {
+		touchCursorLocation = event.absoluteLocation
+    
     switch event.type {
     case .Down:
       // Find view that can respond to this event
@@ -67,11 +84,9 @@ public class ViewManager : NSObject, GLKViewDelegate {
       } else {
         warning("no touch handler for \(event)")
       }
-      // If there's a current operation, update it with this event
-      if let oper = UserOperation.currentOperation() {
-      	oper.update(event)
-      }
+      UserOperation.currentOperation().processEvent(event)
     }
+    setNeedsDisplay()
   }
   
   private func allViewsValid(rootView : View) -> Bool {
@@ -113,6 +128,11 @@ public class ViewManager : NSObject, GLKViewDelegate {
     renderer.defaultViewportSize = view.bounds.ptSize
     
   	plotAux(nil,rootView)
+    
+    // In order to plot a cursor in the root view, we must restore its transform matrix and whatnot
+    rootView.preparePlot()
+    
+    UserOperation.currentOperation().updateCursor(touchCursorLocation)
   }
   
   private func plotAux(parentView:View?, _ view:View) {

@@ -15,7 +15,6 @@ public class IconPanel : View {
   public override init() {
     super.init()
     self.touchHandler = ourTouchHandler
-    self.plotHandler = ourPlotHandler
   }
   
   public func getRow(index : Int) -> IconRow {
@@ -65,7 +64,8 @@ public class IconPanel : View {
       if elementIndex < 0 {
         return false
       }
-      UserOperation.start(MoveIconOperation(row,elementIndex,touchOffset),touchEvent:event)
+      let oper = MoveIconOperation(row,elementIndex,touchOffset)
+      oper.start(event)
       return true
     }
     return false
@@ -78,13 +78,6 @@ public class IconPanel : View {
       }
     }
     return (nil,nil)
-  }
-  
-  private func ourPlotHandler(view : View) {
-    defaultPlotHandler(view)
-    if let oper = UserOperation.currentOperation() as? MoveIconOperation {
-      oper.localRender()
-    }
   }
   
   // Operation for moving an icon
@@ -100,30 +93,25 @@ public class IconPanel : View {
     }
 
     public override func start(touchEvent: TouchEvent) {
+      super.start(touchEvent)
     	sourceRow.removeElement(elementIndex)
     }
     
-		public override func update(event: TouchEvent) {
+		public override func processEvent(event: TouchEvent) {
         if (event.type == .Up) {
           complete()
         } else {
           dragLocation = event.absoluteLocation
         }
-        // TODO: ideally we could render just the icon and not have to redraw the entire panel
-      	// TODO: have ViewManager update the root view after processing ANY touch-related event
-				sourceRow.panel.invalidate()
     }
     
-    public func localRender() {
-      ASSERT(state == STATE_RUNNING)
+    public override func updateCursor(location: CGPoint) {
+      if state != STATE_RUNNING {
+        return
+      }
       let sprite = dragElement.sprite
-      var loc = CGPoint.difference(dragLocation,sourceRow.panel.position)
-      loc.subtract(touchOffset)
+      let loc = CGPoint.difference(dragLocation,touchOffset)
       sprite.render(loc)
-    }
-    
-    public override func render() {
-      super.render()
     }
     
     private var elementIndex : Int

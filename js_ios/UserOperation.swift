@@ -5,54 +5,84 @@ let STATE_CANCELLED = 2
 
 public class UserOperation : NSObject {
   
-  private struct S {
-    static var currentOperation : UserOperation?
-  }
-
   public var state = STATE_RUNNING
   
-  public func render() {
-  }
+//	// TODO: we need a way to allow different views to render a particular operation
+//  public func render() {
+//  }
   
+  // If operation is currently running, set its state to CANCELLED, and set the null operation
   public func cancel() {
-    ASSERT(self == S.currentOperation)
     if (self.state == STATE_RUNNING) {
       self.state = STATE_CANCELLED
+      UserOperation.setCurrent(nil)
     }
-    UserOperation.setCurrent(nil)
   }
   
-  public func update(touchEvent:TouchEvent) {
+  // Process an event
+  public func processEvent(touchEvent:TouchEvent) {
+//    puts("processEvent \(self): \(touchEvent)")
   }
 
-  public func start(touchEvent:TouchEvent) {
+  // Render a cursor for the current operation, within the root view;
+  // default implementation does nothing
+  //
+  public func updateCursor(location:CGPoint) {
   }
-
+  
+  // If operation is currently running, set its state to COMPLETED, and set the null operation
+  //
   public func complete() {
-    ASSERT(self == S.currentOperation)
-
     if (self.state == STATE_RUNNING) {
   		self.state = STATE_COMPLETED
+      UserOperation.setCurrent(nil)
     }
-  	UserOperation.setCurrent(nil)
   }
   
-  public class func start(operation:UserOperation,touchEvent:TouchEvent) {
-    setCurrent(operation)
-    operation.start(touchEvent)
+  // Make the operation the current operation, and set it running
+  //
+  public func start(touchEvent:TouchEvent) {
+    UserOperation.setCurrent(self)
+    state = STATE_RUNNING
   }
   
   private class func setCurrent(operation:UserOperation?) {
-    if let currentOperation = S.currentOperation {
-      if (currentOperation.state == STATE_RUNNING) {
-      	currentOperation.cancel()
-      }
+    var oper = operation
+    if (oper == nil) {
+      oper = DefaultOperation.sharedInstance()
     }
-    S.currentOperation = operation
+    let curr = currentOperation()
+    if curr != oper {
+//      puts("UserOperation.setCurrent, was \(curr), new \(operation)")
+      curr.cancel()
+      S.currentOperation = oper
+    }
   }
   
-  public class func currentOperation() -> UserOperation? {
+  public class func currentOperation() -> UserOperation {
+    if (S.currentOperation == nil) {
+      S.currentOperation = DefaultOperation.sharedInstance()
+    }
     return S.currentOperation
   }
   
+  private struct S {
+    static var currentOperation : UserOperation!
+  }
+
 }
+
+public class DefaultOperation : UserOperation {
+  public class func sharedInstance() -> DefaultOperation {
+    if (S.singleton == nil) {
+      S.singleton = DefaultOperation()
+    }
+    return S.singleton
+  }
+  
+  private struct S {
+    static var singleton : DefaultOperation!
+  }
+}
+
+

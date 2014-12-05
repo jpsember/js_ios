@@ -80,22 +80,27 @@ public class View : NSObject {
    	renderedViewValid = false
   }
   
-  // Plot view. If cacheable, renders to texture (if cached version doesn't exist or is invalid), 
-  // then plots from texture to OpenGL view.  If not cacheable, renders directly to OpenGL view
-	//
-  public func plot() {
+  public func preparePlot() {
     let renderer = Renderer.sharedInstance()
     let transform = calcOpenGLTransform(renderer.defaultViewportSize,absolutePosition,false)
     renderer.resetOpenGLState()
+    renderer.transform = transform
+  }
+  
+  // Plot view. If cacheable, renders to texture (if cached version doesn't exist or is invalid),
+  // then plots from texture to OpenGL view.  If not cacheable, renders directly to OpenGL view
+	//
+  public func plot() {
+    preparePlot()
+    let renderer = Renderer.sharedInstance()
     if (self.cacheable) {
+      let savedTransform = renderer.transform
       if (constructCachedContent()) {
         renderer.resetOpenGLState()
+        renderer.transform = savedTransform
       }
-      renderer.transform = transform
       plotCachedTexture()
     } else {
-      renderer.transform = transform
-      
       // Clip rendering to this view's bounds
       glEnable(GLenum(GL_SCISSOR_TEST))
       glScissor(GLint(absolutePosition.x),GLint(absolutePosition.y),GLint(bounds.size.width),GLint(bounds.size.height));
