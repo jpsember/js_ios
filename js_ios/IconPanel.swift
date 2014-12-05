@@ -82,7 +82,7 @@ public class IconPanel : View {
   
   // Operation for moving an icon
   //
-  public class MoveIconOperation : UserOperation {
+  public class MoveIconOperation : TouchOperation {
     
     public init(_ iconRow:IconRow, _ elementIndex:Int, _ touchOffset:CGPoint) {
       self.sourceRow = iconRow

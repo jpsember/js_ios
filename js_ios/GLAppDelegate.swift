@@ -53,7 +53,7 @@ public class GLAppDelegate : AppDelegate {
     subview2.opaque = false
     subview2.cacheable = true
     subview2.size = CGPoint(64,64)
-    subview2.position = CGPoint(10,10)
+    subview2.position = CGPoint(30,30)
     subview2.plotHandler = {(view) in
       self.bgndSprite.render(CGPoint.zero)
       self.blobSprite.render(CGPoint.zero)
@@ -295,7 +295,7 @@ public class GLAppDelegate : AppDelegate {
     return getTexture(name)
   }
   
-  public class DragSubviewOperation : UserOperation {
+  public class DragSubviewOperation : TouchOperation {
     public init(_ parentView:View, subview:View, touchOffset:CGPoint) {
       self.parentView = parentView
       self.subview = subview

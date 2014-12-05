@@ -3,14 +3,14 @@ let STATE_RUNNING = 0
 let STATE_COMPLETED = 1
 let STATE_CANCELLED = 2
 
-public class UserOperation : NSObject {
+public class TouchOperation : NSObject {
   
   public var state = STATE_RUNNING
   
   // Get the current operation; will always be defined, by using a default 'do-nothing'
   // operation if no other operation is active
   //
-  public class func currentOperation() -> UserOperation {
+  public class func currentOperation() -> TouchOperation {
     if (S.currentOperation == nil) {
       S.currentOperation = DefaultOperation.sharedInstance()
     }
@@ -21,7 +21,7 @@ public class UserOperation : NSObject {
   // call processEvent with the given event
   //
   public func start(event : TouchEvent) {
-    UserOperation.setCurrent(self)
+    TouchOperation.setCurrent(self)
     state = STATE_RUNNING
     processEvent(event)
   }
@@ -36,7 +36,7 @@ public class UserOperation : NSObject {
   public func complete() {
     if (self.state == STATE_RUNNING) {
       self.state = STATE_COMPLETED
-      UserOperation.setCurrent(nil)
+      TouchOperation.setCurrent(nil)
     }
   }
   
@@ -45,7 +45,7 @@ public class UserOperation : NSObject {
   public func cancel() {
     if (self.state == STATE_RUNNING) {
       self.state = STATE_CANCELLED
-      UserOperation.setCurrent(nil)
+      TouchOperation.setCurrent(nil)
     }
   }
   
@@ -55,7 +55,7 @@ public class UserOperation : NSObject {
   public func updateCursor(location:CGPoint) {
   }
   
-  private class func setCurrent(operation:UserOperation?) {
+  private class func setCurrent(operation:TouchOperation?) {
     var oper = operation
     if (oper == nil) {
       oper = DefaultOperation.sharedInstance()
@@ -68,10 +68,10 @@ public class UserOperation : NSObject {
   }
   
   private struct S {
-    static var currentOperation : UserOperation!
+    static var currentOperation : TouchOperation!
   }
 
-  public class DefaultOperation : UserOperation {
+  public class DefaultOperation : TouchOperation {
     public class func sharedInstance() -> DefaultOperation {
       if (S.singleton == nil) {
         S.singleton = DefaultOperation()

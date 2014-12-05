@@ -84,7 +84,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
       } else {
         warning("no touch handler for \(event)")
       }
-      UserOperation.currentOperation().processEvent(event)
+      TouchOperation.currentOperation().processEvent(event)
     }
     setNeedsDisplay()
   }
@@ -132,7 +132,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
     // In order to plot a cursor in the root view, we must restore its transform matrix and whatnot
     rootView.preparePlot()
     
-    UserOperation.currentOperation().updateCursor(touchCursorLocation)
+    TouchOperation.currentOperation().updateCursor(touchCursorLocation)
   }
   
   private func plotAux(parentView:View?, _ view:View) {
