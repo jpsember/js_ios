@@ -92,22 +92,20 @@ public class IconPanel : View {
       super.init()
     }
 
-    public override func start(touchEvent: TouchEvent) {
-      super.start(touchEvent)
-    	sourceRow.removeElement(elementIndex)
+    public override func start(event : TouchEvent) {
+      sourceRow.removeElement(elementIndex)
+      super.start(event)
     }
     
-		public override func processEvent(event: TouchEvent) {
-        if (event.type == .Up) {
-          complete()
-        } else {
-          dragLocation = event.absoluteLocation
-        }
+    public override func processEvent(event: TouchEvent) {
+      if (event.type == .Up) {
+        complete()
+      } else {
+        dragLocation = event.absoluteLocation
+      }
     }
     
     public override func updateCursor(location: CGPoint) {
-      // TODO:
-      warning("initial press without drag places cursor at origin")
       if state != STATE_RUNNING {
         return
       }

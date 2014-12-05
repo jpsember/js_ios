@@ -7,11 +7,41 @@ public class UserOperation : NSObject {
   
   public var state = STATE_RUNNING
   
-//	// TODO: we need a way to allow different views to render a particular operation
-//  public func render() {
-//  }
+  // Get the current operation; will always be defined, by using a default 'do-nothing'
+  // operation if no other operation is active
+  //
+  public class func currentOperation() -> UserOperation {
+    if (S.currentOperation == nil) {
+      S.currentOperation = DefaultOperation.sharedInstance()
+    }
+    return S.currentOperation
+  }
+
+  // Make the operation the current operation, and set it running;
+  // call processEvent with the given event
+  //
+  public func start(event : TouchEvent) {
+    UserOperation.setCurrent(self)
+    state = STATE_RUNNING
+    processEvent(event)
+  }
   
-  // If operation is currently running, set its state to CANCELLED, and set the null operation
+  // Process a touch event; default implementation does nothing
+  //
+  public func processEvent(touchEvent:TouchEvent) {
+  }
+  
+  // If operation is currently running, set its state to COMPLETED, and set the default operation
+  //
+  public func complete() {
+    if (self.state == STATE_RUNNING) {
+      self.state = STATE_COMPLETED
+      UserOperation.setCurrent(nil)
+    }
+  }
+  
+  // If operation is currently running, set its state to CANCELLED, and set the default operation
+  //
   public func cancel() {
     if (self.state == STATE_RUNNING) {
       self.state = STATE_CANCELLED
@@ -19,31 +49,10 @@ public class UserOperation : NSObject {
     }
   }
   
-  // Process an event
-  public func processEvent(touchEvent:TouchEvent) {
-//    puts("processEvent \(self): \(touchEvent)")
-  }
-
   // Render a cursor for the current operation, within the root view;
   // default implementation does nothing
   //
   public func updateCursor(location:CGPoint) {
-  }
-  
-  // If operation is currently running, set its state to COMPLETED, and set the null operation
-  //
-  public func complete() {
-    if (self.state == STATE_RUNNING) {
-  		self.state = STATE_COMPLETED
-      UserOperation.setCurrent(nil)
-    }
-  }
-  
-  // Make the operation the current operation, and set it running
-  //
-  public func start(touchEvent:TouchEvent) {
-    UserOperation.setCurrent(self)
-    state = STATE_RUNNING
   }
   
   private class func setCurrent(operation:UserOperation?) {
@@ -53,36 +62,26 @@ public class UserOperation : NSObject {
     }
     let curr = currentOperation()
     if curr != oper {
-//      puts("UserOperation.setCurrent, was \(curr), new \(operation)")
       curr.cancel()
       S.currentOperation = oper
     }
-  }
-  
-  public class func currentOperation() -> UserOperation {
-    if (S.currentOperation == nil) {
-      S.currentOperation = DefaultOperation.sharedInstance()
-    }
-    return S.currentOperation
   }
   
   private struct S {
     static var currentOperation : UserOperation!
   }
 
-}
-
-public class DefaultOperation : UserOperation {
-  public class func sharedInstance() -> DefaultOperation {
-    if (S.singleton == nil) {
-      S.singleton = DefaultOperation()
+  public class DefaultOperation : UserOperation {
+    public class func sharedInstance() -> DefaultOperation {
+      if (S.singleton == nil) {
+        S.singleton = DefaultOperation()
+      }
+      return S.singleton
     }
-    return S.singleton
+    
+    private struct S {
+      static var singleton : DefaultOperation!
+    }
   }
-  
-  private struct S {
-    static var singleton : DefaultOperation!
-  }
+
 }
-
-
