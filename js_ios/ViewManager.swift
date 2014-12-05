@@ -47,11 +47,10 @@ public class ViewManager : NSObject, GLKViewDelegate {
       if !touchEventActive {
         break
       }
-      let localEvent = constructTouchEventForChildView(event, childView: touchEventView)
       if let handler = touchEventView.touchHandler {
-        handler(localEvent,touchEventView)
+        handler(event,touchEventView)
       } else {
-        warning("no touch handler for \(localEvent)")
+        warning("no touch handler for \(event)")
       }
       // If there's a current operation, update it with this event
       if let oper = UserOperation.currentOperation() {
@@ -140,16 +139,15 @@ public class ViewManager : NSObject, GLKViewDelegate {
   }
   
   private func findResponderForDownEvent(event : TouchEvent, view:View) -> View? {
-    if (!view.bounds.contains(event.location)) {
+    let rel = event.locationRelativeToView(view)
+    let viewRect = CGRect(origin:CGPoint.zero, size:view.bounds.size)
+    if (!viewRect.contains(rel)) {
       return nil
     }
-
-    // Construct another event, one local to this view's coordinate system
-    let localEvent = constructTouchEventForChildView(event,childView:view)
     
     // First see if any child views will respond to this
     for child in view.children {
-      let responder = findResponderForDownEvent(localEvent,view:child)
+      let responder = findResponderForDownEvent(event,view:child)
       if (responder != nil) {
         return responder
       }
@@ -157,18 +155,12 @@ public class ViewManager : NSObject, GLKViewDelegate {
     
     // Next, see if this view has a touch handler that can handle it
     if let handler = view.touchHandler {
-      if (handler(localEvent,view)) {
+      if (handler(event,view)) {
         // TODO: clarify what it means to respond to an event; i.e. returning true or false
       	return view
       }
     }
     return nil
-  }
-  
-  // Given a touch event relative to a view, construct equivalent event relative to one of the view's children
-  //
-  private func constructTouchEventForChildView(event : TouchEvent, childView:View) -> TouchEvent {
-    return TouchEvent(event.type,CGPoint.difference(event.location, childView.bounds.origin))
   }
   
   // true if a touch event is being processed ('down' event has occurred, and no matching 'up' has yet occurred)

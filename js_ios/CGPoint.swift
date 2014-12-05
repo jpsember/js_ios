@@ -49,6 +49,11 @@ extension CGPoint :  Printable {
   	x += other.x
     y += other.y
   }
+  
+  public mutating func subtract(other:CGPoint) {
+    x -= other.x
+    y -= other.y
+  }
  
   public func magnitude() -> CGFloat {
     return sqrt(x*x + y*y)
@@ -70,6 +75,6 @@ extension CGPoint :  Printable {
   
   public static func difference(first:CGPoint,_ second:CGPoint) -> CGPoint {
 	   return CGPoint(first.x-second.x,first.y-second.y)
-}
+  }
 
 }

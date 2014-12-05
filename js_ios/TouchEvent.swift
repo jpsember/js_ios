@@ -16,16 +16,22 @@ public enum TouchEventType : String, Printable {
 public class TouchEvent : NSObject {
   
   private (set) var type : TouchEventType
-  // This should be the location in the current view's OpenGL coordinate system (origin is bottom right)
-  private (set) var location : CGPoint
+  // This is the location in the root view, in OpenGL space (origin bottom left)
+  private (set) var absoluteLocation : CGPoint
   
-  public init(_ type : TouchEventType, _ location : CGPoint) {
+  public init(_ type : TouchEventType, _ absoluteLocation : CGPoint) {
     self.type = type
-    self.location = location
+    self.absoluteLocation = absoluteLocation
     super.init()
   }
   
   public override var description : String {
-    return "TouchEvent \(type):\(location)"
+    return "TouchEvent \(type):\(absoluteLocation)"
+  }
+  
+  // Get location of event relative to a particular view's origin
+  //
+  public func locationRelativeToView(view:View) -> CGPoint {
+  	return CGPoint.difference(absoluteLocation,view.absolutePosition)
   }
 }

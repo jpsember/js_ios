@@ -103,7 +103,7 @@ public class GLAppDelegate : AppDelegate {
         break
       }
       let b = CGRect(x:pathLoc.x,y:pathLoc.y,width:128,height:64)
-      if (b.contains(touchEvent.location)) {
+      if (b.contains(touchEvent.locationRelativeToView(view))) {
         paused = true
         return true
       }
@@ -172,22 +172,29 @@ public class GLAppDelegate : AppDelegate {
   }
   
   private var initialDragOffset = CGPoint.zero
+  private var subviewDragActive = false
   
   // Touch handler for the view that contains a smaller subview.  If user touches within the bounds
   // of the smaller subview, he can drag it around to a new location.
   //
   private func subviewTouchHandler(event:TouchEvent, view:View) -> Bool {
+    let rel = event.locationRelativeToView(view)
     if event.type == .Down {
-      if (dragView.bounds.contains(event.location)) {
-        initialDragOffset = CGPoint.difference(dragView.bounds.origin,event.location)
-        return true
+      // TODO: refactor to use UserOperation class
+      subviewDragActive = false
+      if (dragView.bounds.contains(rel)) {
+        initialDragOffset = CGPoint.difference(dragView.bounds.origin,rel)
+        subviewDragActive = true
       }
+      return subviewDragActive
     } else {
-      let padding : CGFloat = 4
-      let subviewPositionLimit = CGRect(padding,padding,256-64-padding*2,256-64-padding*2)
-      let adjustedDragLocation = CGPoint.sum(event.location,initialDragOffset)
-      dragView.bounds.origin = subviewPositionLimit.clampPoint(adjustedDragLocation)
-      dragView.invalidate()
+      if subviewDragActive {
+        let padding : CGFloat = 4
+        let subviewPositionLimit = CGRect(padding,padding,256-64-padding*2,256-64-padding*2)
+        let adjustedDragLocation = CGPoint.sum(rel,initialDragOffset)
+        dragView.bounds.origin = subviewPositionLimit.clampPoint(adjustedDragLocation)
+        dragView.invalidate()
+      }
     }
     return false
   }

@@ -61,7 +61,7 @@ public class IconPanel : View {
   
   private func ourTouchHandler(event:TouchEvent, view:View) -> Bool {
     if (event.type == .Down) {
-      let (row,elementIndex,touchOffset) = findIconAtPoint(event.location)
+      let (row,elementIndex,touchOffset) = findIconAtPoint(event.locationRelativeToView(view))
       if elementIndex < 0 {
         return false
       }
@@ -107,9 +107,7 @@ public class IconPanel : View {
         if (event.type == .Up) {
           complete()
         } else {
-          unimp("convert root view touch location to local (panel) location")
-          let localLoc = CGPoint.difference(event.location,sourceRow.panel.position)
-          dragLocation = localLoc
+          dragLocation = event.absoluteLocation
         }
         // TODO: ideally we could render just the icon and not have to redraw the entire panel
       	// TODO: have ViewManager update the root view after processing ANY touch-related event
@@ -119,7 +117,8 @@ public class IconPanel : View {
     public func localRender() {
       ASSERT(state == STATE_RUNNING)
       let sprite = dragElement.sprite
-      let loc = CGPoint.difference(dragLocation,touchOffset)
+      var loc = CGPoint.difference(dragLocation,sourceRow.panel.position)
+      loc.subtract(touchOffset)
       sprite.render(loc)
     }
     
