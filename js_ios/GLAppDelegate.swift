@@ -168,30 +168,17 @@ public class GLAppDelegate : AppDelegate {
     pathLoc = path.positionAt(t)
   }
   
-  private var initialDragOffset = CGPoint.zero
-  private var subviewDragActive = false
-  
   // Touch handler for the view that contains a smaller subview.  If user touches within the bounds
   // of the smaller subview, he can drag it around to a new location.
   //
   private func subviewTouchHandler(event:TouchEvent, view:View) -> Bool {
     let rel = event.locationRelativeToView(view)
     if event.type == .Down {
-      // TODO: refactor to use UserOperation class
-      subviewDragActive = false
       if (dragView.bounds.contains(rel)) {
-        initialDragOffset = CGPoint.difference(dragView.bounds.origin,rel)
-        subviewDragActive = true
-      }
-      return subviewDragActive
-    } else {
-      if subviewDragActive {
-        let padding : CGFloat = 4
-        let subviewPositionLimit = CGRect(padding,padding,256-64-padding*2,256-64-padding*2)
-        let adjustedDragLocation = CGPoint.sum(rel,initialDragOffset)
-        dragView.bounds.origin = subviewPositionLimit.clampPoint(adjustedDragLocation)
-        dragView.invalidate()
-      }
+        let oper = DragSubviewOperation(view,subview:dragView,touchOffset:CGPoint.difference(dragView.bounds.origin,rel))
+        oper.start(event)
+        return true
+			}
     }
     return false
   }
@@ -306,6 +293,34 @@ public class GLAppDelegate : AppDelegate {
 
   private func iconViewTextureProvider(name:String, size:CGPoint) -> Texture {
     return getTexture(name)
+  }
+  
+  public class DragSubviewOperation : UserOperation {
+    public init(_ parentView:View, subview:View, touchOffset:CGPoint) {
+      self.parentView = parentView
+      self.subview = subview
+      self.touchOffset = touchOffset
+      super.init()
+    }
+    
+    public override func processEvent(event: TouchEvent) {
+      if (event.type == .Up) {
+        complete()
+      } else {
+        let adjustedDragLocation = CGPoint.sum(event.locationRelativeToView(parentView),touchOffset)
+        var subviewPositionLimit = CGRect(origin:CGPoint.zero,size:parentView.bounds.size)
+        subviewPositionLimit.width -= subview.size.x
+        subviewPositionLimit.height -= subview.size.y
+        let padding : CGFloat = 20
+        subviewPositionLimit.inset(dx:padding,dy:padding)
+        subview.position = subviewPositionLimit.clampPoint(adjustedDragLocation)
+        subview.invalidate()
+      }
+    }
+    
+    private var parentView : View
+    private var subview : View
+    private var touchOffset = CGPoint.zero
   }
   
 }

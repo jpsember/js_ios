@@ -106,6 +106,8 @@ public class IconPanel : View {
     }
     
     public override func updateCursor(location: CGPoint) {
+      // TODO:
+      warning("initial press without drag places cursor at origin")
       if state != STATE_RUNNING {
         return
       }
