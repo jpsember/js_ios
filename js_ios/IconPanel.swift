@@ -15,6 +15,7 @@ public class IconPanel : View {
   public override init() {
     super.init()
     self.touchHandler = ourTouchHandler
+    unimp("how to automatically register panel for updating with each tick, but without causing memory leak")
   }
   
   public func getRow(index : Int) -> IconRow {
@@ -78,6 +79,12 @@ public class IconPanel : View {
       }
     }
     return (nil,nil)
+  }
+  
+  public func updateElements() {
+    for row in rows {
+      row.updateElements()
+    }
   }
   
   // Operation for moving an icon

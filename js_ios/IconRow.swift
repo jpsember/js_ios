@@ -1,7 +1,7 @@
 import Foundation
 
 // TODO: Figure out how to have class-level constants
-let PADDING = CGFloat(10)
+let PADDING = CGFloat(5)
 
 public typealias TextureProvider = (String, CGPoint) -> Texture
 
@@ -20,10 +20,31 @@ public class IconRow : View {
   
   public func addElement(element: IconElement) {
   	elements.append(element)
+    layout()
   }
   
   public func removeElement(index:Int) -> IconElement {
-    return elements.removeAtIndex(index)
+    let element = elements.removeAtIndex(index)
+    unimp("selectively set gap when element removed")
+    setGap(index)
+    layout()
+    return element
+  }
+  
+  public func setGap(position: Int) {
+    gapPosition = position
+  }
+  
+  public func updateElements() {
+    var changes = false
+    for e in elements {
+      if e.update() {
+        changes = true
+      }
+    }
+    if changes {
+    	invalidate()
+    }
   }
   
   // Determine which element, if any, is at a location;
@@ -51,19 +72,18 @@ public class IconRow : View {
     if !hasGap() {
       return 0
     }
-    return PADDING*3
+    return PADDING*1.2
   }
   
   
-  // Layout elements according to their target positions (without any animation)
+  // Layout elements according to their target positions
   //
   public func layout() {
   	let targetPos = calcTargetElementPositions()
     for var i = 0; i < elements.count; i++ {
       let pos = targetPos[i]
       let e = elements[i]
-    	e.position = pos
-      e.velocity = CGPoint.zero
+      e.targetPosition = pos
     }
   }
   

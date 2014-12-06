@@ -136,6 +136,9 @@ public class GLAppDelegate : AppDelegate {
         ourView.invalidate()
       }
     }
+    if (iconPanel != nil) {
+      iconPanel.updateElements()
+    }
   }
   
   private func updatePathLoc() {
@@ -246,7 +249,7 @@ public class GLAppDelegate : AppDelegate {
       // Generate
       var random = JSRandom(seed:12)
       for rowNumber in 0..<ICON_PANEL_TOTAL_ROWS {
-        let count = random.randomInt(3) + 2
+        let count = random.randomInt(3) + 5
         row = iconPanel.addRow()
         for i in 0..<count {
           let q = random.randomInt(CInt(names.count))
