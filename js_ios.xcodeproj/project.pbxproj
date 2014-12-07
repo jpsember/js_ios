@@ -76,7 +76,6 @@
 		F497C24F1A2A570300888187 /* tinted.png in Resources */ = {isa = PBXBuildFile; fileRef = F497C24E1A2A570300888187 /* tinted.png */; };
 		F497C2541A2A61F500888187 /* Ticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2531A2A61F500888187 /* Ticker.swift */; };
 		F497C2561A2AC02B00888187 /* TouchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2551A2AC02B00888187 /* TouchEvent.swift */; };
-		F497C2581A2AC64400888187 /* ManagedGLKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2571A2AC64400888187 /* ManagedGLKView.swift */; };
 		F497C25A1A2AD21800888187 /* Hermite.swift in Sources */ = {isa = PBXBuildFile; fileRef = F497C2591A2AD21800888187 /* Hermite.swift */; };
 		F49902271A23C8B300EC4D16 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49902261A23C8B300EC4D16 /* View.swift */; };
 		F4A3603D1A12C4B200F48E71 /* sample.png in Resources */ = {isa = PBXBuildFile; fileRef = F4A3603C1A12C4B200F48E71 /* sample.png */; };
@@ -100,6 +99,7 @@
 		F4F8DD091A1BE60900DB19EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD081A1BE60900DB19EB /* AppDelegate.swift */; };
 		F4F8DD0F1A1C362700DB19EB /* GLTintedSpriteProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */; };
 		F4F8DD111A1C43BE00DB19EB /* blob.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F8DD101A1C43BE00DB19EB /* blob.png */; };
+		F4FCAC5E1A34E56800D236D2 /* ManagedGLKView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FCAC5D1A34E56800D236D2 /* ManagedGLKView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,7 +204,6 @@
 		F497C24E1A2A570300888187 /* tinted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tinted.png; sourceTree = "<group>"; };
 		F497C2531A2A61F500888187 /* Ticker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ticker.swift; path = js_ios/Ticker.swift; sourceTree = SOURCE_ROOT; };
 		F497C2551A2AC02B00888187 /* TouchEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TouchEvent.swift; path = js_ios/TouchEvent.swift; sourceTree = SOURCE_ROOT; };
-		F497C2571A2AC64400888187 /* ManagedGLKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedGLKView.swift; sourceTree = SOURCE_ROOT; };
 		F497C2591A2AD21800888187 /* Hermite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Hermite.swift; path = js_ios/Hermite.swift; sourceTree = SOURCE_ROOT; };
 		F49902261A23C8B300EC4D16 /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = View.swift; path = js_ios/View.swift; sourceTree = SOURCE_ROOT; };
 		F4A3603C1A12C4B200F48E71 /* sample.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sample.png; sourceTree = "<group>"; };
@@ -232,6 +231,7 @@
 		F4F8DD0D1A1C362700DB19EB /* GLTintedSpriteProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GLTintedSpriteProgram.h; path = js_ios/GLTintedSpriteProgram.h; sourceTree = SOURCE_ROOT; };
 		F4F8DD0E1A1C362700DB19EB /* GLTintedSpriteProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GLTintedSpriteProgram.m; path = js_ios/GLTintedSpriteProgram.m; sourceTree = SOURCE_ROOT; };
 		F4F8DD101A1C43BE00DB19EB /* blob.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blob.png; sourceTree = "<group>"; };
+		F4FCAC5D1A34E56800D236D2 /* ManagedGLKView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ManagedGLKView.swift; path = js_ios/ManagedGLKView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -418,7 +418,7 @@
 				F497C2531A2A61F500888187 /* Ticker.swift */,
 				F49902261A23C8B300EC4D16 /* View.swift */,
 				F497C2481A268FFB00888187 /* ViewManager.swift */,
-				F497C2571A2AC64400888187 /* ManagedGLKView.swift */,
+				F4FCAC5D1A34E56800D236D2 /* ManagedGLKView.swift */,
 				F497C2551A2AC02B00888187 /* TouchEvent.swift */,
 				F4D8C1AC1A1BD2A00064A139 /* GLSprite.h */,
 				F4D8C1AD1A1BD2A00064A139 /* GLSprite.m */,
@@ -595,7 +595,6 @@
 				F4AA66E31A1701F30058452F /* GLAppDelegate.swift in Sources */,
 				1FE492291896F04700CF2FCB /* JSSimulator.m in Sources */,
 				F4AA66E01A1701F30058452F /* TextureTools.m in Sources */,
-				F497C2581A2AC64400888187 /* ManagedGLKView.swift in Sources */,
 				F48E46C61A2040800092E7C0 /* Math.swift in Sources */,
 				F4F8DD091A1BE60900DB19EB /* AppDelegate.swift in Sources */,
 				F48E46C51A2040800092E7C0 /* Base.swift in Sources */,
@@ -611,6 +610,7 @@
 				F413CA961A22860D00089841 /* DebugToolsSwift.swift in Sources */,
 				F479DCF41A2FAE9C00868517 /* IconRow.swift in Sources */,
 				F4AA66E41A1701F30058452F /* GLTools.swift in Sources */,
+				F4FCAC5E1A34E56800D236D2 /* ManagedGLKView.swift in Sources */,
 				1FE4922B1896F04700CF2FCB /* JSStackTrace.m in Sources */,
 				1FE4922D1896F04700CF2FCB /* JSDictionaryUtil.m in Sources */,
 				1FE492241896F04700CF2FCB /* JSQueue.m in Sources */,

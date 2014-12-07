@@ -5,8 +5,7 @@ public class IconElement : NSObject {
   // current position of element
   public var position = CGPoint.zero
   private var currentPositionDefined = false
-  
-  public var velocity = CGPoint.zero
+  private var velocity = CGPoint.zero
   
   // position this element would like to be at
 	public var targetPosition = CGPoint.zero
@@ -38,6 +37,9 @@ public class IconElement : NSObject {
     sprite.render(position)
   }
   
+  // Update position of element to move it towards its desired position;
+  // returns true if it has moved
+  //
   public func update() -> Bool {
     var changed = false
     
@@ -71,11 +73,8 @@ public class IconElement : NSObject {
   
   private func preparePath() {
     // If current path exists and is still valid, done
-    if (path != nil) {
-      if (path.p2 == targetPosition) {
-        return
-      }
-      path = nil
+    if (path != nil && path.p2 == targetPosition) {
+      return
     }
     path = HermitePath(pt1:position, pt2:targetPosition, v1:velocity, v2:CGPoint.zero)
     pathParameter = 0
