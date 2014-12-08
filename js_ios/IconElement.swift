@@ -2,34 +2,49 @@ import Foundation
 
 public class IconElement : NSObject {
 
-  // current position of element
-  public var position = CGPoint.zero
-  private var currentPositionDefined = false
-  private var velocity = CGPoint.zero
-  
   // position this element would like to be at
 	public var targetPosition = CGPoint.zero
-  
-  private var path : HermitePath!
-  private var pathParameter = CGFloat(0)
-  
-  private(set) var name : String
-  private(set) var size : CGPoint
   public var sprite : GLSprite!
   
+  // current position of element
+  private(set) var position = CGPoint.zero
+  private var currentPositionDefined = false
+  private var velocity = CGPoint.zero
+  private var path : HermitePath!
+  private var pathParameter = CGFloat(0)
+  private(set) var name : String
+  private(set) var size : CGPoint
+  
+  
+  // If name is empty, treats as a 'gap' placeholder (no sprite)
+  //
   public init(_ name : String, _ size: CGPoint) {
     self.name = name
     self.size = size
     super.init()
   }
 
+  public func setActualPosition(position:CGPoint, _ velocity: CGPoint = CGPoint.zero) {
+  	self.position = position
+    self.velocity = velocity
+  }
+  
   private let pathDuration = CGFloat(2)
   
   public override var description : String {
-    return "IconElement(\(name) pos:\(position))"
+    return "IconElement(\(name) pos:\(position) target:\(targetPosition) currposdef:\(currentPositionDefined))"
   }
 
+  public var isEmpty : Bool {
+    get {
+      return name.isEmpty
+    }
+  }
+  
   public func render(textureProvider : TextureProvider) {
+    if (isEmpty) {
+      return
+    }
     if (sprite == nil) {
       let texture = textureProvider(name,size)
       sprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
@@ -44,7 +59,7 @@ public class IconElement : NSObject {
     var changed = false
     
     if (!currentPositionDefined) {
-			position = targetPosition
+      setActualPosition(targetPosition)
       currentPositionDefined = true
       changed = true
     }
@@ -58,13 +73,11 @@ public class IconElement : NSObject {
     if (path != nil) {
       pathParameter += pathDuration / Ticker.sharedInstance().ticksPerSecond
       if (pathParameter >= 1.0) {
-        position = targetPosition
-        velocity = CGPoint.zero
+        setActualPosition(targetPosition)
       } else {
         
         let (pos, vel) = path.evaluateAt(pathParameter)
-        position = pos
-        velocity = vel
+        setActualPosition(pos,vel)
       }
     }
     changed = changed || (position != origPosition)

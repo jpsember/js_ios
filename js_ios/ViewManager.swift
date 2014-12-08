@@ -132,7 +132,10 @@ public class ViewManager : NSObject, GLKViewDelegate {
     // In order to plot a cursor in the root view, we must restore its transform matrix and whatnot
     rootView.preparePlot()
     
-    TouchOperation.currentOperation().updateCursor(touchCursorLocation)
+    let oper = TouchOperation.currentOperation()
+    if (oper.running) {
+   		oper.updateCursor(touchCursorLocation)
+    }
   }
   
   private func plotAux(parentView:View?, _ view:View) {

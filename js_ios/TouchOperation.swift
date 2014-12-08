@@ -1,13 +1,28 @@
 public class TouchOperation : NSObject {
   
-  public enum State {
+  public enum State : Printable {
   	case Running
     case Completed
     case Cancelled
+    
+    // This is kind of painful; can't find an automatic way of generating these strings
+    public var description : String {
+        switch self {
+        case .Running: return "Running"
+        case .Completed: return "Running"
+        case .Cancelled: return "Cancelled"
+      }
+    }
+
   }
   
-  public var state = State.Cancelled
-  
+  private var state = State.Cancelled
+  public var running : Bool {
+    get {
+      return state == .Running
+    }
+  }
+
   // Get the current operation; will always be defined, by using a default 'do-nothing'
   // operation if no other operation is active
   //
@@ -34,7 +49,7 @@ public class TouchOperation : NSObject {
   // If operation is currently running, set its state to COMPLETED, and set the default operation
   //
   public func complete() {
-    if (state == .Running) {
+    if (running) {
       state = .Completed
       TouchOperation.setCurrent(nil)
     }
@@ -43,7 +58,7 @@ public class TouchOperation : NSObject {
   // If operation is currently running, set its state to CANCELLED, and set the default operation
   //
   public func cancel() {
-    if (state == .Running) {
+    if (running) {
       state = .Cancelled
       TouchOperation.setCurrent(nil)
     }
@@ -73,6 +88,7 @@ public class TouchOperation : NSObject {
     public class func sharedInstance() -> DefaultOperation {
       if (S.singleton == nil) {
         S.singleton = DefaultOperation()
+        let r = State.Running
       }
       return S.singleton
     }

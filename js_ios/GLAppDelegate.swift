@@ -5,7 +5,7 @@ public class GLAppDelegate : AppDelegate {
   
   private let WITH_PATH = cond(false)
   private let WITH_ICONPANEL = cond(true)
-  private let ICON_PANEL_TOTAL_ROWS = 5
+  private let ICON_PANEL_TOTAL_ROWS = 3
 
   override public func buildView() -> UIView {
     let viewManager = ViewManager.construct(window!.bounds)
@@ -261,7 +261,6 @@ public class GLAppDelegate : AppDelegate {
           row.addElement(element)
         }
       }
-      iconPanel.layoutRows()
     }
 
   }

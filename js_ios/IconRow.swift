@@ -11,31 +11,38 @@ public class IconRow : View {
   
   private(set) var panel : IconPanel
   
-  // Temporarily made public
-  public var gapPosition = -1
+  // locations of vertical boundaries between icons, forming a partition of the row's bounding rectangle
+  private var rowPartition = Array<CGFloat> ()
 
+  private var modified  = false
+  
   public init(_ panel:IconPanel) {
     self.panel = panel
   }
   
   public func addElement(element: IconElement) {
   	elements.append(element)
-    layout()
+    modified = true
+  }
+  
+  public var count : Int {
+    get {
+      return elements.count
+    }
+  }
+  
+  public func insert(element: IconElement, atIndex: Int) {
+    elements.insert(element, atIndex: atIndex)
+    modified = true
   }
   
   public func removeElement(index:Int) -> IconElement {
-    let element = elements.removeAtIndex(index)
-    unimp("selectively set gap when element removed")
-    setGap(index)
-    layout()
-    return element
-  }
-  
-  public func setGap(position: Int) {
-    gapPosition = position
+    modified = true
+    return elements.removeAtIndex(index)
   }
   
   public func updateElements() {
+    layout()
     var changes = false
     for e in elements {
       if e.update() {
@@ -49,9 +56,28 @@ public class IconRow : View {
   
   // Determine which element, if any, is at a location;
   // returns index of element, or -1
-  public func elementAt(location:CGPoint) -> Int {
-    for var i = 0; i < elements.count; i++ {
-      let e = elements[i]
+  //
+  // If omitPadding is true, restricts target region to be sprite's bounding rectangle,
+  // which varies by sprite heights and omits the padding between adjacent sprites.
+  // Otherwise, expands each region to be the height of the IconRow, and to be flush with the
+  // regions to each side
+  //
+  public func elementAt(location:CGPoint,omitPadding:Bool) -> Int {
+    if (!omitPadding) {
+      if (location.y < 0 || location.y >= self.bounds.height) {
+        return -1
+      }
+      var slot = -1
+      for (i,x) in enumerate(rowPartition) {
+        if (location.x < x) {
+          slot = i
+          break
+        }
+      }
+      return slot
+    }
+    
+    for (i,e) in enumerate(elements) {
       let r = CGRect(origin:e.position,size:e.size)
       if r.contains(location) {
         return i
@@ -64,52 +90,44 @@ public class IconRow : View {
     return elements[index]
   }
   
-  private func hasGap() -> Bool {
-    return gapPosition >= 0
-  }
-  
-  private func gapWidth() -> CGFloat {
-    if !hasGap() {
-      return 0
-    }
-    return PADDING*1.2
-  }
-  
-  
   // Layout elements according to their target positions
   //
-  public func layout() {
+  private func layout() {
+    if !modified {
+      return
+    }
   	let targetPos = calcTargetElementPositions()
-    for var i = 0; i < elements.count; i++ {
+    for (i,e) in enumerate(elements) {
       let pos = targetPos[i]
-      let e = elements[i]
       e.targetPosition = pos
     }
+    modified = false
   }
   
-  // Determine element positions given current elements, gap position
+  // Determine element positions given current elements
   //
   private func calcTargetElementPositions() -> Array<CGPoint> {
+    
+    rowPartition.removeAll()
+    
     var elemPos = Array<CGPoint>()
     
     if elements.count > 0 {
 	    var totalWidth = totalElementWidth()
-      totalWidth += PADDING * CGFloat(elements.count-1)
-      if (gapPosition >= 0) {
-        totalWidth += gapWidth() + PADDING
-      }
+      totalWidth += PADDING * CGFloat(elements.count)
     
       var x = (bounds.width - totalWidth) / 2
       for var i = 0; i < elements.count; i++ {
-				let e = elements[i]
-        if i == gapPosition {
-          x += gapWidth() + PADDING
+        if i > 0 {
+          rowPartition.append(x)
         }
-        let pos = CGPoint(x,(bounds.height - e.size.y)/2)
+				let e = elements[i]
+        let pos = CGPoint(x + PADDING/2,(bounds.height - e.size.y)/2)
         elemPos.append(pos)
         x += PADDING + e.size.x
       }
     }
+    rowPartition.append(bounds.width)
     
     return elemPos
   }
