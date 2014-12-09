@@ -31,7 +31,7 @@ public class IconElement : NSObject {
     path = nil
   }
   
-  private let pathDuration = CGFloat(2)
+  private let pathDurationInSeconds = CGFloat(0.3)
   
   public override var description : String {
     return "IconElement(\(name) pos:\(position) target:\(targetPosition) currposdef:\(currentPositionDefined))"
@@ -72,7 +72,7 @@ public class IconElement : NSObject {
     }
     
     if (path != nil) {
-      pathParameter += pathDuration / Ticker.sharedInstance().ticksPerSecond
+      pathParameter += 1.0 / (pathDurationInSeconds * Ticker.sharedInstance().ticksPerSecond)
       if (pathParameter >= 1.0) {
         setActualPosition(targetPosition)
       } else {

@@ -36,31 +36,36 @@ public class IconPanel : View {
     }
   }
 
-  // Find which icon, if any, is at a touch location;
-  // if found, returns (rowIndex, elementIndex, offset, iconFlag); else (-1,-1,false,nil)
-  // If elementIndex == row.count, iconFlag is false and offset is nil; else
-  //  offset = element position - touch location
+  // Private properties and methods
+  
+  // Find which icon, if any, is at a touch location; returns nil if none
   //
-  public func findTouchedIcon(event:TouchEvent, omitPadding:Bool) -> (Int, Int, Bool, CGPoint!) {
+  private func findTouchedIcon(event:TouchEvent) -> Touch! {
     let (rowIndex,position) = rowContainingPoint(event.locationRelativeToView(self))
     var elementIndex = -1
     var iconFlag = false
-    var offset : CGPoint? = nil
     if (rowIndex >= 0) {
       let row = rows[rowIndex]
-      elementIndex = row.elementAt(position,omitPadding:omitPadding)
+      elementIndex = row.elementAt(position,omitPadding:true)
       if elementIndex >= 0 {
-        iconFlag = elementIndex < row.count
-        if iconFlag {
-          let element = row.getElement(elementIndex)
-          offset = CGPoint.difference(position,element.position)
-        }
+        let element = row.getElement(elementIndex)
+        return Touch(rowIndex: rowIndex, elementIndex: elementIndex, touchOffset: CGPoint.difference(position,element.position))
       }
     }
-    return (rowIndex,elementIndex,iconFlag,offset)
+    return nil
   }
   
-	// Private properties and methods
+  // Find which icon, if any, is at a touch location; if none, touch row and element indexes are both -1
+  //
+  private func findTouchedCell(event:TouchEvent) -> Touch {
+    let (rowIndex,position) = rowContainingPoint(event.locationRelativeToView(self))
+    var elementIndex = -1
+    if (rowIndex >= 0) {
+      let row = rows[rowIndex]
+      elementIndex = row.elementAt(position,omitPadding:false)
+    }
+    return Touch(rowIndex:rowIndex, elementIndex:elementIndex)
+  }
   
   private var rows = Array<IconRow> ()
   
@@ -95,43 +100,50 @@ public class IconPanel : View {
     return (-1,nil)
   }
   
+  // Encompasses information about which icon is under touch location
+  //
+  internal struct Touch {
+    var rowIndex : Int
+    var elementIndex : Int
+    var touchOffset : CGPoint
+    
+    init(rowIndex:Int, elementIndex:Int, touchOffset:CGPoint = CGPoint.zero) {
+      self.rowIndex = rowIndex
+      self.elementIndex = elementIndex
+      self.touchOffset = touchOffset
+    }
+  }
+
   // Operation for moving an icon
   //
-  public class MoveIconOperation : TouchOperation {
+  internal class MoveIconOperation : TouchOperation {
     
     // Public overrides of TouchOperation methods
     
-    public override func start(event : TouchEvent) {
-      let (rowIndex,elementIndex,iconFlag,touchOffset) = iconPanel.findTouchedIcon(event,omitPadding:true)
-      if (!iconFlag) {
-        warning("unexpected")
-        cancel()
-        return
-      }
-      originalRowIndex = rowIndex
-      originalElementIndex = elementIndex
-      activeRowIndex = rowIndex
-      activeElementIndex = elementIndex
-     	self.touchOffset = touchOffset
+    override func start(event : TouchEvent) {
+      // Ignore the event passed in, since we've already constructed initialTouch from it
       
-      let row = iconPanel.row(rowIndex)
-      dragElement = row.removeElement(elementIndex)
+      activeRowIndex = initialTouch.rowIndex
+      activeElementIndex = initialTouch.elementIndex
+      
+      let row = iconPanel.row(activeRowIndex)
+      dragElement = row.removeElement(activeElementIndex)
       let newElement = IconElement("",CGPoint(dragElement.size.x,20))
       insertElement(activeRowIndex,activeElementIndex,newElement)
       
       super.start(event)
     }
     
-    public override func cancel() {
+    override func cancel() {
       if (!running) {
         return
       }
       removeElement(activeRowIndex,activeElementIndex)
-      updateDragElementPositionForRow(originalRowIndex)
-      insertElement(originalRowIndex,originalElementIndex,dragElement)
+      updateDragElementPositionForRow(initialTouch.rowIndex)
+      insertElement(initialTouch.rowIndex,initialTouch.elementIndex,dragElement)
     }
     
-    public override func complete() {
+    override func complete() {
       unimp("simulate cancel for test purposes")
       removeElement(activeRowIndex,activeElementIndex)
       // TODO: it may end up being clipped to the row bounds; maybe disable clipping for IconRows
@@ -140,63 +152,61 @@ public class IconPanel : View {
       super.complete()
     }
     
-    public override func processEvent(event: TouchEvent) {
+    override func processEvent(event: TouchEvent) {
       if (event.type == .Up) {
         complete()
         return
       }
       
+      // Store the event in case we later plot a cursor icon
       dragEvent = event
       
-      let (newRowIndex,newElementIndex,iconFlag,_) = iconPanel.findTouchedIcon(event,omitPadding:false)
-      if (newRowIndex != activeRowIndex) {
+      let touchedCell = iconPanel.findTouchedCell(event)
+      
+      if (touchedCell.rowIndex != activeRowIndex) {
         // Remove gap, if one exists
         removeElement(activeRowIndex,activeElementIndex)
         activeElementIndex = -1
-        activeRowIndex = newRowIndex
+        activeRowIndex = touchedCell.rowIndex
       }
       
-      if (activeRowIndex >= 0 && newElementIndex != activeElementIndex) {
+      if (activeRowIndex >= 0 && touchedCell.elementIndex != activeElementIndex) {
         // Don't allow user to attempt to move last element in a row to its right
-        if activeElementIndex == iconPanel.row(activeRowIndex).count - 1 && newElementIndex > activeElementIndex {
+        if activeElementIndex == iconPanel.row(activeRowIndex).count - 1 && touchedCell.elementIndex > activeElementIndex {
           return
         }
         removeElement(activeRowIndex,activeElementIndex)
         activeElementIndex = -1
         
-        if newElementIndex >= 0 {
+        activeElementIndex = touchedCell.elementIndex
+        if activeElementIndex >= 0 {
           let newElement = IconElement("",CGPoint(dragElement.size.x,20))
-          insertElement(activeRowIndex,newElementIndex,newElement)
+          insertElement(activeRowIndex,activeElementIndex,newElement)
         }
-        activeElementIndex = newElementIndex
       }
     }
     
-    public override func updateCursor(location: CGPoint) {
+    override func updateCursor(location: CGPoint) {
       let sprite = dragElement.sprite
-      let loc = CGPoint.difference(dragEvent.absoluteLocation,touchOffset)
+      let loc = CGPoint.difference(dragEvent.absoluteLocation,initialTouch.touchOffset)
       dragCursorPosition = loc
       sprite.render(loc)
     }
-    
-    public override var description : String {
-      return "MoveIConOperation(activeRow/Element \(activeRowIndex)/\(activeElementIndex) original \(originalRowIndex)/\(originalElementIndex))"
-    }
-    
     
     // Construct an operation, if possible, for a DOWN event in an IconPanel
     // Returns operation, or nil
     //
     private class func constructForTouchEvent(event:TouchEvent, _ iconPanel:IconPanel) -> MoveIconOperation! {
       var ret : MoveIconOperation! = nil
-      let (_,_,iconFlag,_) = iconPanel.findTouchedIcon(event,omitPadding:true)
-      if iconFlag {
-        ret = MoveIconOperation(iconPanel)
+      let touchedIcon = iconPanel.findTouchedIcon(event)
+      if touchedIcon != nil {
+        ret = MoveIconOperation(iconPanel,touchedIcon)
       }
       return ret
     }
     
-    private init(_ iconPanel:IconPanel) {
+    private init(_ iconPanel:IconPanel, _ initialTouch:Touch) {
+      self.initialTouch = initialTouch
       self.iconPanel = iconPanel
       super.init()
     }
@@ -233,14 +243,13 @@ public class IconPanel : View {
     }
     
     private var iconPanel : IconPanel
+    // Touch associated with initial Down event
+    private var initialTouch : Touch
+    private var dragElement : IconElement!
     private var activeElementIndex : Int = -1
     private var activeRowIndex : Int = -1
-    private var touchOffset = CGPoint.zero
     private var dragCursorPosition : CGPoint!
     private var dragEvent : TouchEvent!
-    private var dragElement : IconElement!
-    private var originalRowIndex : Int = -1
-    private var originalElementIndex : Int = -1
   }
   
 }
