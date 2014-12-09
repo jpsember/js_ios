@@ -47,7 +47,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
   
   // Request that the base UIView gets redrawn
   //
-  private func setNeedsDisplay() {
+  public func setNeedsDisplay() {
     needsDisplayFlag = true
   }
   

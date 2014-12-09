@@ -8,17 +8,19 @@ public class HermitePath : NSObject {
   private(set) var p2 : CGPoint
   private(set) var v1 : CGPoint
   private(set) var v2 : CGPoint
-
+  private(set) var parameter : CGFloat
+  
   /*
 	 * Construct hermite path from one point to another
-	 * > pt1, pt2  start and finish points
+	 * > p1, p2  start and finish points
 	 * > v1, v2    velocities at start, finish points, in pixels per second
 	 */
-  public init(pt1:CGPoint, pt2:CGPoint, v1:CGPoint, v2:CGPoint) {
-    self.p1 = pt1
-    self.p2 = pt2
+  public init(p1:CGPoint, p2:CGPoint, v1:CGPoint = CGPoint.zero, v2:CGPoint = CGPoint.zero) {
+    self.p1 = p1
+    self.p2 = p2
     self.v1 = v1
     self.v2 = v2
+    self.parameter = 0
   }
   
   // Evalulate position and velocity along path, given parameter t (0..1);
@@ -26,6 +28,18 @@ public class HermitePath : NSObject {
   //
   public func evaluateAt(t:CGFloat) -> (CGPoint, CGPoint) {
     return (positionAt(t), velocityAt(t))
+  }
+  
+  public func update(pathLengthInSeconds:CGFloat) -> Bool {
+    var t = parameter
+    let tOrig = t
+  	t += 1.0 / (pathLengthInSeconds * Ticker.sharedInstance().ticksPerSecond)
+    parameter = clamp(t,0,1.0)
+    return t != tOrig
+  }
+  
+  public var position : CGPoint {
+  	return positionAt(parameter)
   }
   
   // Evalulate position along path, given parameter t (0..1);

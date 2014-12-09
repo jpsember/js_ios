@@ -90,7 +90,7 @@ public class IconElement : NSObject {
     if (path != nil && path.p2 == targetPosition) {
       return
     }
-    path = HermitePath(pt1:position, pt2:targetPosition, v1:velocity, v2:CGPoint.zero)
+    path = HermitePath(p1:position, p2:targetPosition, v1:velocity)
     pathParameter = 0
   }
   

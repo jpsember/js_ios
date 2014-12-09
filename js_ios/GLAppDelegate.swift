@@ -148,8 +148,8 @@ public class GLAppDelegate : AppDelegate {
       let p2 = CGPoint(600,120)
       let v1 = CGPoint(-300,0)
       let v2 = CGPoint(768,120)
-      path1 = HermitePath(pt1:p1,pt2:p2,v1:v1,v2:v2)
-      path2 = HermitePath(pt1:p2,pt2:p1,v1:v2,v2:v1)
+      path1 = HermitePath(p1:p1,p2:p2,v1:v1,v2:v2)
+      path2 = HermitePath(p1:p2,p2:p1,v1:v2,v2:v1)
     }
     
 		pathFrame++

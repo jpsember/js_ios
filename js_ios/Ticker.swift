@@ -37,6 +37,8 @@ public class Ticker : NSObject {
       }
     }
     
+    TouchOperation.currentOperation().updateLogic()
+    
     logicCallback()
     
     let m = ViewManager.sharedInstance()

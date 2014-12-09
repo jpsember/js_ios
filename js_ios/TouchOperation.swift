@@ -41,6 +41,11 @@ public class TouchOperation : NSObject {
     processEvent(event)
   }
   
+  // Update operation for logic tick; default implementation does nothing
+  //
+  public func updateLogic() {
+  }
+  
   // Process a touch event; default implementation does nothing
   //
   public func processEvent(touchEvent:TouchEvent) {
