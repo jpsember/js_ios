@@ -34,6 +34,12 @@ public class IconPanel : View {
     for row in rows {
       row.updateElements()
     }
+    
+    // If current operation is one of ours, update cursor (TODO: figure out better way of doing this automatically)
+    if let oper = TouchOperation.currentOperation() as? MoveIconOperation {
+      oper.updateHover()
+    }
+    
   }
 
   // Private properties and methods
@@ -131,6 +137,9 @@ public class IconPanel : View {
       let newElement = IconElement("",CGPoint(dragElement.size.x,20))
       insertElement(activeRowIndex,activeElementIndex,newElement)
       
+      hoverPath = HermitePath(pt1:CGPoint.zero, pt2:CGPoint(0,18), v1:CGPoint.zero, v2:CGPoint.zero)
+      hoverPathParameter = 0
+
       super.start(event)
     }
     
@@ -188,9 +197,19 @@ public class IconPanel : View {
     
     override func updateCursor(location: CGPoint) {
       let sprite = dragElement.sprite
-      let loc = CGPoint.difference(dragEvent.absoluteLocation,initialTouch.touchOffset)
+      var loc = CGPoint.difference(dragEvent.absoluteLocation,initialTouch.touchOffset)
+      
+      let (pos, _) = hoverPath.evaluateAt(hoverPathParameter)
+			loc.add(pos)
+      
       dragCursorPosition = loc
       sprite.render(loc)
+    }
+    
+    func updateHover() {
+      let pathDurationInSeconds : CGFloat = 0.3
+      hoverPathParameter += 1.0 / (pathDurationInSeconds * Ticker.sharedInstance().ticksPerSecond)
+      hoverPathParameter = clamp(hoverPathParameter,0,1)
     }
     
     // Construct an operation, if possible, for a DOWN event in an IconPanel
@@ -250,6 +269,9 @@ public class IconPanel : View {
     private var activeRowIndex : Int = -1
     private var dragCursorPosition : CGPoint!
     private var dragEvent : TouchEvent!
+    
+    private var hoverPath : HermitePath!
+    private var hoverPathParameter : CGFloat = 0
   }
   
 }
