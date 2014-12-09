@@ -15,7 +15,6 @@ public class IconElement : NSObject {
   private(set) var name : String
   private(set) var size : CGPoint
   
-  
   // If name is empty, treats as a 'gap' placeholder (no sprite)
   //
   public init(_ name : String, _ size: CGPoint) {
@@ -24,9 +23,12 @@ public class IconElement : NSObject {
     super.init()
   }
 
-  public func setActualPosition(position:CGPoint, _ velocity: CGPoint = CGPoint.zero) {
+  // Set element's actual position; clears velocity to zero, and disposes of any path
+  //
+  public func setActualPosition(position:CGPoint) {
   	self.position = position
-    self.velocity = velocity
+    self.velocity = CGPoint.zero
+    path = nil
   }
   
   private let pathDuration = CGFloat(2)
@@ -57,7 +59,6 @@ public class IconElement : NSObject {
   //
   public func update() -> Bool {
     var changed = false
-    
     if (!currentPositionDefined) {
       setActualPosition(targetPosition)
       currentPositionDefined = true
@@ -66,7 +67,7 @@ public class IconElement : NSObject {
     
     let origPosition = position
     
-    if (position != targetPosition || velocity != CGPoint.zero) {
+    if (!(position == targetPosition && velocity == CGPoint.zero)) {
       preparePath()
     }
     
@@ -75,12 +76,12 @@ public class IconElement : NSObject {
       if (pathParameter >= 1.0) {
         setActualPosition(targetPosition)
       } else {
-        
         let (pos, vel) = path.evaluateAt(pathParameter)
-        setActualPosition(pos,vel)
+        self.position = pos
+        self.velocity = vel
       }
     }
-    changed = changed || (position != origPosition)
+		changed = changed || (position != origPosition)
     return changed
   }
   
@@ -92,6 +93,5 @@ public class IconElement : NSObject {
     path = HermitePath(pt1:position, pt2:targetPosition, v1:velocity, v2:CGPoint.zero)
     pathParameter = 0
   }
-  
   
 }

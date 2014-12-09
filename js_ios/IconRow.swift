@@ -11,7 +11,9 @@ public class IconRow : View {
   
   private(set) var panel : IconPanel
   
-  // locations of vertical boundaries between icons, forming a partition of the row's bounding rectangle
+  // locations of vertical boundaries between icons, forming a partition of the row's bounding rectangle.
+  // There are n+1 partitions for n icons; the last partition is always the width of the row
+  
   private var rowPartition = Array<CGFloat> ()
 
   private var modified  = false
@@ -55,7 +57,7 @@ public class IconRow : View {
   }
   
   // Determine which element, if any, is at a location;
-  // returns index of element, or -1
+  // returns index of element, or -1; may return n, where n is the number of elements
   //
   // If omitPadding is true, restricts target region to be sprite's bounding rectangle,
   // which varies by sprite heights and omits the padding between adjacent sprites.
@@ -118,17 +120,14 @@ public class IconRow : View {
     
       var x = (bounds.width - totalWidth) / 2
       for var i = 0; i < elements.count; i++ {
-        if i > 0 {
-          rowPartition.append(x)
-        }
 				let e = elements[i]
         let pos = CGPoint(x + PADDING/2,(bounds.height - e.size.y)/2)
         elemPos.append(pos)
         x += PADDING + e.size.x
+        rowPartition.append(x)
       }
     }
-    rowPartition.append(bounds.width)
-    
+		rowPartition.append(bounds.width)
     return elemPos
   }
   
