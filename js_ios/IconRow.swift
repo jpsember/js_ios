@@ -20,6 +20,8 @@ public class IconRow : View {
   
   public init(_ panel:IconPanel) {
     self.panel = panel
+    super.init()
+    performClipping = false
   }
   
   public func addElement(element: IconElement) {

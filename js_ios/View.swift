@@ -40,6 +40,9 @@ public class View : NSObject {
   // If cacheable, view is rendered to an offscreen buffer and plotted from there
   public var cacheable = false
   
+  // Clip content to bounds (if not cacheable)?
+  public var performClipping = true
+  
   public var children: Array<View> = []
   
   // The optional handler for touch events.  The event location is relative to this view's coordinate system.
@@ -101,11 +104,15 @@ public class View : NSObject {
       }
       plotCachedTexture()
     } else {
-      // Clip rendering to this view's bounds
-      glEnable(GLenum(GL_SCISSOR_TEST))
-      glScissor(GLint(absolutePosition.x),GLint(absolutePosition.y),GLint(bounds.size.width),GLint(bounds.size.height));
+      if (performClipping) {
+        // Clip rendering to this view's bounds
+        glEnable(GLenum(GL_SCISSOR_TEST))
+        glScissor(GLint(absolutePosition.x),GLint(absolutePosition.y),GLint(bounds.size.width),GLint(bounds.size.height));
+      }
       plotHandler(self)
-      glDisable(GLenum(GL_SCISSOR_TEST))
+      if (performClipping) {
+        glDisable(GLenum(GL_SCISSOR_TEST))
+      }
     }
     renderedViewValid = true
   }
