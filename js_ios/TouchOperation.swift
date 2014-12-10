@@ -1,4 +1,4 @@
-public class TouchOperation : NSObject {
+public class TouchOperation : NSObject, LogicProtocol {
   
   public enum State : Printable {
   	case Running

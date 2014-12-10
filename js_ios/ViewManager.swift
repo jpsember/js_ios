@@ -200,9 +200,31 @@ public class ViewManager : NSObject, GLKViewDelegate {
     }
     return nil
   }
+
+  // Add a LogicProtocol object listener
+  //
+  public func addListener(listener:LogicProtocol) {
+    listeners.addObject(listener)
+  }
+  
+  // Remove a LogicProtocol object listener
+  //
+  public func removeListener(listener:LogicProtocol) {
+    listeners.removeObject(listener)
+  }
+  
+  // Have all LogicProtocol listeners perform a logic update
+  //
+  public func updateLogicListeners() {
+    for e in listeners {
+			e.updateLogic()
+    }
+  }
   
   // true if a touch event is being processed ('down' event has occurred, and no matching 'up' has yet occurred)
   private var touchEventActive  = false
   // View that responded to initial 'down' event (if touch event is active)
   private var touchEventView : View!
+  
+  private var listeners : NSMutableSet = NSMutableSet()
 }

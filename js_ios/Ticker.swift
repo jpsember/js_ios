@@ -38,10 +38,11 @@ public class Ticker : NSObject {
     }
     
     TouchOperation.currentOperation().updateLogic()
+    let m = ViewManager.sharedInstance()
+    m.updateLogicListeners()
     
     logicCallback()
     
-    let m = ViewManager.sharedInstance()
     m.validate()
   }
 

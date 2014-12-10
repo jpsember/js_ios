@@ -71,6 +71,7 @@ public class GLAppDelegate : AppDelegate {
       iconPanel.textureProvider = iconViewTextureProvider
       iconPanel.position = CGPoint(300,250)
       view.add(iconPanel)
+      viewManager.addListener(iconPanel)
     }
     
     startTicker()
@@ -135,9 +136,6 @@ public class GLAppDelegate : AppDelegate {
         updatePathLoc()
         ourView.invalidate()
       }
-    }
-    if (iconPanel != nil) {
-      iconPanel.updateLogic()
     }
   }
   

@@ -1,4 +1,4 @@
-public class IconPanel : View {
+public class IconPanel : View, LogicProtocol {
   
   // Public properties
   
