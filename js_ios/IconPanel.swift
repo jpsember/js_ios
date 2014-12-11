@@ -132,6 +132,9 @@ public class IconPanel : View, LogicProtocol {
       if (hoverPath != nil) {
         if hoverPath.update(hoverBumpPathDuration) {
           ViewManager.sharedInstance().setNeedsDisplay()
+          dragElement.currentScale = scaleStart + (scaleEnd - scaleStart) * hoverPath.parameter
+        } else {
+          hoverPath = nil
         }
       }
     }
@@ -147,9 +150,11 @@ public class IconPanel : View, LogicProtocol {
       dragElement = row.removeElement(activeTouch.elementIndex)
       let newElement = IconElement("",CGPoint(dragElement.size.x,20))
       insertElement(activeTouch,newElement)
+      scaleStart = dragElement.currentScale
+      scaleEnd = 1.5
       
       hoverPath = HermitePath(p1:CGPoint.zero, p2:CGPoint(0,18))
-
+      
       super.start(event)
     }
     
@@ -157,6 +162,7 @@ public class IconPanel : View, LogicProtocol {
       if (!running) {
         return
       }
+      dragElement.targetScale = 1.0
       removeElement(activeTouch)
       updateDragElementPositionForRow(initialTouch)
       insertElement(initialTouch,dragElement)
@@ -165,7 +171,7 @@ public class IconPanel : View, LogicProtocol {
     override func complete() {
       unimp("simulate cancel for test purposes")
       removeElement(activeTouch)
-      // TODO: it may end up being clipped to the row bounds; maybe disable clipping for IconRows
+      dragElement.targetScale = 1.0
       updateDragElementPositionForRow(activeTouch)
       insertElement(activeTouch,dragElement)
       super.complete()
@@ -212,11 +218,9 @@ public class IconPanel : View, LogicProtocol {
     override func updateCursor(location: CGPoint) {
       let sprite = dragElement.sprite
       var loc = CGPoint.difference(dragEvent.absoluteLocation,initialTouch.touchOffset)
-      
       loc.add(hoverPath.position)
-      
       dragCursorPosition = loc
-      sprite.render(loc)
+      dragElement.renderSpriteAt(loc)
     }
     
     // Construct an operation, if possible, for a DOWN event in an IconPanel
@@ -272,6 +276,9 @@ public class IconPanel : View, LogicProtocol {
     private var dragCursorPosition : CGPoint!
     private var dragEvent : TouchEvent!
     private var hoverPath : HermitePath!
+    private var scaleStart : CGFloat = 0
+    private var scaleEnd : CGFloat = 0
+    
   }
   
 }

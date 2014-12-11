@@ -3,11 +3,12 @@
 
 @interface GLSprite ()
 {
-    GLfloat _vertexInfo[TOTAL_VERTICES * TOTAL_COMPONENTS];
+	GLfloat _vertexInfo[TOTAL_VERTICES * TOTAL_COMPONENTS];
 }
 
 @property (nonatomic, assign) CGRect textureWindow;
 @property (nonatomic, strong) GLSpriteProgram *program;
+@property (nonatomic, assign) BOOL vertexInfoValid;
 
 @end
 
@@ -24,14 +25,23 @@
     _program = program;
     _texture = texture;
     _textureWindow = textureWindow;
-    [self constructVertexInfo];
+    _vertexInfoValid = NO;
+    _scale = 1.0;
   }
   return self;
 }
 
+- (void)setScale:(CGFloat)scale {
+  if (scale != _scale) {
+    _scale = scale;
+    _vertexInfoValid = NO;
+  }
+}
+
 - (void)constructVertexInfo {
+  
   CGPoint p0 = CGPointMake(0,0);
-  CGPoint p2 = CGPointMake(_textureWindow.size.width,_textureWindow.size.height);
+  CGPoint p2 = CGPointMake(_textureWindow.size.width * self.scale,_textureWindow.size.height * self.scale);
   CGPoint p1 = CGPointMake(p2.x,p0.y);
   CGPoint p3 = CGPointMake(p0.x,p2.y);
   
@@ -51,9 +61,16 @@
   M(p0);M(t0);M(p1);M(t1);M(p2);M(t2);
   M(p0);M(t0);M(p2);M(t2);M(p3);M(t3);
 #undef M
+  
+  self.vertexInfoValid = YES;
 }
 
 - (void)render:(CGPoint)position {
+  
+  if (!self.vertexInfoValid) {
+    [self constructVertexInfo];
+  }
+  
   [self.program renderSprite:self.texture vertexData:_vertexInfo
                   dataLength:(TOTAL_VERTICES * TOTAL_COMPONENTS)
                     position:position];

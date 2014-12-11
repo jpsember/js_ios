@@ -4,6 +4,7 @@
 @interface GLSprite : NSObject
 
 @property (nonatomic, readonly, strong) Texture *texture;
+@property (nonatomic, assign) CGFloat scale;
 
 /**
  * Designated initializer

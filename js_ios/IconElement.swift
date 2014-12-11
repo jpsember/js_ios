@@ -5,13 +5,17 @@ public class IconElement : NSObject {
   // position this element would like to be at
 	public var targetPosition = CGPoint.zero
   public var sprite : GLSprite!
+  public var targetScale : CGFloat = 1
+  public var currentScale : CGFloat = 1
   
   // current position of element
   private(set) var position = CGPoint.zero
   private var currentPositionDefined = false
   private var velocity = CGPoint.zero
   private var path : HermitePath!
-  private var pathParameter = CGFloat(0)
+  private var scaleAnimStart = CGFloat(1)
+  private var scaleAnimEnd = CGFloat(1)
+  
   private(set) var name : String
   private(set) var size : CGPoint
   
@@ -51,7 +55,16 @@ public class IconElement : NSObject {
       let texture = textureProvider(name,size)
       sprite = GLSprite(texture:texture, window:texture.bounds, program:nil)
     }
-    sprite.render(position)
+    renderSpriteAt(position)
+  }
+  
+  public func renderSpriteAt(position:CGPoint) {
+    ASSERT(sprite != nil)
+    sprite.scale = currentScale
+    let cx = sprite.texture.bounds.width / 2
+    let cy = sprite.texture.bounds.height / 2
+		let scaledPosition = CGPoint(position.x + cx * (1 - currentScale), position.y + cy * (1 - currentScale))
+		sprite.render(scaledPosition)
   }
   
   // Update position of element to move it towards its desired position;
@@ -67,31 +80,34 @@ public class IconElement : NSObject {
     
     let origPosition = position
     
-    if (!(position == targetPosition && velocity == CGPoint.zero)) {
+    if (!(position == targetPosition && velocity == CGPoint.zero && currentScale == targetScale)) {
       preparePath()
     }
     
     if (path != nil) {
-      pathParameter += 1.0 / (pathDurationInSeconds * Ticker.sharedInstance().ticksPerSecond)
-      if (pathParameter >= 1.0) {
+      changed = true
+      if (!path.update(pathDurationInSeconds)) {
         setActualPosition(targetPosition)
+        currentScale = targetScale
       } else {
-        let (pos, vel) = path.evaluateAt(pathParameter)
+        let (pos, vel) = path.evaluateAt(path.parameter)
         self.position = pos
         self.velocity = vel
+        currentScale = scaleAnimStart + (scaleAnimEnd - scaleAnimStart) * path.parameter
+        path = nil
       }
     }
-		changed = changed || (position != origPosition)
-    return changed
+		return changed
   }
   
   private func preparePath() {
     // If current path exists and is still valid, done
-    if (path != nil && path.p2 == targetPosition) {
+    if (path != nil && path.p2 == targetPosition && scaleAnimEnd == targetScale) {
       return
     }
     path = HermitePath(p1:position, p2:targetPosition, v1:velocity)
-    pathParameter = 0
+    scaleAnimStart = currentScale
+    scaleAnimEnd = targetScale
   }
   
 }
