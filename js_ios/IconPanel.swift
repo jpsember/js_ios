@@ -140,17 +140,6 @@ public class IconPanel : View, LogicProtocol {
     
     private let hoverBumpPathDuration = CGFloat(0.2)
 
-    override func updateLogic() {
-      if (hoverPath != nil) {
-        if hoverPath.update(hoverBumpPathDuration) {
-          ViewManager.sharedInstance().setNeedsDisplay()
-          dragElement.currentScale = scaleStart + (scaleEnd - scaleStart) * hoverPath.parameter
-        } else {
-          hoverPath = nil
-        }
-      }
-    }
-
     // Public overrides of TouchOperation methods
     
     override func start(event : TouchEvent) {
@@ -159,44 +148,54 @@ public class IconPanel : View, LogicProtocol {
       activeTouch = initialTouch
       
       let row = iconPanel.row(activeTouch.rowIndex)
-      dragElement = row.removeElement(activeTouch.elementIndex)
-      let newElement = IconElement("",CGPoint(dragElement.size.x,20))
+      let dragElement = DragElement.sharedInstance()
+      let element = row.removeElement(activeTouch.elementIndex)
+      dragElement.startDrag(event, element: element, touchOffset: initialTouch.touchOffset)
+      let newElement = IconElement("",CGPoint(dragElement.element.size.x,20))
       insertElement(activeTouch,newElement)
-      scaleStart = dragElement.currentScale
-      scaleEnd = 1.5
-      
-      hoverPath = HermitePath(p1:CGPoint.zero, p2:CGPoint(0,18))
       
       super.start(event)
     }
     
     override func cancel() {
-      if (!running) {
-        return
+      if (running) {
+        stopAux(true)
       }
-      dragElement.targetScale = 1.0
-      removeElement(activeTouch)
-      updateDragElementPositionForRow(initialTouch)
-      insertElement(initialTouch,dragElement)
+      super.cancel()
     }
     
     override func complete() {
-      unimp("simulate cancel for test purposes")
-      removeElement(activeTouch)
-      dragElement.targetScale = 1.0
-      updateDragElementPositionForRow(activeTouch)
-      insertElement(activeTouch,dragElement)
+      if (running) {
+        stopAux(false)
+      }
       super.complete()
     }
     
+    private func stopAux(cancelFlag: Bool) {
+      unimp("simulate cancel for test purposes")
+      if (!running) {
+        return
+      }
+      let dragElement = DragElement.sharedInstance()
+      // Get rid of any gap placeholder
+      removeElement(activeTouch)
+      // Put drag element's position at its actual drag location, relative to the icon panel;
+      // the DragElement class has been rendering it at that location, but hasn't been changing
+      // its position property
+      let pos = CGPoint.difference(dragElement.cursorPosition,iconPanel.position)
+      dragElement.element.setActualPosition(pos)
+      
+      insertElement(cancelFlag ? initialTouch : activeTouch, dragElement.element)
+      dragElement.stopDrag(nil)
+    }
+    
     override func processEvent(event: TouchEvent) {
+      let dragElement = DragElement.sharedInstance()
+      
       if (event.type == .Up) {
         complete()
         return
       }
-      
-      // Store the event in case we later plot a cursor icon
-      dragEvent = event
       
       let touchedCell = iconPanel.findTouchedCell(event)
       
@@ -222,17 +221,9 @@ public class IconPanel : View, LogicProtocol {
         removeElement(activeTouch)
         
         activeTouch = touchedCell
-        let newElement = IconElement("",CGPoint(dragElement.size.x,20))
+        let newElement = IconElement("",CGPoint(dragElement.element.size.x,20))
         insertElement(activeTouch,newElement)
       }
-    }
-    
-    override func updateCursor(location: CGPoint) {
-      let sprite = dragElement.sprite
-      var loc = CGPoint.difference(dragEvent.absoluteLocation,initialTouch.touchOffset)
-      loc.add(hoverPath.position)
-      dragCursorPosition = loc
-      dragElement.renderSpriteAt(loc)
     }
     
     // Construct an operation, if possible, for a DOWN event in an IconPanel
@@ -271,24 +262,10 @@ public class IconPanel : View, LogicProtocol {
       row.insert(newElement, atIndex: touch.elementIndex)
     }
     
-    private func updateDragElementPositionForRow(touch:Touch!) {
-      if touch == nil || dragCursorPosition == nil {
-        return
-      }
-      let pos = CGPoint.difference(dragCursorPosition,iconPanel.absolutePosition)
-      dragElement.setActualPosition(pos)
-    }
-    
     private var iconPanel : IconPanel
     // Touch associated with initial Down event
     private var initialTouch : Touch
-    private var dragElement : IconElement!
     private var activeTouch : Touch!
-    private var dragCursorPosition : CGPoint!
-    private var dragEvent : TouchEvent!
-    private var hoverPath : HermitePath!
-    private var scaleStart : CGFloat = 0
-    private var scaleEnd : CGFloat = 0
     
   }
   

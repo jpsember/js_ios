@@ -19,6 +19,8 @@ public class IconElement : NSObject {
   private(set) var name : String
   private(set) var size : CGPoint
   
+  private let PathDurationInSeconds = CGFloat(0.3)
+
   // If name is empty, treats as a 'gap' placeholder (no sprite)
   //
   public init(_ name : String, _ size: CGPoint) {
@@ -34,8 +36,6 @@ public class IconElement : NSObject {
     self.velocity = CGPoint.zero
     path = nil
   }
-  
-  private let pathDurationInSeconds = CGFloat(0.3)
   
   public override var description : String {
     return "IconElement(\(name) pos:\(position) target:\(targetPosition) currposdef:\(currentPositionDefined))"
@@ -86,7 +86,7 @@ public class IconElement : NSObject {
     
     if (path != nil) {
       changed = true
-      if (!path.update(pathDurationInSeconds)) {
+      if (!path.update(PathDurationInSeconds)) {
         setActualPosition(targetPosition)
         currentScale = targetScale
       } else {
