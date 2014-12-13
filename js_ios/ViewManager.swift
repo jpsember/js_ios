@@ -8,6 +8,7 @@ public class ViewManager : NSObject, GLKViewDelegate {
   public class func construct(bounds:CGRect) -> ViewManager {
   	ASSERT(S.singleton == nil,"ViewManager already constructed")
     S.singleton = ViewManager(bounds:bounds)
+    sharedInstance().addListener(DragElement.sharedInstance())
     return sharedInstance()
   }
   
@@ -66,7 +67,8 @@ public class ViewManager : NSObject, GLKViewDelegate {
   
   public func handleTouchEvent(event : TouchEvent) {
 		touchCursorLocation = event.absoluteLocation
-    
+    DragElement.sharedInstance().updateDrag(event)
+
     switch event.type {
     case .Down:
       // Find view that can respond to this event
@@ -132,6 +134,8 @@ public class ViewManager : NSObject, GLKViewDelegate {
     // In order to plot a cursor in the root view, we must restore its transform matrix and whatnot
     rootView.preparePlot()
     
+    DragElement.sharedInstance().updateCursor()
+
     let oper = TouchOperation.currentOperation()
     if (oper.running) {
    		oper.updateCursor(touchCursorLocation)
