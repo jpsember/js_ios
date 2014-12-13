@@ -172,7 +172,6 @@ public class IconPanel : View, LogicProtocol {
     }
     
     private func stopAux(cancelFlag: Bool) {
-      unimp("simulate cancel for test purposes")
       if (!running) {
         return
       }
