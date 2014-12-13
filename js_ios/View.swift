@@ -3,6 +3,8 @@ import GLKit
 
 public class View : NSObject {
   
+  // Public elements
+  
   public typealias PlotHandler = (View) -> Void
   public typealias TouchHandler = (TouchEvent,View) -> Bool
   
@@ -17,6 +19,7 @@ public class View : NSObject {
       bounds.origin = newValue
     }
   }
+  
   public var size : CGPoint {
     get {
       return bounds.ptSize
@@ -30,9 +33,11 @@ public class View : NSObject {
   // It is updated by the view manager each time the view hierarchy is plotted
   public var absolutePosition = CGPoint.zero
   
-  // The handler for plotting view content; default does nothing
-  //
-  public var plotHandler : PlotHandler!
+  public func replacePlotHandlerWith(handler : PlotHandler) -> PlotHandler! {
+  	let existing = plotHandler
+    self.plotHandler = handler
+    return existing
+  }
   
   // If opaque, completely obscures any view behind it
   public var opaque = true
@@ -50,17 +55,8 @@ public class View : NSObject {
   // by this view.  The return code is ignored for other event types.
   public var touchHandler: TouchHandler?
   
-  // Texture holding cached rendered view
-  private var cachedTexture:Texture!
   // True iff the rendered view contents (if they exist) are valid, vs need to be redrawn
 	private(set) var renderedViewValid = false
-  
-  // If true, texture constructed for caching view's content will have dimensions padded 
-  // if necessary to be a power of 2.  According to ES 2.0 specificiation
-  // (see http://stackoverflow.com/questions/11069441/non-power-of-two-textures-in-ios ),
-  // non-power-of-two (npot) textures are supported as long as their wrap parameters are
-  // set to CLAMP; not sure about the min/mag settings, or whether mipmapping supported.
-  private var ENFORCE_TEX_POWER_2 = cond(false)
   
   public override init() {
     self.bounds = CGRect.undefined
@@ -116,6 +112,22 @@ public class View : NSObject {
     }
     renderedViewValid = true
   }
+  
+  // Private elements
+
+  // The handler for plotting view content; default does nothing
+  //
+  private var plotHandler : PlotHandler!
+  
+  // Texture holding cached rendered view
+  private var cachedTexture:Texture!
+
+  // If true, texture constructed for caching view's content will have dimensions padded
+  // if necessary to be a power of 2.  According to ES 2.0 specificiation
+  // (see http://stackoverflow.com/questions/11069441/non-power-of-two-textures-in-ios ),
+  // non-power-of-two (npot) textures are supported as long as their wrap parameters are
+  // set to CLAMP; not sure about the min/mag settings, or whether mipmapping supported.
+  private var ENFORCE_TEX_POWER_2 = cond(false)
   
   /**
   * Construct matrix to transform from view manager bounds to OpenGL's
@@ -211,7 +223,9 @@ public class View : NSObject {
     sprite.render(CGPoint.zero)
   }
   
-  public func defaultPlotHandler(view : View) {
+  // The default plot handler; does nothing
+  //
+  private func defaultPlotHandler(view : View) {
   }
 
 }

@@ -10,7 +10,7 @@ public class IconPanel : View, LogicProtocol {
   public override init() {
     super.init()
     self.touchHandler = ourTouchHandler
-    unimp("how to automatically register panel for updating with each tick, but without causing memory leak")
+    originalPlotHandler = replacePlotHandlerWith(ourPlotHandler)
   }
   
   public func addRow() -> IconRow {
@@ -37,13 +37,16 @@ public class IconPanel : View, LogicProtocol {
     }
   }
 
-  public override func defaultPlotHandler(view : View) {
+  private func ourPlotHandler(view : View) {
+    originalPlotHandler(view)
     for row in rows {
       row.plotElements()
     }
   }
   
   // Private properties and methods
+  
+  private var originalPlotHandler : PlotHandler!
   
   // Find which icon, if any, is at a touch location; returns nil if none
   //
