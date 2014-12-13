@@ -5,11 +5,14 @@ let PADDING = CGFloat(5)
 
 public typealias TextureProvider = (String, CGPoint) -> Texture
 
-public class IconRow : View {
+public class IconRow : NSObject {
 
   private var elements = Array<IconElement> ()
   
   private(set) var panel : IconPanel
+  
+  // Bounds relative to IconPanel origin
+  private(set) var bounds : CGRect
   
   // locations of vertical boundaries between icons, forming a partition of the row's bounding rectangle.
   // There are n+1 partitions for n icons; the last partition is always the width of the row
@@ -18,10 +21,10 @@ public class IconRow : View {
 
   private var modified  = false
   
-  public init(_ panel:IconPanel) {
+  public init(_ panel:IconPanel, bounds:CGRect) {
     self.panel = panel
+  	self.bounds = bounds
     super.init()
-    performClipping = false
   }
   
   public func addElement(element: IconElement) {
@@ -44,8 +47,10 @@ public class IconRow : View {
     modified = true
     return elements.removeAtIndex(index)
   }
-  
-  public func updateElements() {
+
+  // Update the elements' positions; return true if any of them have moved
+  //  
+  public func updateElements() -> Bool {
     layout()
     var changes = false
     for e in elements {
@@ -53,9 +58,7 @@ public class IconRow : View {
         changes = true
       }
     }
-    if changes {
-    	invalidate()
-    }
+    return changes
   }
   
   // Determine which element, if any, is at a location;
@@ -68,12 +71,13 @@ public class IconRow : View {
   //
   public func elementAt(location:CGPoint,omitPadding:Bool) -> Int {
     if (!omitPadding) {
-      if (location.y < 0 || location.y >= self.bounds.height) {
+      if (!bounds.contains(location)) {
         return -1
       }
+      let xRel = location.x - bounds.x
       var slot = -1
       for (i,x) in enumerate(rowPartition) {
-        if (location.x < x) {
+        if (xRel < x) {
           slot = i
           break
         }
@@ -123,7 +127,7 @@ public class IconRow : View {
       var x = (bounds.width - totalWidth) / 2
       for var i = 0; i < elements.count; i++ {
 				let e = elements[i]
-        let pos = CGPoint(x + PADDING/2,(bounds.height - e.size.y)/2)
+        let pos = CGPoint(x + PADDING/2, bounds.yMid - e.size.y/2)
         elemPos.append(pos)
         x += PADDING + e.size.x
         rowPartition.append(x)
@@ -141,10 +145,9 @@ public class IconRow : View {
     return w
   }
   
-  // Default plot handler; plots the elements in their current positions
+  // Plot elements in their current positions
   //
-  public override func defaultPlotHandler(view : View) {
-    super.defaultPlotHandler(view)
+  public func plotElements() {
     for e in elements {
       e.render(panel.textureProvider)
     }

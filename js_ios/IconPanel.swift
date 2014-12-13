@@ -17,31 +17,40 @@ public class IconPanel : View, LogicProtocol {
   public func addRow() -> IconRow {
     ASSERT(rowHeight > 0,"must define rowheight")
     
-    var iconRow = IconRow(self)
-    iconRow.size = CGPoint(self.bounds.width,rowHeight)
-    iconRow.position = CGPoint(0,CGFloat(rowCount) * rowHeight)
-    if (rowPlotHandler != nil) {
-      iconRow.plotHandler = rowPlotHandler
-    }
+    let rowBounds = CGRect(0,CGFloat(rowCount)*rowHeight,self.bounds.width,rowHeight)
+    
+    var iconRow = IconRow(self,bounds:rowBounds)
     rows.append(iconRow)
-    add(iconRow)
     return iconRow
   }
 
   // Update the IconPanel model; move icons along their paths, request redraw if necessary
   //
   public func updateLogic() {
+    var refreshView = false
     for row in rows {
-      row.updateElements()
+      if row.updateElements() {
+      	refreshView = true
+      }
+    }
+    if refreshView {
+      invalidate()
     }
   }
 
+  public override func defaultPlotHandler(view : View) {
+    for row in rows {
+      row.plotElements()
+    }
+  }
+  
   // Private properties and methods
   
   // Find which icon, if any, is at a touch location; returns nil if none
   //
   private func findTouchedIcon(event:TouchEvent) -> Touch! {
-    let (rowIndex,position) = rowContainingPoint(event.locationRelativeToView(self))
+		let position = event.locationRelativeToView(self)
+    let rowIndex = rowContainingPoint(position)
     var elementIndex = -1
     var iconFlag = false
     if (rowIndex >= 0) {
@@ -58,7 +67,8 @@ public class IconPanel : View, LogicProtocol {
   // Find which icon, if any, is at a touch location; if none, returns nil
   //
   private func findTouchedCell(event:TouchEvent) -> Touch! {
-    let (rowIndex,position) = rowContainingPoint(event.locationRelativeToView(self))
+		let position = event.locationRelativeToView(self)
+    let rowIndex = rowContainingPoint(position)
     if (rowIndex >= 0) {
       let row = rows[rowIndex]
       let elementIndex = row.elementAt(position,omitPadding:false)
@@ -93,13 +103,13 @@ public class IconPanel : View, LogicProtocol {
     return false
   }
   
-  private func rowContainingPoint(point:CGPoint) -> (Int,CGPoint!) {
+  private func rowContainingPoint(point:CGPoint) -> Int {
     for (index,row) in enumerate(rows) {
       if (row.bounds.contains(point)) {
-      	return (index,CGPoint.difference(point,row.bounds.origin))
+      	return index
       }
     }
-    return (-1,nil)
+    return -1
   }
   
   // Encompasses information about which icon is under touch location
@@ -263,8 +273,7 @@ public class IconPanel : View, LogicProtocol {
       if touch == nil || dragCursorPosition == nil {
         return
       }
-      let row = iconPanel.row(touch.rowIndex)
-      let pos = CGPoint.difference(dragCursorPosition,row.absolutePosition)
+      let pos = CGPoint.difference(dragCursorPosition,iconPanel.absolutePosition)
       dragElement.setActualPosition(pos)
     }
     
