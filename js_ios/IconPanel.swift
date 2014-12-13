@@ -4,7 +4,6 @@ public class IconPanel : View, LogicProtocol {
   
   public var textureProvider : TextureProvider!
   public var rowHeight : CGFloat = 0
-  public var rowPlotHandler : PlotHandler!
   
   // Public methods
   

@@ -67,7 +67,7 @@ public class GLAppDelegate : AppDelegate {
       iconPanel = IconPanel()
       iconPanel.size = CGPoint(280,rowHeight*CGFloat(ICON_PANEL_TOTAL_ROWS))
       iconPanel.rowHeight = rowHeight
-      iconPanel.rowPlotHandler = iconRowPlotHandler
+      iconPanel.plotHandler = iconPlotHandler
       iconPanel.textureProvider = iconViewTextureProvider
       iconPanel.position = CGPoint(300,250)
       view.add(iconPanel)
@@ -263,9 +263,9 @@ public class GLAppDelegate : AppDelegate {
 
   }
   
-  // Plot handler for our IconRow.  Plot a background sprite, then call the default plot handler
+  // Plot handler for our IconPanel.  Plot a background sprite, then call the default plot handler
   //
-  private func iconRowPlotHandler(view : View) {
+  private func iconPlotHandler(view : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
     view.defaultPlotHandler(view)
