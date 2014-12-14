@@ -10,7 +10,20 @@ public class IconPanel : View, LogicProtocol {
   public override init() {
     super.init()
     self.touchHandler = ourTouchHandler
-    originalPlotHandler = replacePlotHandlerWith(ourPlotHandler)
+    
+    // Replace the existing plot handler with our own version
+    originalPlotHandler = replacePlotHandlerWith(){ (view : View) in
+      // Call instance method of supplied view, which we can assume is an IconPanel instance
+      let iconPanel = view as IconPanel
+      iconPanel.ourPlotHandlerAux()
+    }
+  }
+  
+  private func ourPlotHandlerAux() {
+  	originalPlotHandler(self)
+    for row in rows {
+      row.plotElements()
+    }
   }
   
   public func addRow() -> IconRow {
@@ -34,13 +47,6 @@ public class IconPanel : View, LogicProtocol {
     }
     if refreshView {
       invalidate()
-    }
-  }
-
-  private func ourPlotHandler(view : View) {
-    originalPlotHandler(view)
-    for row in rows {
-      row.plotElements()
     }
   }
   

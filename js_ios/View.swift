@@ -61,7 +61,7 @@ public class View : NSObject {
   public override init() {
     self.bounds = CGRect.undefined
     super.init()
-    self.plotHandler = defaultPlotHandler
+    self.plotHandler = View.defaultPlotHandler
   }
   
   public override var description : String {
@@ -223,9 +223,11 @@ public class View : NSObject {
     sprite.render(CGPoint.zero)
   }
   
-  // The default plot handler; does nothing
+  // The default plot handler; does nothing.
+  // It's a class function, not an instance function; the instance to be plotted is passed
+  // as an argument
   //
-  private func defaultPlotHandler(view : View) {
+  private class func defaultPlotHandler(view : View) {
   }
 
 }

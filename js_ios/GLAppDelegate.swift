@@ -14,75 +14,74 @@ public class GLAppDelegate : AppDelegate {
     let view = View()
     view.bounds.size = viewManager.baseUIView.bounds.size
     viewManager.rootView = view
-    view.replacePlotHandlerWith(mainViewPlotHandler)
-    view.touchHandler = mainViewTouchHandler
-
-    var subviewY = 20
-    var subview : View
     
-    // Construct a child view that is translucent and (for the moment) non-cacheable;
-    // it will have a static sprite as a background, and a smaller sprite moving in a small circle
-    subview = View()
-    subview.opaque = false
-    subview.size = CGPoint(256,256)
-    subview.position = CGPoint(420,subviewY)
-    subviewY += 256 + 10
-    view.add(subview)
-    subview.replacePlotHandlerWith(updateSubview1)
-    
-    // Construct a second child view, like the first but cacheable; this one is actually opaque
-    subview = View()
-    subview.cacheable = true
-    subview.size = CGPoint(256,256)
-    subview.position = CGPoint(420,subviewY)
-    view.add(subview)
-    subviewY += 256 + 10
-    subview.replacePlotHandlerWith(updateSubview2)
-    
-    // Construct a third child view, that will contain other views within it
-    subview = View()
-    subview.cacheable = true
-    subview.opaque = false
-    subview.size = CGPoint(256,256)
-    subview.position = CGPoint(420,subviewY)
-    view.add(subview)
-    subview.replacePlotHandlerWith(updateSubview2)
-    subview.touchHandler = subviewTouchHandler
-    
-    var subview2 = View()
-    subview2.opaque = false
-    subview2.cacheable = true
-    subview2.size = CGPoint(64,64)
-    subview2.position = CGPoint(430,30)
-    subview2.replacePlotHandlerWith {(view) in
-      self.bgndSprite.render(CGPoint.zero)
-      self.blobSprite.render(CGPoint.zero)
-    }
-    dragView = subview2
-    subview.add(dragView)
-    
-    if (WITH_ICONPANEL) {
-      let rowHeight : CGFloat = 36
+    if (!WITH_ICONPANEL) {
+      view.replacePlotHandlerWith(mainViewPlotHandler)
+      view.touchHandler = mainViewTouchHandler
       
-      iconPanel = IconPanel()
-      iconPanel.size = CGPoint(280,rowHeight*CGFloat(ICON_PANEL_TOTAL_ROWS))
-      iconPanel.rowHeight = rowHeight
-      originalIconPanelPlotHandler = iconPanel.replacePlotHandlerWith(iconPlotHandler)
-      iconPanel.textureProvider = iconViewTextureProvider
-      iconPanel.position = CGPoint(10,250)
-      view.add(iconPanel)
-      viewManager.addListener(iconPanel)
+      var subviewY = 20
+      var subview : View
       
-      iconPanel2 = IconPanel()
-      iconPanel2.size = CGPoint(140,rowHeight * CGFloat(1))
-      iconPanel2.rowHeight = rowHeight
-      iconPanel2.position = CGPoint(10,400)
-      iconPanel2.textureProvider = iconViewTextureProvider
-      originalIconPanelPlotHandler2 = iconPanel2.replacePlotHandlerWith(iconPlotHandler2)
-      iconPanel2.addRow()
-      view.add(iconPanel2)
-      viewManager.addListener(iconPanel2)
+      // Construct a child view that is translucent and (for the moment) non-cacheable;
+      // it will have a static sprite as a background, and a smaller sprite moving in a small circle
+      subview = View()
+      subview.opaque = false
+      subview.size = CGPoint(256,256)
+      subview.position = CGPoint(420,subviewY)
+      subviewY += 256 + 10
+      view.add(subview)
+      subview.replacePlotHandlerWith(updateSubview1)
       
+      // Construct a second child view, like the first but cacheable; this one is actually opaque
+      subview = View()
+      subview.cacheable = true
+      subview.size = CGPoint(256,256)
+      subview.position = CGPoint(420,subviewY)
+      view.add(subview)
+      subviewY += 256 + 10
+      subview.replacePlotHandlerWith(updateSubview2)
+      
+      // Construct a third child view, that will contain other views within it
+      subview = View()
+      subview.cacheable = true
+      subview.opaque = false
+      subview.size = CGPoint(256,256)
+      subview.position = CGPoint(420,subviewY)
+      view.add(subview)
+      subview.replacePlotHandlerWith(updateSubview2)
+      subview.touchHandler = subviewTouchHandler
+      
+      var subview2 = View()
+      subview2.opaque = false
+      subview2.cacheable = true
+      subview2.size = CGPoint(64,64)
+      subview2.position = CGPoint(430,30)
+      subview2.replacePlotHandlerWith {(view) in
+        self.bgndSprite.render(CGPoint.zero)
+        self.blobSprite.render(CGPoint.zero)
+      }
+      dragView = subview2
+      subview.add(dragView)
+    
+    } else {
+      
+      for var pass = 0; pass < 2; pass++ {
+        var p = IconPanel()
+        p.rowHeight = 36
+        let origPlotHandler = p.replacePlotHandlerWith(iconPlotHandler)
+        if pass == 0 {
+          iconPanel = p
+          p.size = CGPoint(280,p.rowHeight*CGFloat(ICON_PANEL_TOTAL_ROWS))
+          p.position = CGPoint(10,250)
+          originalIconPanelPlotHandler = origPlotHandler
+        } else {
+          p.size = CGPoint(140,p.rowHeight * CGFloat(1))
+          p.position = CGPoint(10,400)
+        }
+        p.textureProvider = iconViewTextureProvider
+        view.add(p)
+        viewManager.addListener(p)
+      }
     }
     
     startTicker()
@@ -137,8 +136,7 @@ public class GLAppDelegate : AppDelegate {
   private var pathLoc = CGPoint.zero
   private var paused = false
   private var pathFrame : Int = 0
-  private var iconPanel : IconPanel!
-  private var iconPanel2 : IconPanel!
+	private var iconPanel : IconPanel!
   
   private func updateLogic() {
     frame += 1
@@ -275,20 +273,16 @@ public class GLAppDelegate : AppDelegate {
 
   }
   
+  // The original plot handler for the first IconPanel; we'll assume it's a static method
+  // that can be used for both of our IconPanels
   private var originalIconPanelPlotHandler : View.PlotHandler!
-  private var originalIconPanelPlotHandler2 : View.PlotHandler!
   
-  // Plot handler for our IconPanel.  Plot a background sprite, then call the default plot handler
+  // Plot handler for our IconPanel.  Plot a background sprite, then call the original plot handler
   //
   private func iconPlotHandler(view : View) {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
     originalIconPanelPlotHandler(view)
-  }
-  private func iconPlotHandler2(view : View) {
-    prepareGraphics()
-    ballSprite.render(CGPoint.zero)
-    originalIconPanelPlotHandler2(view)
   }
 
   private var textureMap = Dictionary<String,Texture>()
