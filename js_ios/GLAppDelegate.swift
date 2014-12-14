@@ -25,7 +25,7 @@ public class GLAppDelegate : AppDelegate {
     subview = View()
     subview.opaque = false
     subview.size = CGPoint(256,256)
-    subview.position = CGPoint(20,subviewY)
+    subview.position = CGPoint(420,subviewY)
     subviewY += 256 + 10
     view.add(subview)
     subview.replacePlotHandlerWith(updateSubview1)
@@ -34,7 +34,7 @@ public class GLAppDelegate : AppDelegate {
     subview = View()
     subview.cacheable = true
     subview.size = CGPoint(256,256)
-    subview.position = CGPoint(20,subviewY)
+    subview.position = CGPoint(420,subviewY)
     view.add(subview)
     subviewY += 256 + 10
     subview.replacePlotHandlerWith(updateSubview2)
@@ -44,7 +44,7 @@ public class GLAppDelegate : AppDelegate {
     subview.cacheable = true
     subview.opaque = false
     subview.size = CGPoint(256,256)
-    subview.position = CGPoint(20,subviewY)
+    subview.position = CGPoint(420,subviewY)
     view.add(subview)
     subview.replacePlotHandlerWith(updateSubview2)
     subview.touchHandler = subviewTouchHandler
@@ -53,7 +53,7 @@ public class GLAppDelegate : AppDelegate {
     subview2.opaque = false
     subview2.cacheable = true
     subview2.size = CGPoint(64,64)
-    subview2.position = CGPoint(30,30)
+    subview2.position = CGPoint(430,30)
     subview2.replacePlotHandlerWith {(view) in
       self.bgndSprite.render(CGPoint.zero)
       self.blobSprite.render(CGPoint.zero)
@@ -69,9 +69,20 @@ public class GLAppDelegate : AppDelegate {
       iconPanel.rowHeight = rowHeight
       originalIconPanelPlotHandler = iconPanel.replacePlotHandlerWith(iconPlotHandler)
       iconPanel.textureProvider = iconViewTextureProvider
-      iconPanel.position = CGPoint(300,250)
+      iconPanel.position = CGPoint(10,250)
       view.add(iconPanel)
       viewManager.addListener(iconPanel)
+      
+      iconPanel2 = IconPanel()
+      iconPanel2.size = CGPoint(140,rowHeight * CGFloat(1))
+      iconPanel2.rowHeight = rowHeight
+      iconPanel2.position = CGPoint(10,400)
+      iconPanel2.textureProvider = iconViewTextureProvider
+      originalIconPanelPlotHandler2 = iconPanel2.replacePlotHandlerWith(iconPlotHandler2)
+      iconPanel2.addRow()
+      view.add(iconPanel2)
+      viewManager.addListener(iconPanel2)
+      
     }
     
     startTicker()
@@ -127,6 +138,7 @@ public class GLAppDelegate : AppDelegate {
   private var paused = false
   private var pathFrame : Int = 0
   private var iconPanel : IconPanel!
+  private var iconPanel2 : IconPanel!
   
   private func updateLogic() {
     frame += 1
@@ -264,6 +276,7 @@ public class GLAppDelegate : AppDelegate {
   }
   
   private var originalIconPanelPlotHandler : View.PlotHandler!
+  private var originalIconPanelPlotHandler2 : View.PlotHandler!
   
   // Plot handler for our IconPanel.  Plot a background sprite, then call the default plot handler
   //
@@ -271,6 +284,11 @@ public class GLAppDelegate : AppDelegate {
     prepareGraphics()
     ballSprite.render(CGPoint.zero)
     originalIconPanelPlotHandler(view)
+  }
+  private func iconPlotHandler2(view : View) {
+    prepareGraphics()
+    ballSprite.render(CGPoint.zero)
+    originalIconPanelPlotHandler2(view)
   }
 
   private var textureMap = Dictionary<String,Texture>()
