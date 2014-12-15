@@ -54,9 +54,9 @@ public class IconPanel : View, LogicProtocol {
   
   private var originalPlotHandler : PlotHandler!
   
-  // Find which icon, if any, is at a touch location; returns nil if none
+  // Find which icon, if any, is at a touch location; returns Touch.none if none
   //
-  private func findTouchedIcon(event:TouchEvent) -> Touch! {
+  private func findTouchedIcon(event:TouchEvent) -> Touch {
 		let position = event.locationRelativeToView(self)
     let rowIndex = rowContainingPoint(position)
     var elementIndex = -1
@@ -69,12 +69,12 @@ public class IconPanel : View, LogicProtocol {
         return Touch(rowIndex: rowIndex, elementIndex: elementIndex, touchOffset: CGPoint.difference(position,element.position))
       }
     }
-    return nil
+    return Touch.none()
   }
   
-  // Find which icon, if any, is at a touch location; if none, returns nil
+  // Find which icon, if any, is at a touch location; if none, returns Touch.none
   //
-  private func findTouchedCell(event:TouchEvent) -> Touch! {
+  private func findTouchedCell(event:TouchEvent) -> Touch {
 		let position = event.locationRelativeToView(self)
     let rowIndex = rowContainingPoint(position)
     if (rowIndex >= 0) {
@@ -84,7 +84,7 @@ public class IconPanel : View, LogicProtocol {
       	return Touch(rowIndex:rowIndex, elementIndex:elementIndex)
       }
     }
-    return nil
+    return Touch.none()
   }
   
   private var rows = Array<IconRow> ()
@@ -122,22 +122,31 @@ public class IconPanel : View, LogicProtocol {
   
   // Encompasses information about which icon is under touch location
   //
-  internal struct Touch : Printable {
-    var rowIndex : Int
-    var elementIndex : Int
-    var touchOffset : CGPoint
+  internal class Touch {
     
-    var description : String {
-      return "Touch\(rowIndex)/\(elementIndex)"
+    private struct S {
+      static var nullTouch = Touch(rowIndex:-1,elementIndex:-1)
+    }
+
+    let rowIndex : Int
+    let elementIndex : Int
+    let touchOffset : CGPoint
+    var defined : Bool {
+      get {
+        return !(self === S.nullTouch)
+      }
+    }
+
+    class func none() -> Touch {
+      return S.nullTouch
     }
     
     init(rowIndex:Int, elementIndex:Int, touchOffset:CGPoint = CGPoint.zero) {
-      ASSERT(elementIndex >= 0 && rowIndex >= 0)
-      
       self.rowIndex = rowIndex
       self.elementIndex = elementIndex
       self.touchOffset = touchOffset
     }
+    
   }
 
   // Operation for moving an icon
@@ -204,23 +213,21 @@ public class IconPanel : View, LogicProtocol {
       
       let touchedCell = iconPanel.findTouchedCell(event)
       
-      if (touchedCell == nil || (activeTouch != nil && touchedCell.rowIndex != activeTouch.rowIndex)) {
+      if (touchedCell.rowIndex != activeTouch.rowIndex) {
         // Remove gap, if one exists
         removeElement(activeTouch)
-        activeTouch = nil
+        activeTouch = Touch.none()
       }
       
-      if (touchedCell == nil) {
+      if !touchedCell.defined {
         return
       }
       
-      if (activeTouch == nil || touchedCell.elementIndex != activeTouch.elementIndex) {
+      if touchedCell.elementIndex != activeTouch.elementIndex {
         // Don't allow user to attempt to move last element in a row to its right
-        if activeTouch != nil {
-          if (activeTouch.elementIndex == iconPanel.row(touchedCell.rowIndex).count - 1
-            && touchedCell.elementIndex > activeTouch.elementIndex) {
+        if activeTouch.defined && activeTouch.elementIndex == iconPanel.row(touchedCell.rowIndex).count - 1
+            && touchedCell.elementIndex > activeTouch.elementIndex {
           	return
-        	}
         }
         
         removeElement(activeTouch)
@@ -237,7 +244,7 @@ public class IconPanel : View, LogicProtocol {
     private class func constructForTouchEvent(event:TouchEvent, _ iconPanel:IconPanel) -> MoveIconOperation! {
       var ret : MoveIconOperation! = nil
       let touchedIcon = iconPanel.findTouchedIcon(event)
-      if touchedIcon != nil {
+      if touchedIcon.defined {
         ret = MoveIconOperation(iconPanel,touchedIcon)
       }
       return ret
@@ -249,8 +256,8 @@ public class IconPanel : View, LogicProtocol {
       super.init()
     }
     
-    private func removeElement(touch:Touch!) {
-      if (touch == nil) {
+    private func removeElement(touch:Touch) {
+      if !touch.defined {
         return
       }
       let row = iconPanel.row(touch.rowIndex)
@@ -259,8 +266,8 @@ public class IconPanel : View, LogicProtocol {
       }
     }
     
-    private func insertElement(touch:Touch!, _ newElement:IconElement) {
-      if (touch == nil) {
+    private func insertElement(touch:Touch, _ newElement:IconElement) {
+      if !touch.defined {
         return
       }
       let row = iconPanel.row(touch.rowIndex)
@@ -270,7 +277,7 @@ public class IconPanel : View, LogicProtocol {
     private var iconPanel : IconPanel
     // Touch associated with initial Down event
     private var initialTouch : Touch
-    private var activeTouch : Touch!
+    private var activeTouch = Touch.none()
     
   }
   
