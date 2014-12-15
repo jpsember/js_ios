@@ -153,8 +153,6 @@ public class IconPanel : View, LogicProtocol {
   //
   internal class MoveIconOperation : TouchOperation {
     
-    private let hoverBumpPathDuration = CGFloat(0.2)
-
     // Public overrides of TouchOperation methods
     
     override func start(event : TouchEvent) {
@@ -166,8 +164,7 @@ public class IconPanel : View, LogicProtocol {
       let dragElement = DragElement.sharedInstance()
       let element = row.removeElement(activeTouch.elementIndex)
       dragElement.startDrag(event, element: element, touchOffset: initialTouch.touchOffset)
-      let newElement = IconElement("",CGPoint(dragElement.element.size.x,20))
-      insertElement(activeTouch,newElement)
+      insertGapAtActiveTouch()
       
       super.start(event)
     }
@@ -233,9 +230,16 @@ public class IconPanel : View, LogicProtocol {
         removeElement(activeTouch)
         
         activeTouch = touchedCell
-        let newElement = IconElement("",CGPoint(dragElement.element.size.x,20))
-        insertElement(activeTouch,newElement)
+        insertGapAtActiveTouch()
       }
+    }
+    
+    // Insert a gap that's the same width as the dragged element, at the activeTouch location
+    //
+    private func insertGapAtActiveTouch() {
+      let dragElement = DragElement.sharedInstance()
+      let newElement = IconElement("",CGPoint(dragElement.element.size.x,20))
+      insertElement(activeTouch,newElement)
     }
     
     // Construct an operation, if possible, for a DOWN event in an IconPanel
