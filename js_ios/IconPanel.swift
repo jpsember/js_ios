@@ -249,15 +249,16 @@ public class IconPanel : View, LogicProtocol {
       var ret : MoveIconOperation! = nil
       let touchedIcon = iconPanel.findTouchedIcon(event)
       if touchedIcon.defined {
-        ret = MoveIconOperation(iconPanel,touchedIcon)
+        ret = S.singleton
+        ret.prepare(iconPanel,touchedIcon)
       }
       return ret
     }
     
-    private init(_ iconPanel:IconPanel, _ initialTouch:Touch) {
-      self.initialTouch = initialTouch
-      self.iconPanel = iconPanel
-      super.init()
+    private func prepare(iconPanel:IconPanel, _ initialTouch:Touch) {
+    	self.initialTouch = initialTouch
+    	self.iconPanel = iconPanel
+      self.activeTouch = Touch.none()
     }
     
     private func removeElement(touch:Touch) {
@@ -278,11 +279,15 @@ public class IconPanel : View, LogicProtocol {
       row.insert(newElement, atIndex: touch.elementIndex)
     }
     
-    private var iconPanel : IconPanel
+    private var iconPanel : IconPanel!
     // Touch associated with initial Down event
-    private var initialTouch : Touch
+    private var initialTouch = Touch.none()
     private var activeTouch = Touch.none()
     
+    private struct S {
+      static var singleton = MoveIconOperation()
+    }
+
   }
   
 }
