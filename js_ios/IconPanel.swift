@@ -1,4 +1,4 @@
-public class IconPanel : View, LogicProtocol {
+public class IconPanel : View, LogicProtocol, TouchListener {
   
   // Public properties
   
@@ -10,6 +10,10 @@ public class IconPanel : View, LogicProtocol {
   public override init() {
     super.init()
     self.touchHandler = ourTouchHandler
+    
+    // Add ourselves as a listener to the singleton MoveIconOperation 
+    unimp("remove listener if panel is removed")
+    MoveIconOperation.sharedInstance().addListener(self)
     
     // Replace the existing plot handler with our own version
     originalPlotHandler = replacePlotHandlerWith(){ (view : View) in
@@ -149,13 +153,23 @@ public class IconPanel : View, LogicProtocol {
     
   }
 
+  // TouchListener interface
+  //
+  public func processTouchEvent(touchEvent: TouchEvent) {
+    puts("ignoring touch event \(touchEvent)")
+  }
+  
   // Operation for moving an icon
   //
-  internal class MoveIconOperation : TouchOperation {
+  public class MoveIconOperation : TouchOperation {
     
+    public class func sharedInstance() -> MoveIconOperation {
+      return S.singleton
+    }
+
     // Public overrides of TouchOperation methods
     
-    override func start(event : TouchEvent) {
+    public override func start(event : TouchEvent) {
       // Ignore the event passed in, since we've already constructed initialTouch from it
       
       activeTouch = initialTouch
@@ -169,14 +183,14 @@ public class IconPanel : View, LogicProtocol {
       super.start(event)
     }
     
-    override func cancel() {
+    public override func cancel() {
       if (running) {
         stopAux(true)
       }
       super.cancel()
     }
     
-    override func complete() {
+    public override func complete() {
       if (running) {
         stopAux(false)
       }
@@ -200,7 +214,10 @@ public class IconPanel : View, LogicProtocol {
       dragElement.stopDrag(nil)
     }
     
-    override func processEvent(event: TouchEvent) {
+    public override func processEvent(event: TouchEvent) {
+      
+      super.processEvent(event)
+      
       let dragElement = DragElement.sharedInstance()
       
       if (event.type == .Up) {

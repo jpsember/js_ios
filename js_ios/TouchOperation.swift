@@ -47,9 +47,13 @@ public class TouchOperation : NSObject, LogicProtocol {
   public func updateLogic() {
   }
   
-  // Process a touch event; default implementation does nothing
+  // Process a touch event; default implementation passes event to listeners
   //
   public func processEvent(touchEvent:TouchEvent) {
+    for listener : AnyObject in listeners {
+      let list2 = listener as TouchListener
+      list2.processTouchEvent(touchEvent)
+    }
   }
   
   // If operation is currently running, set its state to COMPLETED, and set the default operation
