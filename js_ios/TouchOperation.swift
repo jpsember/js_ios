@@ -1,5 +1,7 @@
 public class TouchOperation : NSObject, LogicProtocol {
   
+  // Public elements
+  
   public enum State : Printable {
   	case Running
     case Completed
@@ -16,7 +18,6 @@ public class TouchOperation : NSObject, LogicProtocol {
 
   }
   
-  private var state = State.Cancelled
   public var running : Bool {
     get {
       return state == .Running
@@ -75,6 +76,19 @@ public class TouchOperation : NSObject, LogicProtocol {
   public func updateCursor(location:CGPoint) {
   }
   
+  public func addListener(listener : TouchListener) {
+    listeners.addObject(listener)
+  }
+  
+  public func removeListener(listener : TouchListener) {
+    listeners.removeObject(listener)
+  }
+  
+  // Private elements
+  
+  private var state = State.Cancelled
+  private var listeners : NSMutableSet = NSMutableSet() //Array<TouchListener> = []
+  
   private class func setCurrent(operation:TouchOperation!) {
     var oper = operation
     if (oper == nil) {
@@ -89,8 +103,8 @@ public class TouchOperation : NSObject, LogicProtocol {
     static var currentOperation : TouchOperation!
   }
 
-  public class DefaultOperation : TouchOperation {
-    public class func sharedInstance() -> DefaultOperation {
+  internal class DefaultOperation : TouchOperation {
+    class func sharedInstance() -> DefaultOperation {
       if (S.singleton == nil) {
         S.singleton = DefaultOperation()
         let r = State.Running
