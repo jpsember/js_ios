@@ -11,6 +11,13 @@ public class View : NSObject {
   // The bounds of the view, relative to the parent view's origin
   public var bounds: CGRect
   
+  // The bounds of the view, with origin adjusted to the origin
+  public var localBounds : CGRect {
+    get {
+      return CGRect(origin:CGPoint.zero,size:bounds.size)
+    }
+  }
+  
   public var position : CGPoint {
     get {
       return bounds.origin

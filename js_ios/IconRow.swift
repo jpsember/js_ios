@@ -19,7 +19,7 @@ public class IconRow : NSObject {
   
   private var rowPartition = Array<CGFloat> ()
 
-  private var modified  = false
+  private var modified = true // So we do a layout first time through
   
   public init(_ panel:IconPanel, bounds:CGRect) {
     self.panel = panel
@@ -71,6 +71,7 @@ public class IconRow : NSObject {
   //
   public func elementAt(location:CGPoint,omitPadding:Bool) -> Int {
     if (!omitPadding) {
+      ASSERT(rowPartition.count > 0, "rowPartition empty; layout not called?")
       if (!bounds.contains(location)) {
         return -1
       }

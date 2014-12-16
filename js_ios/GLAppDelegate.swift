@@ -75,8 +75,10 @@ public class GLAppDelegate : AppDelegate {
           p.position = CGPoint(10,250)
           originalIconPanelPlotHandler = origPlotHandler
         } else {
-          p.size = CGPoint(140,p.rowHeight * CGFloat(1))
+          p.size = CGPoint(140,p.rowHeight*1)
           p.position = CGPoint(10,400)
+          // Add a single row
+          p.addRow()
         }
         p.textureProvider = iconViewTextureProvider
         view.add(p)
@@ -254,7 +256,6 @@ public class GLAppDelegate : AppDelegate {
       let names = ["icon_a","icon_b","icon_d","icon_e"]
       var row : IconRow!
       
-      // Generate
       var random = JSRandom(seed:12)
       for rowNumber in 0..<ICON_PANEL_TOTAL_ROWS {
         let count = random.randomInt(3) + 2

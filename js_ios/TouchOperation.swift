@@ -50,9 +50,9 @@ public class TouchOperation : NSObject, LogicProtocol {
   // Process a touch event; default implementation passes event to listeners
   //
   public func processEvent(touchEvent:TouchEvent) {
-    for listener : AnyObject in listeners {
-      let list2 = listener as TouchListener
-      list2.processTouchEvent(touchEvent)
+    for item : AnyObject in listeners {
+      let touchListener = item as TouchListener
+      touchListener.processTouchEvent(touchEvent)
     }
   }
   

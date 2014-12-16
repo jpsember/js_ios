@@ -70,7 +70,7 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       elementIndex = row.elementAt(position,omitPadding:true)
       if elementIndex >= 0 {
         let element = row.getElement(elementIndex)
-        return Touch(rowIndex: rowIndex, elementIndex: elementIndex, touchOffset: CGPoint.difference(position,element.position))
+        return Touch(view:self, rowIndex: rowIndex, elementIndex: elementIndex, touchOffset: CGPoint.difference(position,element.position))
       }
     }
     return Touch.none()
@@ -85,7 +85,7 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       let row = rows[rowIndex]
       let elementIndex = row.elementAt(position,omitPadding:false)
       if (elementIndex >= 0) {
-      	return Touch(rowIndex:rowIndex, elementIndex:elementIndex)
+        return Touch(view:self,rowIndex:rowIndex, elementIndex:elementIndex)
       }
     }
     return Touch.none()
@@ -126,12 +126,17 @@ public class IconPanel : View, LogicProtocol, TouchListener {
   
   // Encompasses information about which icon is under touch location
   //
-  internal class Touch {
+  internal class Touch : Printable {
     
     private struct S {
-      static var nullTouch = Touch(rowIndex:-1,elementIndex:-1)
+      static var nullTouch = Touch(view:nil,rowIndex:-1,elementIndex:-1)
     }
 
+    var description : String {
+      return defined ? "Touch\(rowIndex)/\(elementIndex)" : "Touch.none"
+    }
+    
+    let view : View!
     let rowIndex : Int
     let elementIndex : Int
     let touchOffset : CGPoint
@@ -145,7 +150,8 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       return S.nullTouch
     }
     
-    init(rowIndex:Int, elementIndex:Int, touchOffset:CGPoint = CGPoint.zero) {
+    init(view:View!, rowIndex:Int, elementIndex:Int, touchOffset:CGPoint = CGPoint.zero) {
+      self.view = view
       self.rowIndex = rowIndex
       self.elementIndex = elementIndex
       self.touchOffset = touchOffset
@@ -155,8 +161,10 @@ public class IconPanel : View, LogicProtocol, TouchListener {
 
   // TouchListener interface
   //
-  public func processTouchEvent(touchEvent: TouchEvent) {
-    puts("ignoring touch event \(touchEvent)")
+  public func processTouchEvent(event: TouchEvent) {
+    // Have the singleton MoveIconOperation handle the event
+    let oper = MoveIconOperation.sharedInstance()
+    oper.processTouchEvent(event, iconPanel:self)
   }
   
   // Operation for moving an icon
@@ -174,6 +182,7 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       
       activeTouch = initialTouch
       
+      let iconPanel = initialTouch.view as IconPanel
       let row = iconPanel.row(activeTouch.rowIndex)
       let dragElement = DragElement.sharedInstance()
       let element = row.removeElement(activeTouch.elementIndex)
@@ -197,57 +206,87 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       super.complete()
     }
     
+    public override func processEvent(touchEvent: TouchEvent) {
+      // Call default implementation to notify listeners
+    	super.processEvent(touchEvent)
+      // If event is Up, and hasn't been handled, we're outside of all views; cancel
+      if touchEvent.type == .Up && running {
+          cancel()
+      }
+    }
+    
     private func stopAux(cancelFlag: Bool) {
       if (!running) {
         return
       }
       let dragElement = DragElement.sharedInstance()
-      // Get rid of any gap placeholder
+			
+      // Get rid of gap placeholder
       removeElement(activeTouch)
-      // Put drag element's position at its actual drag location, relative to the icon panel;
+      
+      let targetTouch = cancelFlag ? initialTouch : activeTouch
+      
+      if !targetTouch.defined {
+      	warning("no target touch defined!")
+        return
+      }
+      
+      // Put drag element's position at its actual drag location, relative to the target icon panel;
       // the DragElement class has been rendering it at that location, but hasn't been changing
       // its position property
+      
+      let iconPanel = targetTouch.view as IconPanel
       let pos = CGPoint.difference(dragElement.cursorPosition,iconPanel.position)
       dragElement.element.setActualPosition(pos)
       
-      insertElement(cancelFlag ? initialTouch : activeTouch, dragElement.element)
+      insertElement(targetTouch, dragElement.element)
       dragElement.stopDrag(nil)
     }
     
-    public override func processEvent(event: TouchEvent) {
+    public func processTouchEvent(event:TouchEvent, iconPanel:IconPanel) {
+      let loc = event.locationRelativeToView(iconPanel)
+      let within = iconPanel.localBounds.contains(loc)
+
+      // Two distinct cases: touch is within our view, or not
       
-      super.processEvent(event)
-      
-      let dragElement = DragElement.sharedInstance()
-      
-      if (event.type == .Up) {
-        complete()
-        return
-      }
-      
-      let touchedCell = iconPanel.findTouchedCell(event)
-      
-      if (touchedCell.rowIndex != activeTouch.rowIndex) {
-        // Remove gap, if one exists
-        removeElement(activeTouch)
-        activeTouch = Touch.none()
-      }
-      
-      if !touchedCell.defined {
-        return
-      }
-      
-      if touchedCell.elementIndex != activeTouch.elementIndex {
-        // Don't allow user to attempt to move last element in a row to its right
-        if activeTouch.defined && activeTouch.elementIndex == iconPanel.row(touchedCell.rowIndex).count - 1
-            && touchedCell.elementIndex > activeTouch.elementIndex {
-          	return
+      if within {
+        
+        if (event.type == .Up) {
+          complete()
+          return
         }
         
-        removeElement(activeTouch)
+				let touchedCell = iconPanel.findTouchedCell(event)
+
+        if (touchedCell.rowIndex != activeTouch.rowIndex) {
+          // Remove gap, if one exists
+          removeElement(activeTouch)
+          activeTouch = Touch.none()
+        }
         
-        activeTouch = touchedCell
-        insertGapAtActiveTouch()
+        if !touchedCell.defined {
+          return
+        }
+        
+        if touchedCell.elementIndex != activeTouch.elementIndex {
+          // Don't allow user to attempt to move last element in a row to its right
+          if activeTouch.defined && activeTouch.elementIndex == iconPanel.row(touchedCell.rowIndex).count - 1
+            && touchedCell.elementIndex > activeTouch.elementIndex {
+              return
+          }
+          
+          removeElement(activeTouch)
+          
+          activeTouch = touchedCell
+          insertGapAtActiveTouch()
+        }
+        
+			} else {
+        if activeTouch.view === iconPanel {
+          // Remove gap, if one exists
+          removeElement(activeTouch)
+          activeTouch = Touch.none()
+        }
       }
     }
     
@@ -267,14 +306,13 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       let touchedIcon = iconPanel.findTouchedIcon(event)
       if touchedIcon.defined {
         ret = S.singleton
-        ret.prepare(iconPanel,touchedIcon)
+        ret.prepare(touchedIcon)
       }
       return ret
     }
     
-    private func prepare(iconPanel:IconPanel, _ initialTouch:Touch) {
+    private func prepare(initialTouch:Touch) {
     	self.initialTouch = initialTouch
-    	self.iconPanel = iconPanel
       self.activeTouch = Touch.none()
     }
     
@@ -282,6 +320,7 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       if !touch.defined {
         return
       }
+      let iconPanel = touch.view as IconPanel
       let row = iconPanel.row(touch.rowIndex)
       if (touch.elementIndex < row.count) {
         row.removeElement(touch.elementIndex)
@@ -292,11 +331,11 @@ public class IconPanel : View, LogicProtocol, TouchListener {
       if !touch.defined {
         return
       }
+      let iconPanel = touch.view as IconPanel
       let row = iconPanel.row(touch.rowIndex)
       row.insert(newElement, atIndex: touch.elementIndex)
     }
     
-    private var iconPanel : IconPanel!
     // Touch associated with initial Down event
     private var initialTouch = Touch.none()
     private var activeTouch = Touch.none()
